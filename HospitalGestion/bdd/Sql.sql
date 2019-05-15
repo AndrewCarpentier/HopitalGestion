@@ -3,7 +3,8 @@
 	code INT NOT NULL,
 	idMedecin INT NOT NULL,
 	date DATETIME,
-	idService INT
+	idService INT,
+	idPatient INT NULL,
 );
 
 CREATE TABLE patient(
