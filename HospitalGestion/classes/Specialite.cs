@@ -9,7 +9,6 @@ namespace HospitalGestion.classes
 {
     public abstract class Specialite : Service
     {
-        protected int idSpecialite;
         protected SpecialiteEnum specialite;
     }
 }
