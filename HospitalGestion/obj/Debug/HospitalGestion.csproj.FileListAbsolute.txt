@@ -5,3 +5,10 @@ C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\bin\Debug\Hospit
 C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\bin\Debug\HospitalGestion.pdb
 C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\obj\Debug\HospitalGestion.exe
 C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\obj\Debug\HospitalGestion.pdb
+C:\Users\LENOVO\Documents\C#\HospitalGestion\HospitalGestion\obj\Debug\HospitalGestion.csprojAssemblyReference.cache
+C:\Users\LENOVO\Documents\C#\HospitalGestion\HospitalGestion\obj\Debug\HospitalGestion.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Documents\C#\HospitalGestion\HospitalGestion\obj\Debug\HospitalGestion.exe
+C:\Users\LENOVO\Documents\C#\HospitalGestion\HospitalGestion\obj\Debug\HospitalGestion.pdb
+C:\Users\LENOVO\Documents\C#\HospitalGestion\HospitalGestion\bin\Debug\HospitalGestion.exe.config
+C:\Users\LENOVO\Documents\C#\HospitalGestion\HospitalGestion\bin\Debug\HospitalGestion.exe
+C:\Users\LENOVO\Documents\C#\HospitalGestion\HospitalGestion\bin\Debug\HospitalGestion.pdb
