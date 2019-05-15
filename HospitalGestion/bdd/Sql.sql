@@ -103,3 +103,8 @@ CREATE TABLE hospitalisation(
 	dateDeces DATETIME,
 	motifDeces VARCHAR(max)
 );
+
+CREATE TABLE hopital(
+	id INT PRIMARY KEY IDENTITY(1,1),
+	nom VARCHAR(100),
+);
