@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bdd\Connection.cs" />
+    <Compile Include="bdd\DBCommand.cs" />
     <Compile Include="classes\Chambre.cs" />
     <Compile Include="classes\Chirurgie.cs" />
     <Compile Include="classes\Consultation.cs" />
@@ -58,7 +60,11 @@
     <Compile Include="classes\Specialite.cs" />
     <Compile Include="classes\Traitement.cs" />
     <Compile Include="classes\TypeConsultation.cs" />
+    <Compile Include="enums\LienParenteEnum.cs" />
+    <Compile Include="enums\OccupeEnum.cs" />
+    <Compile Include="enums\ServiceEnum.cs" />
     <Compile Include="enums\SexeEnum.cs" />
+    <Compile Include="enums\SituationFamillialeEnum.cs" />
     <Compile Include="enums\SpecialiteEnum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
