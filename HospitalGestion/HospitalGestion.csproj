@@ -47,6 +47,8 @@
     <Compile Include="classes\Examens_Biologiques.cs" />
     <Compile Include="classes\Examens_Radiologiques.cs" />
     <Compile Include="classes\Facture.cs" />
+    <Compile Include="classes\Hospitalisation.cs" />
+    <Compile Include="classes\Patient.cs" />
     <Compile Include="classes\Rendez-vous.cs" />
     <Compile Include="classes\Traitement.cs" />
     <Compile Include="Program.cs" />
