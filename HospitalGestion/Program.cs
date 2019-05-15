@@ -11,6 +11,7 @@ namespace HospitalGestion
     {
         static void Main(string[] args)
         {
+            
         }
     }
 }
