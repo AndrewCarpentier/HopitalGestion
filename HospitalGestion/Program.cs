@@ -47,10 +47,12 @@ namespace HospitalGestion
                     Console.WriteLine("Code d'accès érronée");
                     codeAcces = Console.ReadLine();
                 }
-                else if (codeAcces == "medecin")
+
+                if (codeAcces == "medecin")
                     Menu(medecin, "Prendre Rdv", "Liste RDV", "Liste Consult", "Liste Hospitalisation", "Liste Traitement");
                 else if (codeAcces == "secretaire")
                     Menu(secretaire, "Prendre Rdv", "Sans RDV", "Sans RDv", "Liste RDV", "Liste Facture");
+
             } while (!codeAcces.ToLower().Equals("medecin") && !codeAcces.ToLower().Equals("secretaire"));
             
         }
