@@ -8,11 +8,11 @@ namespace HospitalGestion.classes
 {
     public class Chirurgie : Traitement
     {
-        protected int id_chirurgie;
-        protected string chirurgien;
-        protected string anesthesiste;
-        protected int Id_chirurgie { get => id_chirurgie; set => id_chirurgie = value; }
-        protected string Chirurgien { get => chirurgien; set => chirurgien = value; }
-        protected string Anesthesiste { get => anesthesiste; set => anesthesiste = value; }
+        private int id_chirurgie;
+        private string chirurgien;
+        private string anesthesiste;
+        public int Id_chirurgie { get => id_chirurgie; set => id_chirurgie = value; }
+        public string Chirurgien { get => chirurgien; set => chirurgien = value; }
+        public string Anesthesiste { get => anesthesiste; set => anesthesiste = value; }
     }
 }

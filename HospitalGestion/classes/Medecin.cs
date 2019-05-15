@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HospitalGestion.classes
 {
-    public class Medecin: Specialite
+    public class Medecin : Specialite
     {
         private int id;
         private string nom;
@@ -18,6 +18,6 @@ namespace HospitalGestion.classes
         public string Prenom { get => prenom; set => prenom = value; }
         public string Tel { get => tel; set => tel = value; }
 
-        
+
     }
 }

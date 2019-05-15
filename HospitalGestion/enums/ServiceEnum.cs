@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace HospitalGestion.enums
 {
-    public enum SpecialiteEnum
+    public enum ServiceEnum
     {
-        chirurgien,
-        anethesiste,
-        radiologue,
-        biologiste,
+        chirurgie,
+        radiologie,
+        biologie,
         generaliste
     }
 }

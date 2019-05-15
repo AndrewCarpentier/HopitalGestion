@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalGestion.enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,11 +37,5 @@ namespace HospitalGestion.classes
         public string TelPersAprevenir { get => telPersAprevenir; set => telPersAprevenir = value; }
         public string IdPatient { get => idPatient; set => idPatient = value; }
         public SexeEnum Sex { get => sex; set => sex = value; }
-    }
-
-    public enum SexeEnum
-    {
-        homme,
-        femme
     }
 }
