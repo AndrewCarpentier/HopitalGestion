@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HospitalGestion.classes
+{
+    public class Facture
+    {
+        private int id_facture;
+        private DateTime date_facture;
+        private float total;
+        public int Id_facture { get => id_facture; set => id_facture = value; }
+        public DateTime Date_facture { get => date_facture; set => date_facture = value; }
+        public float Total { get => total; set => total = value; }
+    }
+}
