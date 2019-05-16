@@ -13,7 +13,7 @@ namespace HospitalGestion.classes
         private DateTime dateAdmission;
         private string typeAdmission;
         private string motifAdmission;
-        private string medecinTraitant;
+        private int idMedecin;
         private string nomAccompagnant;
         private string preNomAccompagnant;
         private LienParenteEnum lienParente;
@@ -24,12 +24,13 @@ namespace HospitalGestion.classes
         private string resultatSortie;
         private DateTime dateDeces;
         private string motifDeces;
+        private int idPatient;
 
         public int IdHopitalisation { get => idHopitalisation; set => idHopitalisation = value; }
         public DateTime DateAdmission { get => dateAdmission; set => dateAdmission = value; }
         public string TypeAdmission { get => typeAdmission; set => typeAdmission = value; }
         public string MotifAdmission { get => motifAdmission; set => motifAdmission = value; }
-        public string MedecinTraitant { get => medecinTraitant; set => medecinTraitant = value; }
+        public int IdMedecin { get => idMedecin; set => idMedecin = value; }
         public string NomAccompagnant { get => nomAccompagnant; set => nomAccompagnant = value; }
         public string PreNomAccompagnant { get => preNomAccompagnant; set => preNomAccompagnant = value; }
         public LienParenteEnum LienParente { get => lienParente; set => lienParente = value; }
@@ -40,6 +41,7 @@ namespace HospitalGestion.classes
         public string ResultatSortie { get => resultatSortie; set => resultatSortie = value; }
         public DateTime DateDeces { get => dateDeces; set => dateDeces = value; }
         public string MotifDeces { get => motifDeces; set => motifDeces = value; }
+        public int IdPatient { get => idPatient; set => idPatient = value; }
     }
 
 }

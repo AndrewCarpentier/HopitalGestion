@@ -11,9 +11,11 @@ namespace HospitalGestion.classes
         private int idConsultation;
         private DateTime date;
         private string synthese;
+        private int idPatient;
 
         public int IdConsultation { get => idConsultation; set => idConsultation = value; }
         public DateTime Date { get => date; set => date = value; }
         public string Synthese { get => synthese; set => synthese = value; }
+        public int IdPatient { get => idPatient; set => idPatient = value; }
     }
 }
