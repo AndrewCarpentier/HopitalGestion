@@ -14,6 +14,11 @@ namespace HospitalGestion.classes
         private string nom;
 
         public string Nom { get => nom; set => nom = value; }
+
+        public Hopital()
+        {
+        }
+
         public Hopital(string n)
         {
             Nom = n;
