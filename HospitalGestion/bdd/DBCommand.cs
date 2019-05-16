@@ -42,6 +42,40 @@ namespace HospitalGestion.bdd
             });
         }
 
+        public void AddHospitalisation(Hospitalisation hospitalisation)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand(
+                    "INSERT INTO hospitalisation (dateAdmission, typeAdmission, motifAdmission" +
+                    "idMedecin, nomAccompagnant, prenomAccompagnant, lientParente, dateEntreeAcc," +
+                    "dateSortieAcc, motifSortie, resultatSortie, dateDeces, motifDeces, idPatient," +
+                    "dateSortie ) VALUES (@da, @ta, @ma, @im, @na, @pa, @lp, @dea, @dsa, @ms, @rs," +
+                    "@audd, @md, @ip, @ds)" , Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@da", hospitalisation.DateAdmission));
+                command.Parameters.Add(new SqlParameter("@ta", hospitalisation.TypeAdmission));
+                command.Parameters.Add(new SqlParameter("@ma", hospitalisation.MotifAdmission));
+                command.Parameters.Add(new SqlParameter("@im", hospitalisation.IdMedecin));
+                command.Parameters.Add(new SqlParameter("@na", hospitalisation.NomAccompagnant));
+                command.Parameters.Add(new SqlParameter("@pa", hospitalisation.PreNomAccompagnant));
+                command.Parameters.Add(new SqlParameter("@lp", hospitalisation.LienParente));
+                command.Parameters.Add(new SqlParameter("@dea", hospitalisation.DateEntreeAcc));
+                command.Parameters.Add(new SqlParameter("@dsa", hospitalisation.DateSortieAcc));
+                command.Parameters.Add(new SqlParameter("@ms", hospitalisation.MotifSortie));
+                command.Parameters.Add(new SqlParameter("@rs", hospitalisation.ResultatSortie));
+                command.Parameters.Add(new SqlParameter("@audd", hospitalisation.DateDeces));
+                command.Parameters.Add(new SqlParameter("@md", hospitalisation.MotifDeces));
+                command.Parameters.Add(new SqlParameter("@ip", hospitalisation.IdPatient));
+                command.Parameters.Add(new SqlParameter("@ds", hospitalisation.DateSortie));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
+
         public void AddPatient(Patient patient)
         {
             Task.Run(() =>

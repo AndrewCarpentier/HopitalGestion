@@ -20,5 +20,6 @@ namespace HospitalGestion.interfaces
         void AddPatient(Patient patient);
         Medecin GetMedecinByService(ServiceEnum service);
         void AddRdv(Rendez_vous rdv);
+        void AddHospitalisation(Hospitalisation hospitalisation);
     }
 }

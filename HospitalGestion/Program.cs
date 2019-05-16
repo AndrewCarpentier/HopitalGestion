@@ -36,6 +36,7 @@ namespace HospitalGestion
             //    } while (!success);
             //    h = new Hopital(name, n);
             //}
+            MenuPatient();
         }
         static void MenuPatient()
         {
@@ -293,6 +294,105 @@ namespace HospitalGestion
             } while (true);
 
             db.AddRdv(rdv);
+
+            if(rdv.Service != ServiceEnum.generaliste)
+            {
+                Hospitalisation h = new Hospitalisation();
+                h.DateAdmission = rdv.Date_RDV;
+                h.DateEntreeAcc = rdv.Date_RDV;
+                h.IdPatient = 1;//patient.IdPatient;
+
+                Console.Write("Type d'admission : ");
+                h.TypeAdmission = Console.ReadLine();
+
+                Console.Write("Motif d'admission : ");
+                h.MotifAdmission = Console.ReadLine();
+
+                Console.Write("Nom de l'accompagnant : ");
+                h.NomAccompagnant = Console.ReadLine();
+
+                Console.Write("Prenom de l'accompagnant : ");
+                h.PreNomAccompagnant = Console.ReadLine();
+
+                cki = new ConsoleKeyInfo();
+                position = 1;
+                nbMax = 6;
+                Console.Clear();
+                Console.WriteLine("Lien parenté de l'accompagnant");
+                Console.WriteLine(">Pere");
+                Console.WriteLine(" Mere");
+                Console.WriteLine(" Frere");
+                Console.WriteLine(" Soeur");
+
+                do
+                {
+                    while (Console.KeyAvailable)
+                    {
+                        cki = Console.ReadKey(true);
+                        Console.Clear();
+                        switch (cki.Key)
+                        {
+                            case ConsoleKey.DownArrow:
+                                if (position != nbMax)
+                                {
+                                    position++;
+                                }
+                                break;
+                            case ConsoleKey.UpArrow:
+                                if (position != 0)
+                                {
+                                    position--;
+                                }
+                                break;
+                        }
+
+                        if (position == 1)
+                        {
+                            Console.WriteLine("Lien parenté de l'accompagnant");
+                            Console.WriteLine(">Pere");
+                            Console.WriteLine(" Mere");
+                            Console.WriteLine(" Frere");
+                            Console.WriteLine(" Soeur");
+                        }
+                        else if (position == 2)
+                        {
+                            Console.WriteLine("Lien parenté de l'accompagnant");
+                            Console.WriteLine(" Pere");
+                            Console.WriteLine(">Mere");
+                            Console.WriteLine(" Frere");
+                            Console.WriteLine(" Soeur");
+                        }
+                        else if (position == 3)
+                        {
+                            Console.WriteLine("Lien parenté de l'accompagnant");
+                            Console.WriteLine(" Pere");
+                            Console.WriteLine(" Mere");
+                            Console.WriteLine(">Frere");
+                            Console.WriteLine(" Soeur");
+                        }
+                        else if (position == 4)
+                        {
+                            Console.WriteLine("Lien parenté de l'accompagnant");
+                            Console.WriteLine(" Pere");
+                            Console.WriteLine(" Mere");
+                            Console.WriteLine(" Frere");
+                            Console.WriteLine(">Soeur");
+                        }
+                    }
+                } while (cki.Key != ConsoleKey.Enter);
+
+
+                if (position == 1)
+                    h.LienParente = LienParenteEnum.Pere;
+                else if (position == 2)
+                    h.LienParente = LienParenteEnum.Mere;
+                else if (position == 3)
+                    h.LienParente = LienParenteEnum.Frere;
+                else if (position == 4)
+                    h.LienParente = LienParenteEnum.Soeur;
+
+                db.AddHospitalisation(h);
+            }
         }
 
         static void SansRDV()
