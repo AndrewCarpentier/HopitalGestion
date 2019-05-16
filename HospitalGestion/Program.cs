@@ -167,11 +167,6 @@ namespace HospitalGestion
                 Console.WriteLine("Aucune méthode à cette position");
             }
         }
-        static Patient GetPatientFromServer(string nomClient)
-        {
-            Patient p = new Patient();
-            return p;
-        }
 
         static void PrendreRDV()
         {
@@ -319,7 +314,7 @@ namespace HospitalGestion
             if(listRDV != null)
             {
                 foreach (Rendez_vous r in listRDV)
-                    r.ToString();
+                    Console.WriteLine(r.ToString()); 
             }
             else
                 Console.WriteLine("Aucun rendez-vous pour ce client");
@@ -332,7 +327,7 @@ namespace HospitalGestion
             if(listConsultation != null)
             {
                 foreach (Consultation c in listConsultation)
-                    c.ToString();
+                    Console.WriteLine(c.ToString()); 
             }
             else
                 Console.WriteLine("Aucune consultation pour ce client");

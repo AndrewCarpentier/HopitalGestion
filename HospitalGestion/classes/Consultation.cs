@@ -17,5 +17,13 @@ namespace HospitalGestion.classes
         public DateTime Date { get => date; set => date = value; }
         public string Synthese { get => synthese; set => synthese = value; }
         public int IdPatient { get => idPatient; set => idPatient = value; }
+
+        public override string ToString()
+        {
+            string ts = $"Consultation n°{IdConsultation}";
+            ts = $"\nDate : {Date}";
+            ts = $"\nSynthese de la consultation :{Synthese}";
+            return base.ToString();
+        }
     }
 }
