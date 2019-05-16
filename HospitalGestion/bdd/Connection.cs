@@ -20,7 +20,7 @@ namespace HospitalGestion.bdd
                 lock (_lock)
                 {
                     if (_instance == null)
-                        _instance = new SqlConnection(@"Data Source=(LocalDb)\bdhopital;Integrated Security=True");
+                        _instance = new SqlConnection(@"Data Source=(localDb)\hopital;Integrated Security=True");
 
                     return _instance;
                 }
