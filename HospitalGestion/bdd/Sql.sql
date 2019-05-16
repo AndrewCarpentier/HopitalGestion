@@ -60,7 +60,8 @@ CREATE TABLE consultation(
 	date DATETIME,
 	synthese VARCHAR(max),
 	typeConsultation VARCHAR(max),
-	prix DECIMAL
+	prix DECIMAL,
+	idPatient INT NOT NULL,
 );
 
 CREATE TABLE medecin(
@@ -101,7 +102,10 @@ CREATE TABLE hospitalisation(
 	motifSortie VARCHAR(max),
 	resultatSortie VARCHAR(max),
 	dateDeces DATETIME,
-	motifDeces VARCHAR(max)
+	motifDeces VARCHAR(max),
+	idPatient INT NOT NULL,
+	dateSortie DATETIME NULL, 
+	
 );
 
 CREATE TABLE hopital(
