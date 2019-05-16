@@ -175,8 +175,133 @@ namespace HospitalGestion
 
         static void PrendreRDV()
         {
-            Console.WriteLine("Prendre rdv");
-            AddPatient();
+            Rendez_vous rdv = new Rendez_vous();
+            rdv.IdPatient = 1;//patient.IdPatient;
+            ConsoleKeyInfo cki = new ConsoleKeyInfo();
+            int position = 1;
+            int nbMax = 6;
+            Console.Clear();
+            Console.WriteLine("Nom du service");
+            Console.WriteLine(">chirurgie");
+            Console.WriteLine(" radiologie");
+            Console.WriteLine(" biologie");
+            Console.WriteLine(" generaliste");
+
+            do
+            {
+                while (Console.KeyAvailable)
+                {
+                    cki = Console.ReadKey(true);
+                    Console.Clear();
+                    switch (cki.Key)
+                    {
+                        case ConsoleKey.DownArrow:
+                            if (position != nbMax)
+                            {
+                                position++;
+                            }
+                            break;
+                        case ConsoleKey.UpArrow:
+                            if (position != 0)
+                            {
+                                position--;
+                            }
+                            break;
+                    }
+
+                    if (position == 1)
+                    {
+                        Console.WriteLine("Nom du service");
+                        Console.WriteLine(">chirurgie");
+                        Console.WriteLine(" radiologie");
+                        Console.WriteLine(" biologie");
+                        Console.WriteLine(" generaliste");
+                    }
+                    else if (position == 2)
+                    {
+                        Console.WriteLine("Nom du service");
+                        Console.WriteLine(" chirurgie");
+                        Console.WriteLine(">radiologie");
+                        Console.WriteLine(" biologie");
+                        Console.WriteLine(" generaliste");
+                    }
+                    else if (position == 3)
+                    {
+                        Console.WriteLine("Nom du service");
+                        Console.WriteLine(" chirurgie");
+                        Console.WriteLine(" radiologie");
+                        Console.WriteLine(">biologie");
+                        Console.WriteLine(" generaliste");
+                    }
+                    else if (position == 4)
+                    {
+                        Console.WriteLine("Nom du service");
+                        Console.WriteLine(" chirurgie");
+                        Console.WriteLine(" radiologie");
+                        Console.WriteLine(" biologie");
+                        Console.WriteLine(">generaliste");
+                    }
+                }
+            } while (cki.Key != ConsoleKey.Enter);
+
+
+            if (position == 1)
+                rdv.Service = ServiceEnum.chirurgie;
+            else if (position == 2)
+                rdv.Service = ServiceEnum.radiologie;
+            else if (position == 3)
+                rdv.Service = ServiceEnum.biologie;
+            else if (position == 4)
+                rdv.Service = ServiceEnum.generaliste;
+
+            rdv.IdMedecin = db.GetMedecinByService(rdv.Service).Id;
+
+            Console.Write("Pour quel date voulez-vous réservée : ");
+            string date = Console.ReadLine();
+            string temp = "";
+            do
+            {
+                int d = 0, m = 0, y = 0;
+                if (MyRegex.DateNaissanceMatch(date))
+                {
+                    int b = 0;
+                    temp = "";
+                    for (int i = 0; i < date.Length; i++)
+                    {
+                        if (date[i].ToString() == "/")
+                        {
+                            b++;
+                            temp = "";
+                        }
+                        else
+                        {
+                            temp += date[i];
+                        }
+
+                        if (b == 0)
+                        {
+                            Int32.TryParse(temp, out d);
+                        }
+                        else if (b == 1)
+                        {
+                            Int32.TryParse(temp, out m);
+                        }
+                        else
+                        {
+                            Int32.TryParse(temp, out y);
+                        }
+                    }
+                    rdv.Date_RDV = new DateTime(y, m, d);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Entrez une date de naissance valide : ");
+                    date = Console.ReadLine();
+                }
+            } while (true);
+
+            db.AddRdv(rdv);
         }
 
         static void SansRDV()

@@ -22,6 +22,11 @@ namespace HospitalGestion.classes
         public ServiceEnum Service { get => service; set => service = value; }
         public int Id { get => id; set => id = value; }
         public int IdPatient { get => idPatient; set => idPatient = value; }
+
+        public Rendez_vous()
+        {
+            CodeRDV = new Random().Next(0, Int32.MaxValue);
+        }
     }
 
 

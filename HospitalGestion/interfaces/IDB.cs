@@ -1,4 +1,5 @@
 ﻿using HospitalGestion.classes;
+using HospitalGestion.enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,7 @@ namespace HospitalGestion.interfaces
 
         Patient GetPatientByName(string name, string surname);
         void AddPatient(Patient patient);
+        Medecin GetMedecinByService(ServiceEnum service);
+        void AddRdv(Rendez_vous rdv);
     }
 }
