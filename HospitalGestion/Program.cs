@@ -13,28 +13,32 @@ namespace HospitalGestion
     class Program
     {
         private static DBCommand db = new DBCommand();
-
+        private static Patient p = new Patient();
         static void Main(string[] args)
         {
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Clear();
             Console.WriteLine("Quel est le nom de l'hopital ?");
             string nameHospital = Console.ReadLine();
             Hopital h = new Hopital();
             bool success;
-            if (GetHospital(nameHospital) != undifined)
-                h = GetHospital(nameHospital);
-            else
-            {
-                success = false;
-                Console.Write("entrez le nom de l'hôpital :");
-                string name = Console.ReadLine();
-                Console.Write("Nombre de chambres de l'hopital :");
-                int n;
-                do
-                {
-                    success = Int32.TryParse(Console.ReadLine(), out n);
-                } while (!success);
-                h = new Hopital(name, n);
-            }
+            ////if (gethospital(namehospital) != undifined)
+            //    h = gethospital(namehospital);
+            //else
+            //{
+            //    success = false;
+            //    console.write("entrez le nom de l'hôpital :");
+            //    string name = console.readline();
+            //    console.write("nombre de chambres de l'hopital 
+            //    int n;
+            //    do
+            //    {
+            //        success = int32.tryparse(console.readline(), out n);
+            //    } while (!success);
+            //    h = new hopital(name, n);
+            //}
+            MenuPatient();
         }
         static void MenuPatient()
         {
@@ -43,9 +47,15 @@ namespace HospitalGestion
             Console.Clear();
             Console.WriteLine("---------- Bienvenue dans la gestion de l'hopital ------------");
             Console.WriteLine("-------------- Quel est le nom du client ? -------------------");
-            string nomclient = Console.ReadLine();
-            Patient p = new Patient();
-            p = GetPatientFromServer(nomclient);
+            string nompatient = Console.ReadLine();
+            Console.WriteLine("-------------- Quel est le prenom du client ? ----------------");
+            string prenompatient = Console.ReadLine();
+            if (db.GetPatientByName(nompatient, prenompatient) != null)
+                p = db.GetPatientByName(nompatient, prenompatient);
+            else
+            {
+                AddPatient();
+            }
             MenuMedecinSecretaire();
         }
         static void MenuMedecinSecretaire()
@@ -179,32 +189,71 @@ namespace HospitalGestion
         }
         static void ListeRDV()
         {
-            Console.WriteLine("liste rdv");
+            List<Rendez_vous> listRDV = new List<Rendez_vous>();
+            listRDV = db.GetRendez_VoussByIdPatient(p.IdPatient);
+            if(listRDV != null)
+            {
+                foreach (Rendez_vous r in listRDV)
+                    r.ToString();
+            }
+            else
+                Console.WriteLine("Aucun rendez-vous pour ce client");
         }
 
         static void ListeConsultation()
         {
-            Console.WriteLine("liste consult");
+            List<Consultation> listConsultation = new List<Consultation>();
+            listConsultation = db.GetConsultationsByIdPatient(p.IdPatient);
+            if(listConsultation != null)
+            {
+                foreach (Consultation c in listConsultation)
+                    c.ToString();
+            }
+            else
+                Console.WriteLine("Aucune consultation pour ce client");
         }
 
         static void ListeHospitalisation()
         {
-            Console.WriteLine("Liste Hospitalisation");
+            List<Hospitalisation> listHospitalisation = new List<Hospitalisation>();
+            listHospitalisation = db.GetHospitalisationsByIdPatient(p.IdPatient);
+            if(listHospitalisation != null)
+            {
+                foreach (Hospitalisation h in listHospitalisation)
+                    h.ToString();
+            }
+            else
+                Console.WriteLine("Aucune hospitalisation pour ce patient");
         }
 
         static void ListeTraitement()
         {
-            Console.WriteLine("Liste traitement");
+            List<Traitement> listTraitement = new List<Traitement>();
+            listTraitement = db.GetTraitementsByIdPatient(p.IdPatient);
+            if(listTraitement != null)
+            {
+                foreach (Traitement t in listTraitement)
+                    t.ToString();
+            }
+            else
+                Console.WriteLine("Aucun traitement pour ce patient");
         }
 
         static void ListeFacture()
         {
-            Console.WriteLine("Liste facture");
+            List<Facture> listFacture = new List<Facture>();
+            listFacture = db.GetFacturesByIdPatient(p.IdPatient);
+            if(listFacture != null)
+            {
+                foreach (Facture f in listFacture)
+                    f.ToString();
+            }
+            else
+                Console.WriteLine("Aucune facture pour ce patient");
         }
 
         static void AddPatient()
         {
-            Patient p = new Patient();
             Console.Clear();
             Console.Write("Quel est votre nom et prénom ? : ");
             string nomPrenom = Console.ReadLine();

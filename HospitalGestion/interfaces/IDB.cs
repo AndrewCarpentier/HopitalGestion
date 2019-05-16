@@ -16,7 +16,7 @@ namespace HospitalGestion.interfaces
         List<Traitement> GetTraitementsByIdPatient(int idPatient);
         List<Facture> GetFacturesByIdPatient(int idPatient);
 
-        Patient GetPatientByName(string name);
+        Patient GetPatientByName(string name, string surname);
         void AddPatient(Patient patient);
     }
 }
