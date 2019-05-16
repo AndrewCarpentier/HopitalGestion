@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HospitalGestion.enums
 {
-    public enum OccupeEnum
+    public enum OuiNonEnum
     {
         oui,
         non

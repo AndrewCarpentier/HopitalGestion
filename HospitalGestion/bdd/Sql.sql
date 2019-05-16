@@ -86,7 +86,8 @@ CREATE TABLE facture(
 	id INT PRIMARY KEY IDENTITY(1,1),
 	date DATETIME,
 	prix DECIMAL,
-	idPatient INT
+	idPatient INT,
+	payee INT NULL, 
 );
 
 CREATE TABLE hospitalisation(

@@ -28,162 +28,193 @@ namespace HospitalGestion.bdd
 
         public List<Consultation> GetConsultationsByIdPatient(int idPatient)
         {
-            List<Consultation> consultations = new List<Consultation>();
-            command = new SqlCommand(
-                "SELECT * FROM consultation WHERE idPatient = @idP", Connection.Instance);
-            command.Parameters.Add(new SqlParameter("@idP", idPatient));
-            m.WaitOne();
-            Connection.Instance.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            Task<List<Consultation>> consultationsT = Task<List<Consultation>>.Factory.StartNew(() =>
             {
-                consultations.Add(new Consultation()
+                List<Consultation> consultations = new List<Consultation>();
+                command = new SqlCommand(
+                    "SELECT * FROM consultation WHERE idPatient = @idP", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@idP", idPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    IdConsultation = reader.GetInt32(0),
-                    Date = reader.GetDateTime(1),
-                    Synthese = reader.GetString(2),
-                    TypeConsult = reader.GetString(3),
-                    Prix = reader.GetDecimal(4),
-                    IdPatient = reader.GetInt32(5)
-                });
-            }
+                    consultations.Add(new Consultation()
+                    {
+                        IdConsultation = reader.GetInt32(0),
+                        Date = reader.GetDateTime(1),
+                        Synthese = reader.GetString(2),
+                        TypeConsult = reader.GetString(3),
+                        Prix = reader.GetDecimal(4),
+                        IdPatient = reader.GetInt32(5)
+                    });
+                }
 
-            reader.Close();
-            command.Dispose();
-            Connection.Instance.Close();
-            m.ReleaseMutex();
+                reader.Close();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
 
-            return consultations;
+                return consultations;
+            });
+
+            return consultationsT.Result;
+            
         }
 
         public List<Facture> GetFacturesByIdPatient(int idPatient)
         {
-            List<Facture> fs = new List<Facture>();
-
-            command = new SqlCommand("SELECT * FROM hospitalisation WHERE idPatient = @idP", Connection.Instance);
-            command.Parameters.Add(new SqlParameter("@idP", idPatient));
-            m.WaitOne();
-            Connection.Instance.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            Task<List<Facture>> facturesT = Task<List<Facture>>.Factory.StartNew(() =>
             {
-                fs.Add(new Facture() {
-                    Id_facture = reader.GetInt32(0),
-                    Date_facture = reader.GetDateTime(1),
-                    Prix = reader.GetDecimal(2),
-                    IdPatient = reader.GetInt32(3)
-                });
-            }
+                List<Facture> fs = new List<Facture>();
 
-            reader.Close();
-            command.Dispose();
-            Connection.Instance.Close();
-            m.ReleaseMutex();
+                command = new SqlCommand("SELECT * FROM hospitalisation WHERE idPatient = @idP", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@idP", idPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
 
-            return fs;
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    fs.Add(new Facture()
+                    {
+                        Id_facture = reader.GetInt32(0),
+                        Date_facture = reader.GetDateTime(1),
+                        Prix = reader.GetDecimal(2),
+                        IdPatient = reader.GetInt32(3),
+                        Payee = (OuiNonEnum) reader.GetInt32(4)
+                    });
+                }
+
+                reader.Close();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+
+                return fs;
+            });
+
+            return facturesT.Result;
         }
 
         public List<Hospitalisation> GetHospitalisationsByIdPatient(int idPatient)
         {
-            List<Hospitalisation> hs = new List<Hospitalisation>();
-
-            command = new SqlCommand("SELECT * FROM hospitalisation WHERE idPatient = @idP", Connection.Instance);
-            command.Parameters.Add(new SqlParameter("@idP", idPatient));
-            m.WaitOne();
-            Connection.Instance.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            Task<List<Hospitalisation>> hospitalisationsT = Task<List<Hospitalisation>>.Factory.StartNew(() =>
             {
-                hs.Add(new Hospitalisation()
+                List<Hospitalisation> hs = new List<Hospitalisation>();
+
+                command = new SqlCommand("SELECT * FROM hospitalisation WHERE idPatient = @idP", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@idP", idPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    IdHopitalisation = reader.GetInt32(0),
-                    DateAdmission = reader.GetDateTime(1),
-                    TypeAdmission = reader.GetString(2),
-                    MotifAdmission = reader.GetString(3),
-                    IdMedecin = reader.GetInt32(4),
-                    NomAccompagnant = reader.GetString(5),
-                    PreNomAccompagnant = reader.GetString(6),
-                    LienParente = (LienParenteEnum)reader.GetInt32(7),
-                    DateEntreeAcc = reader.GetDateTime(8),
-                    DateSortieAcc = reader.GetDateTime(9),
-                    MotifSortie = reader.GetString(10),
-                    ResultatSortie = reader.GetString(11),
-                    DateDeces = reader.GetDateTime(12),
-                    MotifDeces = reader.GetString(13),
-                    IdPatient = reader.GetInt32(14),
-                    DateSortie = reader.GetDateTime(15)
-                });
-            }
+                    hs.Add(new Hospitalisation()
+                    {
+                        IdHopitalisation = reader.GetInt32(0),
+                        DateAdmission = reader.GetDateTime(1),
+                        TypeAdmission = reader.GetString(2),
+                        MotifAdmission = reader.GetString(3),
+                        IdMedecin = reader.GetInt32(4),
+                        NomAccompagnant = reader.GetString(5),
+                        PreNomAccompagnant = reader.GetString(6),
+                        LienParente = (LienParenteEnum)reader.GetInt32(7),
+                        DateEntreeAcc = reader.GetDateTime(8),
+                        DateSortieAcc = reader.GetDateTime(9),
+                        MotifSortie = reader.GetString(10),
+                        ResultatSortie = reader.GetString(11),
+                        DateDeces = reader.GetDateTime(12),
+                        MotifDeces = reader.GetString(13),
+                        IdPatient = reader.GetInt32(14),
+                        DateSortie = reader.GetDateTime(15)
+                    });
+                }
 
-            reader.Close();
-            command.Dispose();
-            Connection.Instance.Close();
-            m.ReleaseMutex();
+                reader.Close();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
 
-            return hs;
+                return hs;
+            });
+
+            return hospitalisationsT.Result;
         }
 
         public List<Rendez_vous> GetRendez_VoussByIdPatient(int idPatient)
         {
-            List<Rendez_vous> rdvs = new List<Rendez_vous>();
-
-            command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP", Connection.Instance);
-            command.Parameters.Add(new SqlParameter("@idP", idPatient));
-            m.WaitOne();
-            Connection.Instance.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            Task<List<Rendez_vous>> rendezsT = Task<List<Rendez_vous>>.Factory.StartNew(() =>
             {
-                rdvs.Add(new Rendez_vous()
+                List<Rendez_vous> rdvs = new List<Rendez_vous>();
+
+                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@idP", idPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    Id = reader.GetInt32(0),
-                    CodeRDV = reader.GetInt32(1),
-                    IdMedecin = reader.GetInt32(2),
-                    Date_RDV = reader.GetDateTime(3),
-                    Service = (ServiceEnum)reader.GetInt32(4),
-                    IdPatient = reader.GetInt32(5)
-                });
-            }
+                    rdvs.Add(new Rendez_vous()
+                    {
+                        Id = reader.GetInt32(0),
+                        CodeRDV = reader.GetInt32(1),
+                        IdMedecin = reader.GetInt32(2),
+                        Date_RDV = reader.GetDateTime(3),
+                        Service = (ServiceEnum)reader.GetInt32(4),
+                        IdPatient = reader.GetInt32(5)
+                    });
+                }
 
-            reader.Close();
-            command.Dispose();
-            Connection.Instance.Close();
-            m.ReleaseMutex();
+                reader.Close();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
 
-            return rdvs;
+                return rdvs;
+            });
+
+            return rendezsT.Result;
+            
         }
 
         public List<Traitement> GetTraitementsByIdPatient(int idPatient)
         {
-            List<Traitement> ts = new List<Traitement>();
 
-            command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP", Connection.Instance);
-            command.Parameters.Add(new SqlParameter("@idP", idPatient));
-            m.WaitOne();
-            Connection.Instance.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            Task<List<Traitement>> traitementsT = Task<List<Traitement>>.Factory.StartNew(() =>
             {
-                ts.Add(new Traitement()
+                List<Traitement> ts = new List<Traitement>();
+
+                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@idP", idPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    Id_traitement = reader.GetInt32(0),
-                    Date_traitement = reader.GetDateTime(1),
-                    Prix_traitement = reader.GetDecimal(2),
-                    IdPatient = reader.GetInt32(3)
-                });
-            }
+                    ts.Add(new Traitement()
+                    {
+                        Id_traitement = reader.GetInt32(0),
+                        Date_traitement = reader.GetDateTime(1),
+                        Prix_traitement = reader.GetDecimal(2),
+                        IdPatient = reader.GetInt32(3)
+                    });
+                }
 
-            reader.Close();
-            command.Dispose();
-            Connection.Instance.Close();
-            m.ReleaseMutex();
+                reader.Close();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
 
-            return ts;
+                return ts;
+            });
+
+
+            return traitementsT.Result;
         }
     }
 }
