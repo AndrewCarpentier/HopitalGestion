@@ -72,6 +72,26 @@ namespace HospitalGestion.bdd
             });
         }
 
+        public void AddRdv(Rendez_vous rdv)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO rdv (code, idMedecin, date, service, " +
+                    "idPatient) VALUES (@c,@im,@d,@s,@ip)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@c", rdv.CodeRDV));
+                command.Parameters.Add(new SqlParameter("@im", rdv.IdMedecin));
+                command.Parameters.Add(new SqlParameter("@d", rdv.Date_RDV));
+                command.Parameters.Add(new SqlParameter("@s", rdv.Service));
+                command.Parameters.Add(new SqlParameter("@ip", rdv.IdPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
+
         public List<Consultation> GetConsultationsByIdPatient(int idPatient)
         {
             Task<List<Consultation>> consultationsT = Task<List<Consultation>>.Factory.StartNew(() =>
@@ -190,6 +210,48 @@ namespace HospitalGestion.bdd
             return hospitalisationsT.Result;
         }
 
+        public Medecin GetMedecinByService(ServiceEnum service)
+        {
+            Task<Medecin> medecinT = Task<Medecin>.Factory.StartNew(() =>
+            {
+                Medecin me = new Medecin();
+
+                command = new SqlCommand("SELECT * FROM medecin WHERE serviceNom = @s", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@s", service));
+
+                m.WaitOne();
+                Connection.Instance.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    me = new Medecin()
+                    {
+                        Id = reader.GetInt32(0),
+                        Nom = reader.GetString(1),
+                        Prenom = reader.GetString(2),
+                        Tel = reader.GetString(3),
+                        specialite = (SpecialiteEnum)reader.GetInt32(4),
+                        nomService = (ServiceEnum) reader.GetInt32(5)
+                    };
+                }
+
+                reader.Close();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+
+                return me;
+            });
+            medecinT.Wait();
+            return medecinT.Result;
+        }
+
+        public Patient GetPatientByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Rendez_vous> GetRendez_VoussByIdPatient(int idPatient)
         {
             Task<List<Rendez_vous>> rendezsT = Task<List<Rendez_vous>>.Factory.StartNew(() =>
@@ -262,5 +324,7 @@ namespace HospitalGestion.bdd
 
             return traitementsT.Result;
         }
+
+
     }
 }

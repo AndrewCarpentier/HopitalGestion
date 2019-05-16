@@ -1,4 +1,5 @@
 ﻿using HospitalGestion.classes;
+using HospitalGestion.enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace HospitalGestion.interfaces
         List<Hospitalisation> GetHospitalisationsByIdPatient(int idPatient);
         List<Traitement> GetTraitementsByIdPatient(int idPatient);
         List<Facture> GetFacturesByIdPatient(int idPatient);
-
         Patient GetPatientByName(string name);
         void AddPatient(Patient patient);
+        Medecin GetMedecinByService(ServiceEnum service);
+        void AddRdv(Rendez_vous rdv);
     }
 }

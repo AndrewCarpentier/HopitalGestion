@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalGestion.enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace HospitalGestion.classes
 {
     public abstract class Service
     {
-        protected int idService;
-        protected string nomService;
+        public int idService;
+        public ServiceEnum nomService;
     }
 }
