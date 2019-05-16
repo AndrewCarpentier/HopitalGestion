@@ -67,14 +67,13 @@
     <Compile Include="enums\SexeEnum.cs" />
     <Compile Include="enums\SituationFamillialeEnum.cs" />
     <Compile Include="enums\SpecialiteEnum.cs" />
+    <Compile Include="interfaces\IDB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
