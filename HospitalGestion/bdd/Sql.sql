@@ -27,7 +27,8 @@ CREATE TABLE patient(
 CREATE TABLE traitement(
 	id INT PRIMARY KEY IDENTITY(1,1),
 	date DATETIME,
-	prix DECIMAL
+	prix DECIMAL,
+	idPatient INT NULL, 
 );
 
 CREATE TABLE examenBiologique(

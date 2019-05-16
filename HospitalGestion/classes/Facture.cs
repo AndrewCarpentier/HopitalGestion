@@ -10,12 +10,12 @@ namespace HospitalGestion.classes
     {
         private int id_facture;
         private DateTime date_facture;
-        private float total;
+        private decimal prix;
         private int idPatient;
 
         public int Id_facture { get => id_facture; set => id_facture = value; }
         public DateTime Date_facture { get => date_facture; set => date_facture = value; }
-        public float Total { get => total; set => total = value; }
         public int IdPatient { get => idPatient; set => idPatient = value; }
+        public decimal Prix { get => prix; set => prix = value; }
     }
 }

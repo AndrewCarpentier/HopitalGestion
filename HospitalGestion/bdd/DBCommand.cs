@@ -57,6 +57,34 @@ namespace HospitalGestion.bdd
             return consultations;
         }
 
+        public List<Facture> GetFacturesByIdPatient(int idPatient)
+        {
+            List<Facture> fs = new List<Facture>();
+
+            command = new SqlCommand("SELECT * FROM hospitalisation WHERE idPatient = @idP", Connection.Instance);
+            command.Parameters.Add(new SqlParameter("@idP", idPatient));
+            m.WaitOne();
+            Connection.Instance.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                fs.Add(new Facture() {
+                    Id_facture = reader.GetInt32(0),
+                    Date_facture = reader.GetDateTime(1),
+                    Prix = reader.GetDecimal(2),
+                    IdPatient = reader.GetInt32(3)
+                });
+            }
+
+            reader.Close();
+            command.Dispose();
+            Connection.Instance.Close();
+            m.ReleaseMutex();
+
+            return fs;
+        }
+
         public List<Hospitalisation> GetHospitalisationsByIdPatient(int idPatient)
         {
             List<Hospitalisation> hs = new List<Hospitalisation>();
@@ -129,6 +157,33 @@ namespace HospitalGestion.bdd
             return rdvs;
         }
 
-        
+        public List<Traitement> GetTraitementsByIdPatient(int idPatient)
+        {
+            List<Traitement> ts = new List<Traitement>();
+
+            command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP", Connection.Instance);
+            command.Parameters.Add(new SqlParameter("@idP", idPatient));
+            m.WaitOne();
+            Connection.Instance.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                ts.Add(new Traitement()
+                {
+                    Id_traitement = reader.GetInt32(0),
+                    Date_traitement = reader.GetDateTime(1),
+                    Prix_traitement = reader.GetDecimal(2),
+                    IdPatient = reader.GetInt32(3)
+                });
+            }
+
+            reader.Close();
+            command.Dispose();
+            Connection.Instance.Close();
+            m.ReleaseMutex();
+
+            return ts;
+        }
     }
 }

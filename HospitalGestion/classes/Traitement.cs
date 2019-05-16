@@ -8,9 +8,15 @@ namespace HospitalGestion.classes
 {
     public class Traitement
     {
-        protected int id_traitement;
-        protected DateTime date_traitement;
-        protected decimal prix_traitement;
+        private int id_traitement;
+        private DateTime date_traitement;
+        private decimal prix_traitement;
+        private int idPatient;
+
+        public int Id_traitement { get => id_traitement; set => id_traitement = value; }
+        public DateTime Date_traitement { get => date_traitement; set => date_traitement = value; }
+        public decimal Prix_traitement { get => prix_traitement; set => prix_traitement = value; }
+        public int IdPatient { get => idPatient; set => idPatient = value; }
     }
 
     
