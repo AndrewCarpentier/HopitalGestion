@@ -17,7 +17,7 @@ namespace HospitalGestion.bdd
         private static Mutex m = new Mutex();
         private static SqlCommand command;
 
-        public void CreerChambres(int nbChambres)
+        public void AddChambres(int nbChambres)
         {
             Random r = new Random();
             Task t = Task.Run(() =>
@@ -39,6 +39,36 @@ namespace HospitalGestion.bdd
 
                 m.ReleaseMutex();
 
+            });
+        }
+
+        public void AddPatient(Patient patient)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand(
+                    "INSERT INTO patient (nom, prenom, dateNaissance, sexe, adresse, situationFamilliale, " +
+                    "assuranceMedical, codeAssurance, tel, nomPere, nomMere, nomPersonnePrevenir," +
+                    "telPersonnePrevenir) VALUES (@n,@p,@dn,@s,@a,@sf,@am,@ca,@t,@np,@nm,@npp,@tpp)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@n", patient.Nom));
+                command.Parameters.Add(new SqlParameter("@p", patient.Prenom));
+                command.Parameters.Add(new SqlParameter("@dn", patient.DateNaissance));
+                command.Parameters.Add(new SqlParameter("@s", patient.Sex));
+                command.Parameters.Add(new SqlParameter("@a", patient.Adresse));
+                command.Parameters.Add(new SqlParameter("@sf", patient.Situation));
+                command.Parameters.Add(new SqlParameter("@am", patient.AssuranceMedicale));
+                command.Parameters.Add(new SqlParameter("@ca", patient.CodeAssurance));
+                command.Parameters.Add(new SqlParameter("@t", patient.Tel));
+                command.Parameters.Add(new SqlParameter("@np", patient.NomPere));
+                command.Parameters.Add(new SqlParameter("@nm", patient.NomMère));
+                command.Parameters.Add(new SqlParameter("@npp", patient.NomPersonnePrevenir));
+                command.Parameters.Add(new SqlParameter("@tpp", patient.TelPersAPrevenir));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
             });
         }
 

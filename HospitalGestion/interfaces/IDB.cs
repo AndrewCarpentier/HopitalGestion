@@ -9,7 +9,7 @@ namespace HospitalGestion.interfaces
 {
     public interface IDB 
     {   
-        void CreerChambres(int n);
+        void AddChambres(int n);
         List<Rendez_vous> GetRendez_VoussByIdPatient(int idPatient);
         List<Consultation> GetConsultationsByIdPatient(int idPatient);
         List<Hospitalisation> GetHospitalisationsByIdPatient(int idPatient);
@@ -17,5 +17,6 @@ namespace HospitalGestion.interfaces
         List<Facture> GetFacturesByIdPatient(int idPatient);
 
         Patient GetPatientByName(string name);
+        void AddPatient(Patient patient);
     }
 }
