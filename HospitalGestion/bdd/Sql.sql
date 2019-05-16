@@ -1,4 +1,4 @@
-﻿CREATE TABLE rdv(
+CREATE TABLE rdv(
 	id INT PRIMARY KEY IDENTITY(1,1),
 	code INT NOT NULL,
 	idMedecin INT NOT NULL,
@@ -33,13 +33,13 @@ CREATE TABLE traitement(
 
 CREATE TABLE examenBiologique(
 	id INT PRIMARY KEY IDENTITY(1,1),
-	designation INT,
+	designation VARCHAR(100),
 	resultat VARCHAR(max)
 );
 
 CREATE TABLE examenRadiologique(
 	id INT PRIMARY KEY IDENTITY(1,1),
-	designation INT,
+	designation VARCHAR(100),
 	resultat VARCHAR(max),
 );
 
