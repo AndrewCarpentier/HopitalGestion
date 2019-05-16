@@ -17,13 +17,29 @@ namespace HospitalGestion.bdd
         private static Mutex m = new Mutex();
         private static SqlCommand command;
 
-        public void CrerChambres(int n)
+        public void CreerChambres(int nbChambres)
         {
-            //SqlCommand = new SqlCommand()
-            //for (int i = 1; i <= n; i++)
-            //{
+            Random r = new Random();
+            Task t = Task.Run(() =>
+            {
+                m.WaitOne();
+                for (int i = 1; i <= nbChambres; i++)
+                {
+                    int Occupated = r.Next(2, 4);
+                    command = new SqlCommand("INSERT INTO CHAMBRE (etage, capacite, prix, occupe) VALUES(@e,@c,@p,@o)", Connection.Instance);
+                    command.Parameters.Add(new SqlParameter("@e", 1));
+                    command.Parameters.Add(new SqlParameter("@c", Occupated));
+                    command.Parameters.Add(new SqlParameter("@p", 50));
+                    command.Parameters.Add(new SqlParameter("@o", 2));
+                    Connection.Instance.Open();
+                    command.ExecuteNonQuery();
+                    command.Dispose();
+                    Connection.Instance.Close();
+                }
 
-            //}
+                m.ReleaseMutex();
+
+            });
         }
 
         public List<Consultation> GetConsultationsByIdPatient(int idPatient)

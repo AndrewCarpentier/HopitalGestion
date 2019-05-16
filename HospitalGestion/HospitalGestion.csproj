@@ -62,7 +62,7 @@
     <Compile Include="classes\Traitement.cs" />
     <Compile Include="classes\TypeConsultation.cs" />
     <Compile Include="enums\LienParenteEnum.cs" />
-    <Compile Include="enums\OccupeEnum.cs" />
+    <Compile Include="enums\OuiNonEnum.cs" />
     <Compile Include="enums\ServiceEnum.cs" />
     <Compile Include="enums\SexeEnum.cs" />
     <Compile Include="enums\SituationFamillialeEnum.cs" />
