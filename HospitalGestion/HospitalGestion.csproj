@@ -51,6 +51,7 @@
     <Compile Include="classes\Examens_Biologiques.cs" />
     <Compile Include="classes\Examens_Radiologiques.cs" />
     <Compile Include="classes\Facture.cs" />
+    <Compile Include="classes\hopital.cs" />
     <Compile Include="classes\Hospitalisation.cs" />
     <Compile Include="classes\Medecin.cs" />
     <Compile Include="classes\Patient.cs" />
@@ -71,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

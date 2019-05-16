@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HospitalGestion.classes
 {
-    class Hospitalisation
+    public class Hospitalisation
     {
         private int idHopitalisation;
         private DateTime dateAdmission;

@@ -1,4 +1,5 @@
-﻿using HospitalGestion.classes;
+﻿using HospitalGestion.bdd;
+using HospitalGestion.classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,9 @@ namespace HospitalGestion
     {
         static void Main(string[] args)
         {
+           
+            Hopital h = DBCommand.GetHopital("toto");
+            Console.WriteLine(" ");
         }
     }
 }

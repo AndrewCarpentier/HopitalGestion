@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HospitalGestion.classes
 {
-    class Patient
+    public class Patient
     {
         private int idPatient;
         private string nom;
