@@ -72,9 +72,9 @@ namespace HospitalGestion
             medecin.Add(ListeHospitalisation);
             medecin.Add(MenuPatient);
 
-            List<Action> specialiste = new List<Action>;
+            List<Action> specialiste = new List<Action>();
             specialiste.Add(PrendreRDV);
-            specialiste.Add(AddTraitement);
+            specialiste.Add(AddTraitementMethode);
             specialiste.Add(ListeRDV);
             specialiste.Add(ListeHospitalisation);
             specialiste.Add(ListeTraitement);
@@ -464,6 +464,14 @@ namespace HospitalGestion
 
         }
 
+        static void AddTraitementMethode()
+        {
+            Console.WriteLine("Quel est le nom du service ?");
+            Console.WriteLine("1 - chirurgien\n2 - anethesiste\n3 - radiologue\n4 - biologiste\n5 - generaliste");
+            ServiceEnum serviceName = (ServiceEnum)Convert.ToInt32(Console.ReadLine());
+            m = db.GetMedecinByService(serviceName);
+            AddTraitement(m.Id);
+        }
         static void AddTraitement(int idMedecin)
         {
 

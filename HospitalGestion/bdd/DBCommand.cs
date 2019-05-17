@@ -487,5 +487,6 @@ namespace HospitalGestion.bdd
             traitementT.Wait();
             return traitementT.Result;
         }
+
     }
 }
