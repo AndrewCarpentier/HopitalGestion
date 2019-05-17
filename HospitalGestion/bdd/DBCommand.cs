@@ -452,9 +452,9 @@ namespace HospitalGestion.bdd
             Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO chirurgie (idChirurgien, idAnesthesiste, idTraitement) VALUES (@c, @a, @t)", Connection.Instance);
-                command.Parameters.Add(new SqlParameter("@c", chirurgie.Id_chirurgie));
-                command.Parameters.Add(new SqlParameter("@a", chirurgie.Chirurgien));
-                command.Parameters.Add(new SqlParameter("@t", chirurgie.Anesthesiste));
+                command.Parameters.Add(new SqlParameter("@c", chirurgie.Chirurgien));
+                command.Parameters.Add(new SqlParameter("@a", chirurgie.Anesthesiste));
+                command.Parameters.Add(new SqlParameter("@t", chirurgie.Id_traitement));
                 m.WaitOne();
                 Connection.Instance.Open();
                 command.ExecuteNonQuery();
@@ -505,6 +505,109 @@ namespace HospitalGestion.bdd
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+        }
+        public void AddBiologie(Examens_Biologiques biologiques)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO examenBiologique (designation, resultat, idTraitement," +
+                    "idMedecin) VALUES (@d, @r, @it, @im)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", biologiques.Designation));
+                command.Parameters.Add(new SqlParameter("@r", biologiques.Resultat_examen));
+                command.Parameters.Add(new SqlParameter("@it", biologiques.Id_traitement));
+                command.Parameters.Add(new SqlParameter("@im", biologiques.IdMedecin));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
+
+        public void AddRadiologue(Examens_Radiologiques radiologiques)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO examenRadiologique (designation, resultat," +
+                    "idTraitement, idMedecin) VALUES (@d, @r, @it, @im)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", radiologiques.Designation));
+                command.Parameters.Add(new SqlParameter("@r", radiologiques.Resultat_examen));
+                command.Parameters.Add(new SqlParameter("@it", radiologiques.Id_traitement));
+                command.Parameters.Add(new SqlParameter("@im", radiologiques.IdMedecin));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
+
+        public List<Patient> GetPatients()
+        {
+            Task<List<Patient>> patientsT = Task<List<Patient>>.Run(() =>
+           {
+               List<Patient> patients = new List<Patient>();
+               command = new SqlCommand("SELECT * FROM patient", Connection.Instance);
+               m.WaitOne();
+               Connection.Instance.Open();
+               SqlDataReader reader = command.ExecuteReader();
+               while (reader.Read())
+               {
+                    patients.Add(new Patient()
+                    {
+                        IdPatient = reader.GetInt32(0),
+                        Nom = reader.GetString(1),
+                        Prenom = reader.GetString(2),
+                        DateNaissance = reader.GetDateTime(3),
+                        Sex = (SexeEnum)reader.GetInt32(4),
+                        Adresse = reader.GetString(5),
+                        Situation = (SituationFamillialeEnum)reader.GetInt32(6),
+                        AssuranceMedicale = reader.GetString(7),
+                        CodeAssurance = reader.GetString(8),
+                        Tel = reader.GetString(9),
+                        NomPere = reader.GetString(10),
+                        NomMère = reader.GetString(11),
+                        NomPersonnePrevenir = reader.GetString(12),
+                        TelPersAPrevenir = reader.GetString(13)
+                   });
+               }
+               Connection.Instance.Close();
+               m.ReleaseMutex();
+
+               return patients;
+           });
+
+            return patientsT.Result;
+        }
+
+        public List<Facture> GetFactures()
+        {
+            Task<List<Facture>> facturesT = Task<List<Facture>>.Run(() =>
+            {
+                List<Facture> factures = new List<Facture>();
+                command = new SqlCommand("SELECT * FROM facture", Connection.Instance);
+                m.WaitOne();
+                Connection.Instance.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    factures.Add(new Facture()
+                    {
+                        Id_facture = reader.GetInt32(0),
+                        Date_facture = reader.GetDateTime(1),
+                        Prix = reader.GetDecimal(2),
+                        IdPatient = reader.GetInt32(3),
+                        Payee = (OuiNonEnum)reader.GetInt32(4)
+                    });
+                }
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+
+                return factures;
+            });
+            return facturesT.Result;
         }
     }
 }
