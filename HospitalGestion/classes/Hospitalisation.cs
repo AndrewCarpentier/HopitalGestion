@@ -42,6 +42,24 @@ namespace HospitalGestion.classes
         public DateTime DateDeces { get => dateDeces; set => dateDeces = value; }
         public string MotifDeces { get => motifDeces; set => motifDeces = value; }
         public int IdPatient { get => idPatient; set => idPatient = value; }
+
+        public override string ToString()
+        {
+            string result = $"Date d'admission : {DateAdmission}";
+            result += $"Type d'admission : {TypeAdmission}";
+            result += $"Motif d'admission : {MotifAdmission}";
+            result += $"Id du medecin : {IdMedecin}";
+            result += $"Nom de l'accompagnant : {NomAccompagnant}";
+            result += $"Prenom de l'accompagnant : {PreNomAccompagnant}";
+            result += $"Lien de parenté avec l'accompagnant : {LienParente}";
+            result += $"Date d'entrer de l'accompagnant : {DateEntreeAcc}";
+            result += $"Date de sortie de l'accompagnant : {DateSortieAcc}";
+            result += $"Motif de sortie : {MotifSortie}";
+            result += $"Resultat de sortie : {ResultatSortie}";
+            result += $"Date de deces : {DateDeces}";
+            result += $"Motif du deces : {MotifDeces}";
+            return result;
+        }
     }
 
 }
