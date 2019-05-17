@@ -29,25 +29,31 @@ CREATE TABLE traitement(
 	id INT PRIMARY KEY IDENTITY(1,1),
 	date DATETIME,
 	prix DECIMAL,
-	idPatient INT NULL, 
+	idPatient INT NULL,
+	idMedecin INT NULL, 
 );
 
 CREATE TABLE examenBiologique(
 	id INT PRIMARY KEY IDENTITY(1,1),
 	designation VARCHAR(100),
 	resultat VARCHAR(max)
+	idTraitement INT NULL, 
+	idMedecin INT NULL, 
 );
 
 CREATE TABLE examenRadiologique(
 	id INT PRIMARY KEY IDENTITY(1,1),
 	designation VARCHAR(100),
 	resultat VARCHAR(max),
+	idTraitement INT NULL,
+	idMedecin INT NULL, 
 );
 
 CREATE TABLE chirurgie(
 	id INT PRIMARY KEY IDENTITY(1,1),
 	idChirurgien INT,
 	idAnesthesiste INT
+	idTraitement INT NULL, 
 );
 
 CREATE TABLE prescription(
@@ -80,7 +86,8 @@ CREATE TABLE chambre(
 	etage INT,
 	capacite INT,
 	prix DECIMAL,
-	occupe INT
+	occupe INT,
+	idHopital INT NULL, 
 );
 
 CREATE TABLE facture(

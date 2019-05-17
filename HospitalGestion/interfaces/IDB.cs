@@ -19,6 +19,7 @@ namespace HospitalGestion.interfaces
         void AddConsultation(Consultation consultation);
         void AddPrescription(Prescription prescription);
         void AnnuleRendezVous(int id);
+        void AjouterTraitement(Traitement traitement);
         Patient GetPatientByName(string name, string surname);
         void AddPatient(Patient patient);
         Medecin GetMedecinByService(ServiceEnum service);
