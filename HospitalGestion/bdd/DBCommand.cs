@@ -329,8 +329,9 @@ namespace HospitalGestion.bdd
             {
                 List<Rendez_vous> rdvs = new List<Rendez_vous>();
 
-                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP", Connection.Instance);
+                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP WHERE date = @d", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@idP", idPatient));
+                command.Parameters.Add(new SqlParameter("@d", DateTime.Now));
                 m.WaitOne();
                 Connection.Instance.Open();
 
