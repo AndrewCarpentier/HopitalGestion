@@ -480,6 +480,8 @@ namespace HospitalGestion
                     IdMedecin = m.Id,
                     Id_traitement = idTraitement
                 };
+                Medecin medecin = db.GetMedecinByService(ServiceEnum.anesthesiste);
+                chirurgie.Id_chirurgie = medecin.Id;
             }
             else if (m.nomService == ServiceEnum.biologie)
             {
@@ -488,8 +490,8 @@ namespace HospitalGestion
                     Id_traitement = idTraitement,
                     IdMedecin = m.Id
                 };
-                
-
+                Console.WriteLine("Resultat : ");
+                biologiques.Resultat_examen = Console.ReadLine();
             }
             else if (m.nomService == ServiceEnum.radiologie)
             {
@@ -498,6 +500,8 @@ namespace HospitalGestion
                     Id_traitement = idTraitement,
                     IdMedecin = m.Id
                 };
+                Console.WriteLine("Resultat : ");
+                radiologiques.Resultat_examen = Console.ReadLine();
             }
 
         }
