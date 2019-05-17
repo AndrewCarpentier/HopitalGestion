@@ -244,6 +244,50 @@ namespace HospitalGestion.bdd
             return hospitalisationsT.Result;
         }
 
+        public Patient GetPatientByName(string name, string surname)
+        {
+            Task<Patient> patient = Task<Patient>.Factory.StartNew(() =>
+            {
+                Patient p = null;
+                command = new SqlCommand("SELECT * FROM patient WHERE nom=@nom AND prenom=@prenom", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@nom", name));
+                command.Parameters.Add(new SqlParameter("@prenom", surname));
+                m.WaitOne();
+                Connection.Instance.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    p = new Patient()
+                    {
+                        IdPatient = reader.GetInt32(0),
+                        Nom = name,
+                        Prenom = surname,
+                        DateNaissance = reader.GetDateTime(3),
+                        Sex = (SexeEnum)reader.GetInt32(4),
+                        Adresse = reader.GetString(5),
+                        Situation = (SituationFamillialeEnum)reader.GetInt32(6),
+                        AssuranceMedicale = reader.GetString(7),
+                        CodeAssurance = reader.GetString(8),
+                        Tel = reader.GetString(9),
+                        NomPere = reader.GetString(10),
+                        NomMère = reader.GetString(11),
+                        NomPersonnePrevenir = reader.GetString(12),
+                        TelPersAPrevenir = reader.GetString(13)
+
+                    };
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+
+                return p;
+            });
+            patient.Wait();
+            return patient.Result;
+        }
+
         public Medecin GetMedecinByService(ServiceEnum service)
         {
             Task<Medecin> medecinT = Task<Medecin>.Factory.StartNew(() =>

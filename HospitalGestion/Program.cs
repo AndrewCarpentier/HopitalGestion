@@ -13,28 +13,31 @@ namespace HospitalGestion
     class Program
     {
         private static DBCommand db = new DBCommand();
-        private static Patient patient = new Patient();
+        private static Patient p = new Patient();
 
         static void Main(string[] args)
         {
+            //Console.BackgroundColor = ConsoleColor.DarkCyan;
+            //Console.ForegroundColor = ConsoleColor.Black;
+            //Console.Clear();
             //Console.WriteLine("Quel est le nom de l'hopital ?");
             //string nameHospital = Console.ReadLine();
             //Hopital h = new Hopital();
             //bool success;
-            //if (GetHospital(nameHospital) != undifined)
-            //    h = GetHospital(nameHospital);
+            ////if (gethospital(namehospital) != undifined)
+            //    h = gethospital(namehospital);
             //else
             //{
             //    success = false;
-            //    Console.Write("entrez le nom de l'hôpital :");
-            //    string name = Console.ReadLine();
-            //    Console.Write("Nombre de chambres de l'hopital :");
+            //    console.write("entrez le nom de l'hôpital :");
+            //    string name = console.readline();
+            //    console.write("nombre de chambres de l'hopital 
             //    int n;
             //    do
             //    {
-            //        success = Int32.TryParse(Console.ReadLine(), out n);
+            //        success = int32.tryparse(console.readline(), out n);
             //    } while (!success);
-            //    h = new Hopital(name, n);
+            //    h = new hopital(name, n);
             //}
             MenuPatient();
         }
@@ -45,9 +48,16 @@ namespace HospitalGestion
             Console.Clear();
             Console.WriteLine("---------- Bienvenue dans la gestion de l'hopital ------------");
             Console.WriteLine("-------------- Quel est le nom du client ? -------------------");
-            string nomclient = Console.ReadLine();
-            Patient p = new Patient();
-            p = GetPatientFromServer(nomclient);
+            string nompatient = Console.ReadLine();
+            Console.WriteLine("-------------- Quel est le prenom du client ? ----------------");
+            string prenompatient = Console.ReadLine();
+            if (db.GetPatientByName(nompatient, prenompatient) != null)
+                p = db.GetPatientByName(nompatient, prenompatient);
+            else
+            {
+                AddPatient();
+            }
+
             MenuMedecinSecretaire();
         }
         static void MenuMedecinSecretaire()
@@ -405,32 +415,71 @@ namespace HospitalGestion
         }
         static void ListeRDV()
         {
-            Console.WriteLine("liste rdv");
+            List<Rendez_vous> listRDV = new List<Rendez_vous>();
+            listRDV = db.GetRendez_VoussByIdPatient(p.IdPatient);
+            if(listRDV != null)
+            {
+                foreach (Rendez_vous r in listRDV)
+                    r.ToString();
+            }
+            else
+                Console.WriteLine("Aucun rendez-vous pour ce client");
         }
 
         static void ListeConsultation()
         {
-            Console.WriteLine("liste consult");
+            List<Consultation> listConsultation = new List<Consultation>();
+            listConsultation = db.GetConsultationsByIdPatient(p.IdPatient);
+            if(listConsultation != null)
+            {
+                foreach (Consultation c in listConsultation)
+                    c.ToString();
+            }
+            else
+                Console.WriteLine("Aucune consultation pour ce client");
         }
 
         static void ListeHospitalisation()
         {
-            Console.WriteLine("Liste Hospitalisation");
+            List<Hospitalisation> listHospitalisation = new List<Hospitalisation>();
+            listHospitalisation = db.GetHospitalisationsByIdPatient(p.IdPatient);
+            if(listHospitalisation != null)
+            {
+                foreach (Hospitalisation h in listHospitalisation)
+                    h.ToString();
+            }
+            else
+                Console.WriteLine("Aucune hospitalisation pour ce patient");
         }
 
         static void ListeTraitement()
         {
-            Console.WriteLine("Liste traitement");
+            List<Traitement> listTraitement = new List<Traitement>();
+            listTraitement = db.GetTraitementsByIdPatient(p.IdPatient);
+            if(listTraitement != null)
+            {
+                foreach (Traitement t in listTraitement)
+                    t.ToString();
+            }
+            else
+                Console.WriteLine("Aucun traitement pour ce patient");
         }
 
         static void ListeFacture()
         {
-            Console.WriteLine("Liste facture");
+            List<Facture> listFacture = new List<Facture>();
+            listFacture = db.GetFacturesByIdPatient(p.IdPatient);
+            if(listFacture != null)
+            {
+                foreach (Facture f in listFacture)
+                    f.ToString();
+            }
+            else
+                Console.WriteLine("Aucune facture pour ce patient");
         }
 
         static void AddPatient()
         {
-            Patient p = new Patient();
             Console.Clear();
             Console.Write("Quel est votre nom et prénom ? : ");
             string nomPrenom = Console.ReadLine();
@@ -443,8 +492,11 @@ namespace HospitalGestion
                     nomB = false;
                     temp = "";
                 }
+                else
+                {
+                    temp += nomPrenom[i];
+                }
 
-                temp += nomPrenom[i];
 
                 if (nomB)
                 {
@@ -500,52 +552,52 @@ namespace HospitalGestion
                 }
             } while (true);
 
-            ConsoleKeyInfo cki = new ConsoleKeyInfo();
-            int position = 0;
-            int nbMax = 2;
-            Console.Clear();
-            Console.WriteLine("Etes vous un homme ou une femme");
-            Console.WriteLine(">Homme");
-            Console.WriteLine(" Femme");
+            //ConsoleKeyInfo cki = new ConsoleKeyInfo();
+            //int position = 0;
+            //int nbMax = 2;
+            //Console.Clear();
+            //Console.WriteLine("Etes vous un homme ou une femme");
+            //Console.WriteLine(">Homme");
+            //Console.WriteLine(" Femme");
 
-            do
-            {
-                while (Console.KeyAvailable)
-                {
-                    cki = Console.ReadKey(true);
-                    Console.Clear();
-                    switch (cki.Key)
-                    {
-                        case ConsoleKey.DownArrow:
-                            if (position != nbMax)
-                            {
-                                Console.WriteLine("Etes vous un homme ou une femme");
-                                Console.WriteLine(" Homme");
-                                Console.WriteLine(">Femme");
-                                position++;
-                            }
-                            break;
-                        case ConsoleKey.UpArrow:
-                            if (position != 0)
-                            {
-                                Console.WriteLine("Etes vous un homme ou une femme");
-                                Console.WriteLine(">Homme");
-                                Console.WriteLine(" Femme");
-                                position--;
-                            }
-                            break;
-                    }
-                }
-            } while (cki.Key != ConsoleKey.Enter);
+            //do
+            //{
+            //    while (Console.KeyAvailable)
+            //    {
+            //        cki = Console.ReadKey(true);
+            //        Console.Clear();
+            //        switch (cki.Key)
+            //        {
+            //            case ConsoleKey.DownArrow:
+            //                if (position != nbMax)
+            //                {
+            //                    Console.WriteLine("Etes vous un homme ou une femme");
+            //                    Console.WriteLine(" Homme");
+            //                    Console.WriteLine(">Femme");
+            //                    position++;
+            //                }
+            //                break;
+            //            case ConsoleKey.UpArrow:
+            //                if (position != 0)
+            //                {
+            //                    Console.WriteLine("Etes vous un homme ou une femme");
+            //                    Console.WriteLine(">Homme");
+            //                    Console.WriteLine(" Femme");
+            //                    position--;
+            //                }
+            //                break;
+            //        }
+            //    }
+            //} while (cki.Key != ConsoleKey.Enter);
 
-            p.Sex = (SexeEnum)position;
+            p.Sex = (SexeEnum)AfficherEnum<SexeEnum>("Etes vous un homme ou une femme");
 
             Console.WriteLine("Quel est votre adresse ? : ");
             p.Adresse = Console.ReadLine();
 
-            cki = new ConsoleKeyInfo();
-            position = 1;
-            nbMax = 6;
+            ConsoleKeyInfo cki = new ConsoleKeyInfo();
+            int position = 1;
+            int nbMax = 6;
             Console.Clear();
             Console.WriteLine("Quel est votre situation familliale ? : ");
             Console.WriteLine(">Marié");
@@ -704,5 +756,63 @@ namespace HospitalGestion
 
             db.AddPatient(p);
         }
+
+        static Enum AfficherEnum<T>(string s)
+        {
+            ConsoleKeyInfo cki = new ConsoleKeyInfo();
+            int i = 0, position = 0, nbMax;
+            List<Enum> e = new List<Enum>();
+            if (!typeof(T).IsEnum)
+                throw new Exception("Entrez une enum");
+
+            Console.WriteLine(s);
+            foreach (Enum v in Enum.GetValues(typeof(T)))
+            {
+                if (i == 0)
+                    Console.Write(">");
+                else
+                    Console.Write(" ");
+                Console.WriteLine(v);
+                e.Add(v);
+                i++;
+            }
+            nbMax = i - 1;
+            do
+            {
+                while (Console.KeyAvailable)
+                {
+                    cki = Console.ReadKey(true);
+
+                    switch (cki.Key)
+                    {
+                        case ConsoleKey.DownArrow:
+                            if (position != nbMax)
+                                position++;
+                            break;
+                        case ConsoleKey.UpArrow:
+                            if (position != 0)
+                                position--;
+                            break;
+                    }
+
+                    Console.Clear();
+                    i = 0;
+                    Console.WriteLine(s);
+                    foreach (Enum v in Enum.GetValues(typeof(T)))
+                    {
+                        if (i == position)
+                            Console.Write(">");
+                        else
+                            Console.Write(" ");
+                        Console.WriteLine(v);
+                        i++;
+                    }
+                }
+
+            } while (cki.Key != ConsoleKey.Enter);
+
+            return e[position];
+        }
     }
+
 }
