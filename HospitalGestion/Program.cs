@@ -178,7 +178,7 @@ namespace HospitalGestion
         static void PrendreRDV()
         {
             Rendez_vous rdv = new Rendez_vous();
-            rdv.IdPatient = 1;//patient.IdPatient;
+            rdv.IdPatient = p.IdPatient;
 
             rdv.Service = (ServiceEnum)AfficherEnum<ServiceEnum>("Nom du service");
 
@@ -219,7 +219,7 @@ namespace HospitalGestion
                             Int32.TryParse(temp, out y);
                         }
                     }
-                    rdv.Date_RDV = new DateTime(y, m, d);
+                    rdv.Date_RDV = new DateTime(y,m,d);
                     break;
                 }
                 else
