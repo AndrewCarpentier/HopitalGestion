@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 namespace HospitalGestion.interfaces
 {
     public interface IDB 
-    {   
-        void AddChambres(int n);
+    {
+        bool AddHopital(string name);
+        Hopital GetHopital(string name);
+        void AddChambres(int n, int id);
         List<Rendez_vous> GetRendez_VoussByIdPatient(int idPatient);
         List<Consultation> GetConsultationsByIdPatient(int idPatient);
         List<Hospitalisation> GetHospitalisationsByIdPatient(int idPatient);
@@ -29,5 +31,9 @@ namespace HospitalGestion.interfaces
         void AddRadiologue(Examens_Radiologiques radiologiques);
         void AddChirurgie(Chirurgie chirurgie);
         List<Patient> GetPatients();
+
+        List<Facture> GetFactures();
+
+        void AddMedecin(Medecin medecin);
     }
 }

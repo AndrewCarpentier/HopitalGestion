@@ -13,6 +13,7 @@ namespace HospitalGestion
 {
     class Program
     {
+
         private static IDB db = new DBCommand();
         private static Patient p = new Patient();
         private static Random rdm = new Random();
@@ -20,7 +21,33 @@ namespace HospitalGestion
 
         static void Main(string[] args)
         {
-            MenuPatient();
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Clear();
+            Console.Write("Entrez le nom de l'hôpital :");
+            string name = Console.ReadLine();
+            Hopital h;
+            bool success = false;
+            h = db.GetHopital(name);
+
+            if (h == null)
+            {
+                int nChambres;
+                do
+                {
+                    Console.Write("Nombre de chambres de l'hopital: ");
+                    success = Int32.TryParse(Console.ReadLine(), out nChambres);
+                } while (!success);
+                h = new Hopital(name);
+                if (db.AddHopital(name) == false)
+                {
+                    Console.WriteLine("Erreur Creation hopital");
+                    Environment.Exit(1);
+                }
+                h.Init(nChambres);
+                Console.WriteLine($"\n\n\t\t\t Hopital {name} créé avec succès");
+            }
+            MenuPatient();            
         }
         static void MenuPatient()
         {
@@ -69,7 +96,7 @@ namespace HospitalGestion
             administration.Add(ListeFactureHopital);
             administration.Add(ListePatient);
 
-
+            Console.Clear();
             Console.WriteLine("Entrer le code d'accés :");
             string codeAcces = Console.ReadLine();
 
@@ -115,7 +142,7 @@ namespace HospitalGestion
                         "Liste Facture :",
                         "Liste Patient :");
 
-            } while (!(!codeAcces.ToLower().Equals("medecin")
+            } while (!(!codeAcces.ToLower().Equals("generaliste")
                     && !codeAcces.ToLower().Equals("secretaire")
                     && !codeAcces.ToLower().Equals("chirurgien")
                     && !codeAcces.ToLower().Equals("radiologue")

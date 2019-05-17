@@ -17,7 +17,51 @@ namespace HospitalGestion.bdd
         private static Mutex m = new Mutex();
         private static SqlCommand command;
 
-        public void AddChambres(int nbChambres)
+        public bool AddHopital(string name)
+        {
+            bool res = true;
+            Task t = Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO HOPITAL (nom) VALUES(@n)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@n", name));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+            t.Wait();
+
+            return res;
+        }
+
+        public Hopital GetHopital(string name)
+        {
+            Hopital h = new Hopital();
+            Task.Run(() =>
+            {
+                command = new SqlCommand("SELECT * FROM HOPITAL WHERE nom = @n", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@n", name));
+                m.WaitOne();
+                Connection.Instance.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    h.Nom = reader.GetString(1);
+                    h.Id = reader.GetInt32(0);
+                }
+                reader.Close();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+
+            return h;
+        }
+
+
+        public void AddChambres(int nbChambres, int Id)
         {
             Random r = new Random();
             Task t = Task.Run(() =>
@@ -25,12 +69,15 @@ namespace HospitalGestion.bdd
                 m.WaitOne();
                 for (int i = 1; i <= nbChambres; i++)
                 {
-                    int Occupated = r.Next(2, 4);
-                    command = new SqlCommand("INSERT INTO CHAMBRE (etage, capacite, prix, occupe) VALUES(@e,@c,@p,@o)", Connection.Instance);
+
+                    int Occupated = r.Next(2, 5);
+                    Chambre c = new Chambre(Occupated);
+                    command = new SqlCommand("INSERT INTO CHAMBRE (etage, capacite, prix, occupe,Idhopital) VALUES(@e,@c,@p,@o,@i)", Connection.Instance);
                     command.Parameters.Add(new SqlParameter("@e", 1));
                     command.Parameters.Add(new SqlParameter("@c", Occupated));
-                    command.Parameters.Add(new SqlParameter("@p", 50));
+                    command.Parameters.Add(new SqlParameter("@p", c.Prix));
                     command.Parameters.Add(new SqlParameter("@o", 2));
+                    command.Parameters.Add(new SqlParameter("@i", Id));
                     Connection.Instance.Open();
                     command.ExecuteNonQuery();
                     command.Dispose();
@@ -40,6 +87,7 @@ namespace HospitalGestion.bdd
                 m.ReleaseMutex();
 
             });
+            t.Wait();
         }
 
         public void AddHospitalisation(Hospitalisation hospitalisation)
