@@ -56,9 +56,7 @@ namespace HospitalGestion
             if (db.GetPatientByName(nompatient, prenompatient) != null)
                 p = db.GetPatientByName(nompatient, prenompatient);
             else
-            {
                 AddPatient();
-            }
 
             MenuMedecinSecretaire();
         }
@@ -68,15 +66,22 @@ namespace HospitalGestion
 
             List<Action> medecin = new List<Action>();
             medecin.Add(PrendreRDV);
+            medecin.Add(AddConsultation);
             medecin.Add(ListeRDV);
             medecin.Add(ListeConsultation);
             medecin.Add(ListeHospitalisation);
-            medecin.Add(ListeTraitement);
             medecin.Add(MenuPatient);
+
+            List<Action> specialiste = new List<Action>();
+            specialiste.Add(PrendreRDV);
+            specialiste.Add(AddTraitementMethode);
+            specialiste.Add(ListeRDV);
+            specialiste.Add(ListeHospitalisation);
+            specialiste.Add(ListeTraitement);
+            specialiste.Add(MenuPatient);
 
             List<Action> secretaire = new List<Action>();
             secretaire.Add(PrendreRDV);
-            secretaire.Add(AllerRDV);
             secretaire.Add(SansRDV);
             secretaire.Add(ListeRDV);
             secretaire.Add(ListeFacture);
@@ -88,29 +93,42 @@ namespace HospitalGestion
 
             do
             {
-                if (!codeAcces.ToLower().Equals("medecin") && !codeAcces.ToLower().Equals("secretaire"))
+                if (!codeAcces.ToLower().Equals("medecin")
+                    && !codeAcces.ToLower().Equals("secretaire")
+                    && !codeAcces.ToLower().Equals("chirurgien")
+                    && !codeAcces.ToLower().Equals("radiologue")
+                    && !codeAcces.ToLower().Equals("biologiste"))
                 {
                     Console.WriteLine("Code d'accès érronée");
                     codeAcces = Console.ReadLine();
                 }
 
-                if (codeAcces == "medecin")
+                if (codeAcces == "generaliste")
                     Menu(medecin, "- Prendre un rendez-vous :",
+                        "- Consultation :",
                         "- Afficher la liste des rendez-vous du patient :",
                         "- Afficher la liste des consultations du patient :",
+                        "- Afficher la liste des hospitalisation :",
+                        "- Quittez");
+                else if (codeAcces == "chirurgien" || codeAcces == "radiologue" || codeAcces == "biologiste")
+                    Menu(specialiste, "- Prendre un rendez-vous :",
+                        "- Traitement :",
+                        "- Afficher la liste des rendez-vous du patient :",
                         "- Afficher la liste des hospitalisation :",
                         "- Afficher la liste des traitements :",
                         "- Quittez");
                 else if (codeAcces == "secretaire")
                     Menu(secretaire, "- Prendre un rendez-vous :",
-                        "- Se rendre au rendez-vous :",
                         "- Consultation sans rendez-vous :",
                         "- Afficher la liste des rendez-vous :",
                         "- Afficher la liste des factures :",
                         "- Quittez");
 
-            } while (!codeAcces.ToLower().Equals("medecin") && !codeAcces.ToLower().Equals("secretaire"));
-
+            } while (!codeAcces.ToLower().Equals("medecin")
+                    && !codeAcces.ToLower().Equals("secretaire")
+                    && !codeAcces.ToLower().Equals("chirurgien")
+                    && !codeAcces.ToLower().Equals("radiologue")
+                    && !codeAcces.ToLower().Equals("biologiste"));
         }
 
         static void Menu(List<Action> actions, params string[] affichage)
@@ -189,7 +207,7 @@ namespace HospitalGestion
 
             db.AddRdv(rdv);
 
-            if(rdv.Service != ServiceEnum.generaliste)
+            if (rdv.Service != ServiceEnum.generaliste)
             {
                 Hospitalisation h = new Hospitalisation();
                 h.DateAdmission = rdv.Date_RDV;
@@ -226,7 +244,7 @@ namespace HospitalGestion
         {
             List<Rendez_vous> listRDV = new List<Rendez_vous>();
             listRDV = db.GetRendez_VoussByIdPatient(p.IdPatient);
-            if(listRDV != null)
+            if (listRDV != null)
             {
                 foreach (Rendez_vous r in listRDV)
                     Console.WriteLine(r.ToString());
@@ -240,7 +258,7 @@ namespace HospitalGestion
         {
             List<Consultation> listConsultation = new List<Consultation>();
             listConsultation = db.GetConsultationsByIdPatient(p.IdPatient);
-            if(listConsultation != null)
+            if (listConsultation != null)
             {
                 foreach (Consultation c in listConsultation)
                     Console.WriteLine(c.ToString());
@@ -254,7 +272,7 @@ namespace HospitalGestion
         {
             List<Hospitalisation> listHospitalisation = new List<Hospitalisation>();
             listHospitalisation = db.GetHospitalisationsByIdPatient(p.IdPatient);
-            if(listHospitalisation != null)
+            if (listHospitalisation != null)
             {
                 foreach (Hospitalisation h in listHospitalisation)
                     Console.WriteLine(h.ToString());
@@ -268,11 +286,11 @@ namespace HospitalGestion
         {
             List<Traitement> listTraitement = new List<Traitement>();
             listTraitement = db.GetTraitementsByIdPatient(p.IdPatient);
-            if(listTraitement != null)
+            if (listTraitement != null)
             {
                 foreach (Traitement t in listTraitement)
                     Console.WriteLine(t.ToString());
-                    Console.WriteLine("\n-----------------------------------------\n");
+                Console.WriteLine("\n-----------------------------------------\n");
             }
             else
                 Console.WriteLine("Aucun traitement pour ce patient");
@@ -282,7 +300,7 @@ namespace HospitalGestion
         {
             List<Facture> listFacture = new List<Facture>();
             listFacture = db.GetFacturesByIdPatient(p.IdPatient);
-            if(listFacture != null)
+            if (listFacture != null)
             {
                 foreach (Facture f in listFacture)
                     Console.WriteLine(f.ToString());
@@ -299,7 +317,7 @@ namespace HospitalGestion
             string nomPrenom = Console.ReadLine();
             string temp = "";
             bool nomB = true;
-            for (int i = 0; i < nomPrenom.Length ; i++)
+            for (int i = 0; i < nomPrenom.Length; i++)
             {
                 if (nomPrenom[i].ToString() == " ")
                 {
@@ -325,7 +343,7 @@ namespace HospitalGestion
             Console.Write("Quel est votre date de naissance ? : ");
             string date = Console.ReadLine();
             p.DateNaissance = DateVerif(date, "Entrez une date de naissance valide : ");
-            
+
             Console.Clear();
             p.Sex = (SexeEnum)AfficherEnum<SexeEnum>("Etes vous un homme ou une femme");
 
@@ -438,14 +456,22 @@ namespace HospitalGestion
                 int position = 0;
                 Int32.TryParse(Console.ReadLine(), out position);
 
-                if(position != 0)
+                if (position != 0)
                     db.AnnuleRendezVous(rdvs[position - 1].Id);
             }
             else
                 Console.WriteLine("Aucune réservation");
-            
+
         }
 
+        static void AddTraitementMethode()
+        {
+            Console.WriteLine("Quel est le nom du service ?");
+            Console.WriteLine("1 - chirurgien\n2 - anethesiste\n3 - radiologue\n4 - biologiste\n5 - generaliste");
+            ServiceEnum serviceName = (ServiceEnum)Convert.ToInt32(Console.ReadLine());
+            m = db.GetMedecinByService(serviceName);
+            AddTraitement(m.Id);
+        }
         static void AddTraitement(int idMedecin)
         {
 
@@ -610,6 +636,10 @@ namespace HospitalGestion
 
             return datetime;
         }
+
+
+
+        
     }
 
 }
