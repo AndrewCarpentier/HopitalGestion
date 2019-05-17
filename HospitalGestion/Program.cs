@@ -1,6 +1,7 @@
 ﻿using HospitalGestion.bdd;
 using HospitalGestion.classes;
 using HospitalGestion.enums;
+using HospitalGestion.interfaces;
 using HospitalGestion.Regexs;
 using System;
 using System.Collections.Generic;
@@ -12,35 +13,13 @@ namespace HospitalGestion
 {
     class Program
     {
-        private static DBCommand db = new DBCommand();
+        private static IDB db = new DBCommand();
         private static Patient p = new Patient();
         private static Random rdm = new Random();
         private static Medecin m = new Medecin();
 
         static void Main(string[] args)
         {
-            //Console.BackgroundColor = ConsoleColor.DarkCyan;
-            //Console.ForegroundColor = ConsoleColor.Black;
-            //Console.Clear();
-            //Console.WriteLine("Quel est le nom de l'hopital ?");
-            //string nameHospital = Console.ReadLine();
-            //Hopital h = new Hopital();
-            //bool success;
-            ////if (gethospital(namehospital) != undifined)
-            //    h = gethospital(namehospital);
-            //else
-            //{
-            //    success = false;
-            //    console.write("entrez le nom de l'hôpital :");
-            //    string name = console.readline();
-            //    console.write("nombre de chambres de l'hopital 
-            //    int n;
-            //    do
-            //    {
-            //        success = int32.tryparse(console.readline(), out n);
-            //    } while (!success);
-            //    h = new hopital(name, n);
-            //}
             MenuPatient();
         }
         static void MenuPatient()
@@ -62,8 +41,6 @@ namespace HospitalGestion
         }
         static void MenuMedecinSecretaire()
         {
-            AnnuleRendezVous();
-
             List<Action> medecin = new List<Action>();
             medecin.Add(PrendreRDV);
             medecin.Add(AddConsultation);
@@ -93,7 +70,7 @@ namespace HospitalGestion
 
             do
             {
-                if (!codeAcces.ToLower().Equals("medecin")
+                if (!codeAcces.ToLower().Equals("generaliste")
                     && !codeAcces.ToLower().Equals("secretaire")
                     && !codeAcces.ToLower().Equals("chirurgien")
                     && !codeAcces.ToLower().Equals("radiologue")
@@ -124,11 +101,11 @@ namespace HospitalGestion
                         "- Afficher la liste des factures :",
                         "- Quittez");
 
-            } while (!codeAcces.ToLower().Equals("medecin")
+            } while (!(!codeAcces.ToLower().Equals("generaliste")
                     && !codeAcces.ToLower().Equals("secretaire")
                     && !codeAcces.ToLower().Equals("chirurgien")
                     && !codeAcces.ToLower().Equals("radiologue")
-                    && !codeAcces.ToLower().Equals("biologiste"));
+                    && !codeAcces.ToLower().Equals("biologiste")));
         }
 
         static void Menu(List<Action> actions, params string[] affichage)
@@ -236,10 +213,7 @@ namespace HospitalGestion
         {
             Console.WriteLine("Sans rdv");
         }
-        static void AllerRDV()
-        {
-            Console.WriteLine("Aller rdv");
-        }
+
         static void ListeRDV()
         {
             List<Rendez_vous> listRDV = new List<Rendez_vous>();
@@ -503,11 +477,12 @@ namespace HospitalGestion
             {
                 Chirurgie chirurgie = new Chirurgie()
                 {
-                    IdMedecin = m.Id,
+                    Chirurgien = m.Id,
                     Id_traitement = idTraitement
                 };
                 Medecin medecin = db.GetMedecinByService(ServiceEnum.anesthesiste);
-                chirurgie.Id_chirurgie = medecin.Id;
+                chirurgie.Anesthesiste = medecin.Id;
+                db.AddChirurgie(chirurgie);
             }
             else if (m.nomService == ServiceEnum.biologie)
             {
@@ -518,6 +493,7 @@ namespace HospitalGestion
                 };
                 Console.WriteLine("Resultat : ");
                 biologiques.Resultat_examen = Console.ReadLine();
+                db.AddBiologie(biologiques);
             }
             else if (m.nomService == ServiceEnum.radiologie)
             {
@@ -528,6 +504,7 @@ namespace HospitalGestion
                 };
                 Console.WriteLine("Resultat : ");
                 radiologiques.Resultat_examen = Console.ReadLine();
+                db.AddRadiologue(radiologiques);
             }
 
         }

@@ -25,7 +25,8 @@ namespace HospitalGestion.interfaces
         Medecin GetMedecinByService(ServiceEnum service);
         void AddRdv(Rendez_vous rdv);
         void AddHospitalisation(Hospitalisation hospitalisation);
-
+        void AddBiologie(Examens_Biologiques biologiques);
+        void AddRadiologue(Examens_Radiologiques radiologiques);
         void AddChirurgie(Chirurgie chirurgie);
     }
 }

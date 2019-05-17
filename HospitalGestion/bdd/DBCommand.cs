@@ -452,9 +452,9 @@ namespace HospitalGestion.bdd
             Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO chirurgie (idChirurgien, idAnesthesiste, idTraitement) VALUES (@c, @a, @t)", Connection.Instance);
-                command.Parameters.Add(new SqlParameter("@c", chirurgie.Id_chirurgie));
-                command.Parameters.Add(new SqlParameter("@a", chirurgie.Chirurgien));
-                command.Parameters.Add(new SqlParameter("@t", chirurgie.Anesthesiste));
+                command.Parameters.Add(new SqlParameter("@c", chirurgie.Chirurgien));
+                command.Parameters.Add(new SqlParameter("@a", chirurgie.Anesthesiste));
+                command.Parameters.Add(new SqlParameter("@t", chirurgie.Id_traitement));
                 m.WaitOne();
                 Connection.Instance.Open();
                 command.ExecuteNonQuery();
@@ -488,5 +488,42 @@ namespace HospitalGestion.bdd
             return traitementT.Result;
         }
 
+        public void AddBiologie(Examens_Biologiques biologiques)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO examenBiologique (designation, resultat, idTraitement," +
+                    "idMedecin) VALUES (@d, @r, @it, @im)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", biologiques.Designation));
+                command.Parameters.Add(new SqlParameter("@r", biologiques.Resultat_examen));
+                command.Parameters.Add(new SqlParameter("@it", biologiques.Id_traitement));
+                command.Parameters.Add(new SqlParameter("@im", biologiques.IdMedecin));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
+
+        public void AddRadiologue(Examens_Radiologiques radiologiques)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO examenRadiologique (designation, resultat," +
+                    "idTraitement, idMedecin) VALUES (@d, @r, @it, @im)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", radiologiques.Designation));
+                command.Parameters.Add(new SqlParameter("@r", radiologiques.Resultat_examen));
+                command.Parameters.Add(new SqlParameter("@it", radiologiques.Id_traitement));
+                command.Parameters.Add(new SqlParameter("@im", radiologiques.IdMedecin));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
     }
 }
