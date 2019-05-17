@@ -28,5 +28,6 @@ namespace HospitalGestion.interfaces
         void AddBiologie(Examens_Biologiques biologiques);
         void AddRadiologue(Examens_Radiologiques radiologiques);
         void AddChirurgie(Chirurgie chirurgie);
+        List<Patient> GetPatients();
     }
 }
