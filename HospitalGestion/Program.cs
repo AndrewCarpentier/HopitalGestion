@@ -179,82 +179,8 @@ namespace HospitalGestion
         {
             Rendez_vous rdv = new Rendez_vous();
             rdv.IdPatient = 1;//patient.IdPatient;
-            ConsoleKeyInfo cki = new ConsoleKeyInfo();
-            int position = 1;
-            int nbMax = 6;
-            Console.Clear();
-            Console.WriteLine("Nom du service");
-            Console.WriteLine(">chirurgie");
-            Console.WriteLine(" radiologie");
-            Console.WriteLine(" biologie");
-            Console.WriteLine(" generaliste");
 
-            do
-            {
-                while (Console.KeyAvailable)
-                {
-                    cki = Console.ReadKey(true);
-                    Console.Clear();
-                    switch (cki.Key)
-                    {
-                        case ConsoleKey.DownArrow:
-                            if (position != nbMax)
-                            {
-                                position++;
-                            }
-                            break;
-                        case ConsoleKey.UpArrow:
-                            if (position != 0)
-                            {
-                                position--;
-                            }
-                            break;
-                    }
-
-                    if (position == 1)
-                    {
-                        Console.WriteLine("Nom du service");
-                        Console.WriteLine(">chirurgie");
-                        Console.WriteLine(" radiologie");
-                        Console.WriteLine(" biologie");
-                        Console.WriteLine(" generaliste");
-                    }
-                    else if (position == 2)
-                    {
-                        Console.WriteLine("Nom du service");
-                        Console.WriteLine(" chirurgie");
-                        Console.WriteLine(">radiologie");
-                        Console.WriteLine(" biologie");
-                        Console.WriteLine(" generaliste");
-                    }
-                    else if (position == 3)
-                    {
-                        Console.WriteLine("Nom du service");
-                        Console.WriteLine(" chirurgie");
-                        Console.WriteLine(" radiologie");
-                        Console.WriteLine(">biologie");
-                        Console.WriteLine(" generaliste");
-                    }
-                    else if (position == 4)
-                    {
-                        Console.WriteLine("Nom du service");
-                        Console.WriteLine(" chirurgie");
-                        Console.WriteLine(" radiologie");
-                        Console.WriteLine(" biologie");
-                        Console.WriteLine(">generaliste");
-                    }
-                }
-            } while (cki.Key != ConsoleKey.Enter);
-
-
-            if (position == 1)
-                rdv.Service = ServiceEnum.chirurgie;
-            else if (position == 2)
-                rdv.Service = ServiceEnum.radiologie;
-            else if (position == 3)
-                rdv.Service = ServiceEnum.biologie;
-            else if (position == 4)
-                rdv.Service = ServiceEnum.generaliste;
+            rdv.Service = (ServiceEnum)AfficherEnum<ServiceEnum>("Nom du service");
 
             rdv.IdMedecin = db.GetMedecinByService(rdv.Service).Id;
 
@@ -310,7 +236,7 @@ namespace HospitalGestion
                 Hospitalisation h = new Hospitalisation();
                 h.DateAdmission = rdv.Date_RDV;
                 h.DateEntreeAcc = rdv.Date_RDV;
-                h.IdPatient = 1;//patient.IdPatient;
+                h.IdPatient = p.IdPatient;
 
                 Console.Write("Type d'admission : ");
                 h.TypeAdmission = Console.ReadLine();
@@ -324,82 +250,7 @@ namespace HospitalGestion
                 Console.Write("Prenom de l'accompagnant : ");
                 h.PreNomAccompagnant = Console.ReadLine();
 
-                cki = new ConsoleKeyInfo();
-                position = 1;
-                nbMax = 6;
-                Console.Clear();
-                Console.WriteLine("Lien parenté de l'accompagnant");
-                Console.WriteLine(">Pere");
-                Console.WriteLine(" Mere");
-                Console.WriteLine(" Frere");
-                Console.WriteLine(" Soeur");
-
-                do
-                {
-                    while (Console.KeyAvailable)
-                    {
-                        cki = Console.ReadKey(true);
-                        Console.Clear();
-                        switch (cki.Key)
-                        {
-                            case ConsoleKey.DownArrow:
-                                if (position != nbMax)
-                                {
-                                    position++;
-                                }
-                                break;
-                            case ConsoleKey.UpArrow:
-                                if (position != 0)
-                                {
-                                    position--;
-                                }
-                                break;
-                        }
-
-                        if (position == 1)
-                        {
-                            Console.WriteLine("Lien parenté de l'accompagnant");
-                            Console.WriteLine(">Pere");
-                            Console.WriteLine(" Mere");
-                            Console.WriteLine(" Frere");
-                            Console.WriteLine(" Soeur");
-                        }
-                        else if (position == 2)
-                        {
-                            Console.WriteLine("Lien parenté de l'accompagnant");
-                            Console.WriteLine(" Pere");
-                            Console.WriteLine(">Mere");
-                            Console.WriteLine(" Frere");
-                            Console.WriteLine(" Soeur");
-                        }
-                        else if (position == 3)
-                        {
-                            Console.WriteLine("Lien parenté de l'accompagnant");
-                            Console.WriteLine(" Pere");
-                            Console.WriteLine(" Mere");
-                            Console.WriteLine(">Frere");
-                            Console.WriteLine(" Soeur");
-                        }
-                        else if (position == 4)
-                        {
-                            Console.WriteLine("Lien parenté de l'accompagnant");
-                            Console.WriteLine(" Pere");
-                            Console.WriteLine(" Mere");
-                            Console.WriteLine(" Frere");
-                            Console.WriteLine(">Soeur");
-                        }
-                    }
-                } while (cki.Key != ConsoleKey.Enter);
-
-
-                if (position == 1)
-                    h.LienParente = LienParenteEnum.Pere;
-                else if (position == 2)
-                    h.LienParente = LienParenteEnum.Mere;
-                else if (position == 3)
-                    h.LienParente = LienParenteEnum.Frere;
-                else if (position == 4)
-                    h.LienParente = LienParenteEnum.Soeur;
+                h.LienParente = (LienParenteEnum)AfficherEnum<LienParenteEnum>("Lien parenté de l'accompagnant");
 
                 db.AddHospitalisation(h);
             }
@@ -551,161 +402,14 @@ namespace HospitalGestion
                     date = Console.ReadLine();
                 }
             } while (true);
-
-            //ConsoleKeyInfo cki = new ConsoleKeyInfo();
-            //int position = 0;
-            //int nbMax = 2;
-            //Console.Clear();
-            //Console.WriteLine("Etes vous un homme ou une femme");
-            //Console.WriteLine(">Homme");
-            //Console.WriteLine(" Femme");
-
-            //do
-            //{
-            //    while (Console.KeyAvailable)
-            //    {
-            //        cki = Console.ReadKey(true);
-            //        Console.Clear();
-            //        switch (cki.Key)
-            //        {
-            //            case ConsoleKey.DownArrow:
-            //                if (position != nbMax)
-            //                {
-            //                    Console.WriteLine("Etes vous un homme ou une femme");
-            //                    Console.WriteLine(" Homme");
-            //                    Console.WriteLine(">Femme");
-            //                    position++;
-            //                }
-            //                break;
-            //            case ConsoleKey.UpArrow:
-            //                if (position != 0)
-            //                {
-            //                    Console.WriteLine("Etes vous un homme ou une femme");
-            //                    Console.WriteLine(">Homme");
-            //                    Console.WriteLine(" Femme");
-            //                    position--;
-            //                }
-            //                break;
-            //        }
-            //    }
-            //} while (cki.Key != ConsoleKey.Enter);
-
+            
+            Console.Clear();
             p.Sex = (SexeEnum)AfficherEnum<SexeEnum>("Etes vous un homme ou une femme");
 
             Console.WriteLine("Quel est votre adresse ? : ");
             p.Adresse = Console.ReadLine();
 
-            ConsoleKeyInfo cki = new ConsoleKeyInfo();
-            int position = 1;
-            int nbMax = 6;
-            Console.Clear();
-            Console.WriteLine("Quel est votre situation familliale ? : ");
-            Console.WriteLine(">Marié");
-            Console.WriteLine(" Pacsé");
-            Console.WriteLine(" Divorcé");
-            Console.WriteLine(" Séparé");
-            Console.WriteLine(" Célibataire");
-            Console.WriteLine(" Veuf");
-
-            do
-            {
-                while (Console.KeyAvailable)
-                {
-                    cki = Console.ReadKey(true);
-                    Console.Clear();
-                    switch (cki.Key)
-                    {
-                        case ConsoleKey.DownArrow:
-                            if (position != nbMax)
-                            {
-                                
-                                position++;
-                            }
-                            break;
-                        case ConsoleKey.UpArrow:
-                            if (position != 0)
-                            {
-                                position--;
-                            }
-                            break;
-                    }
-
-                    if(position == 1)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(">Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if(position == 2)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(">Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if (position == 3)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(">Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if (position == 4)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(">Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if (position == 5)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(">Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if (position == 6)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(">Veuf");
-                    }
-
-                }
-            } while (cki.Key != ConsoleKey.Enter);
-
-            if (position == 1)
-                p.Situation = SituationFamillialeEnum.marié;
-            else if (position == 2)
-                p.Situation = SituationFamillialeEnum.pacsé;
-            else if (position == 3)
-                p.Situation = SituationFamillialeEnum.divorcé;
-            else if (position == 4)
-                p.Situation = SituationFamillialeEnum.séparé;
-            else if (position == 5)
-                p.Situation = SituationFamillialeEnum.célibataire;
-            else if (position == 6)
-                p.Situation = SituationFamillialeEnum.veuf;
+            p.Situation = (SituationFamillialeEnum)AfficherEnum<SituationFamillialeEnum>("Quel est votre situation familliale ? : ");
 
             Console.Write("Votre assurance médical ? : ");
             p.AssuranceMedicale = Console.ReadLine();
