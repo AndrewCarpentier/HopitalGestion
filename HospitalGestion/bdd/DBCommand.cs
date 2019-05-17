@@ -291,11 +291,6 @@ namespace HospitalGestion.bdd
             return medecinT.Result;
         }
 
-        public Patient GetPatientByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Rendez_vous> GetRendez_VoussByIdPatient(int idPatient)
         {
             Task<List<Rendez_vous>> rendezsT = Task<List<Rendez_vous>>.Factory.StartNew(() =>

@@ -20,5 +20,14 @@ namespace HospitalGestion.classes
         public int IdPatient { get => idPatient; set => idPatient = value; }
         public decimal Prix { get => prix; set => prix = value; }
         public OuiNonEnum Payee { get => payee; set => payee = value; }
+
+
+        public override string ToString()
+        {
+            string result = $"Id de la facture : {IdPatient}";
+            result += $"Date de la facture : {Date_facture}";
+            result += $"Prix : {Prix} €";
+            return base.ToString();
+        }
     }
 }

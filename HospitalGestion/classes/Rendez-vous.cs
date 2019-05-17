@@ -31,9 +31,9 @@ namespace HospitalGestion.classes
         public override string ToString()
         {
             string ts = $"Rendez - vous du {Date_RDV}";
-            ts = $"\nAvec le docteur {IdMedecin}";
-            ts = $"\nDans le service {Service}";
-            ts = $"\nCode : {CodeRDV}";
+            ts += $"\nAvec le docteur {IdMedecin}";
+            ts += $"\nDans le service {Service}";
+            ts += $"\nCode : {CodeRDV}";
             return ts;
         }
     }

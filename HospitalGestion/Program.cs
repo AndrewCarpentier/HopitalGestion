@@ -314,7 +314,8 @@ namespace HospitalGestion
             if(listRDV != null)
             {
                 foreach (Rendez_vous r in listRDV)
-                    Console.WriteLine(r.ToString()); 
+                    Console.WriteLine(r.ToString());
+                Console.WriteLine("\n-----------------------------------------\n");
             }
             else
                 Console.WriteLine("Aucun rendez-vous pour ce client");
@@ -327,7 +328,8 @@ namespace HospitalGestion
             if(listConsultation != null)
             {
                 foreach (Consultation c in listConsultation)
-                    Console.WriteLine(c.ToString()); 
+                    Console.WriteLine(c.ToString());
+                Console.WriteLine("\n-----------------------------------------\n");
             }
             else
                 Console.WriteLine("Aucune consultation pour ce client");
@@ -340,7 +342,8 @@ namespace HospitalGestion
             if(listHospitalisation != null)
             {
                 foreach (Hospitalisation h in listHospitalisation)
-                    h.ToString();
+                    Console.WriteLine(h.ToString());
+                Console.WriteLine("\n-----------------------------------------\n");
             }
             else
                 Console.WriteLine("Aucune hospitalisation pour ce patient");
@@ -353,7 +356,8 @@ namespace HospitalGestion
             if(listTraitement != null)
             {
                 foreach (Traitement t in listTraitement)
-                    t.ToString();
+                    Console.WriteLine(t.ToString());
+                    Console.WriteLine("\n-----------------------------------------\n");
             }
             else
                 Console.WriteLine("Aucun traitement pour ce patient");
@@ -366,7 +370,8 @@ namespace HospitalGestion
             if(listFacture != null)
             {
                 foreach (Facture f in listFacture)
-                    f.ToString();
+                    Console.WriteLine(f.ToString());
+                Console.WriteLine("\n-----------------------------------------\n");
             }
             else
                 Console.WriteLine("Aucune facture pour ce patient");

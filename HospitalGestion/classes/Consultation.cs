@@ -21,8 +21,8 @@ namespace HospitalGestion.classes
         public override string ToString()
         {
             string ts = $"Consultation n°{IdConsultation}";
-            ts = $"\nDate : {Date}";
-            ts = $"\nSynthese de la consultation :{Synthese}";
+            ts += $"\nDate : {Date}";
+            ts += $"\nSynthese de la consultation :{Synthese}";
             return base.ToString();
         }
     }
