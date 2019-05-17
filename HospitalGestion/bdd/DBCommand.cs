@@ -415,5 +415,23 @@ namespace HospitalGestion.bdd
                 m.ReleaseMutex();
             });
         }
+
+        public void AddPrescription(Prescription prescription)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO prescription (date, idPatient, note) VALUES " +
+                    "(@d,@ip,@n)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", prescription.Date));
+                command.Parameters.Add(new SqlParameter("@ip", prescription.IdPatient));
+                command.Parameters.Add(new SqlParameter("@n", prescription.Note));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
     }
 }

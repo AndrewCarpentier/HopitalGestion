@@ -10,14 +10,12 @@ namespace HospitalGestion.classes
     {
         private int id;
         private DateTime date;
-        private string nomPatient;
-        private string prenomPatient;
+        private int idPatient;
         private string note;
 
         public int Id { get => id; set => id = value; }
         public DateTime Date { get => date; set => date = value; }
-        public string NomPatient { get => nomPatient; set => nomPatient = value; }
-        public string PrenomPatient { get => prenomPatient; set => prenomPatient = value; }
         public string Note { get => note; set => note = value; }
+        public int IdPatient { get => idPatient; set => idPatient = value; }
     }
 }

@@ -400,6 +400,22 @@ namespace HospitalGestion
             c.Prix = prix;
 
             db.AddConsultation(c);
+
+            AddPrescription(c.Date);
+        }
+
+        static void AddPrescription(DateTime date)
+        {
+            Prescription pr = new Prescription()
+            {
+                IdPatient = p.IdPatient,
+                Date = date
+            };
+
+            Console.WriteLine("Note de la prescription : ");
+            pr.Note = Console.ReadLine();
+
+            db.AddPrescription(pr);
         }
 
         static Enum AfficherEnum<T>(string s)
