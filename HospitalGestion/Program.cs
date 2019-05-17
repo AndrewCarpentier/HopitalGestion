@@ -14,6 +14,7 @@ namespace HospitalGestion
     {
         private static DBCommand db = new DBCommand();
         private static Patient p = new Patient();
+        private static Random rdm = new Random();
 
         static void Main(string[] args)
         {
@@ -62,6 +63,8 @@ namespace HospitalGestion
         }
         static void MenuMedecinSecretaire()
         {
+            AddConsultation();
+
             List<Action> medecin = new List<Action>();
             medecin.Add(PrendreRDV);
             medecin.Add(ListeRDV);
@@ -169,11 +172,6 @@ namespace HospitalGestion
                 Console.WriteLine("Aucune méthode à cette position");
             }
         }
-        static Patient GetPatientFromServer(string nomClient)
-        {
-            Patient p = new Patient();
-            return p;
-        }
 
         static void PrendreRDV()
         {
@@ -186,48 +184,7 @@ namespace HospitalGestion
 
             Console.Write("Pour quel date voulez-vous réservée : ");
             string date = Console.ReadLine();
-            string temp = "";
-            do
-            {
-                int d = 0, m = 0, y = 0;
-                if (MyRegex.DateNaissanceMatch(date))
-                {
-                    int b = 0;
-                    temp = "";
-                    for (int i = 0; i < date.Length; i++)
-                    {
-                        if (date[i].ToString() == "/")
-                        {
-                            b++;
-                            temp = "";
-                        }
-                        else
-                        {
-                            temp += date[i];
-                        }
-
-                        if (b == 0)
-                        {
-                            Int32.TryParse(temp, out d);
-                        }
-                        else if (b == 1)
-                        {
-                            Int32.TryParse(temp, out m);
-                        }
-                        else
-                        {
-                            Int32.TryParse(temp, out y);
-                        }
-                    }
-                    rdv.Date_RDV = new DateTime(y,m,d);
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Entrez une date de naissance valide : ");
-                    date = Console.ReadLine();
-                }
-            } while (true);
+            rdv.Date_RDV = DateVerif(date, "Entrez une date de réservation valide :");
 
             db.AddRdv(rdv);
 
@@ -361,47 +318,7 @@ namespace HospitalGestion
             Console.Clear();
             Console.Write("Quel est votre date de naissance ? : ");
             string date = Console.ReadLine();
-            do
-            {
-                int d = 0, m = 0, y = 0;
-                if (MyRegex.DateNaissanceMatch(date))
-                {
-                    int b = 0;
-                    temp = "";
-                    for (int i = 0; i < date.Length; i++)
-                    {
-                        if (date[i].ToString() == "/")
-                        {
-                            b++;
-                            temp = "";
-                        }
-                        else
-                        {
-                            temp += date[i];
-                        }
-
-                        if (b == 0)
-                        {
-                            Int32.TryParse(temp, out d);
-                        }
-                        else if(b == 1)
-                        {
-                            Int32.TryParse(temp, out m);
-                        }
-                        else
-                        {
-                            Int32.TryParse(temp, out y);
-                        }
-                    }
-                    p.DateNaissance = new DateTime(y,m,d);
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Entrez une date de naissance valide : ");
-                    date = Console.ReadLine();
-                }
-            } while (true);
+            p.DateNaissance = DateVerif(date, "Entrez une date de naissance valide : ");
             
             Console.Clear();
             p.Sex = (SexeEnum)AfficherEnum<SexeEnum>("Etes vous un homme ou une femme");
@@ -461,6 +378,30 @@ namespace HospitalGestion
             db.AddPatient(p);
         }
 
+        static void AddConsultation()
+        {
+            Consultation c = new Consultation()
+            {
+                IdPatient = p.IdPatient
+            };
+            Console.Write("Date de la consultation : ");
+            string date = Console.ReadLine();
+            c.Date = DateVerif(date, "Entrez une date de consultation valide : ");
+
+            Console.Write("Type de consultation : ");
+            c.TypeConsult = Console.ReadLine();
+
+            Console.WriteLine("Synthese : ");
+            c.Synthese = Console.ReadLine();
+
+            Console.WriteLine("Prix de la consultation : ");
+            decimal prix = 0;
+            Decimal.TryParse(Console.ReadLine(), out prix);
+            c.Prix = prix;
+
+            db.AddConsultation(c);
+        }
+
         static Enum AfficherEnum<T>(string s)
         {
             ConsoleKeyInfo cki = new ConsoleKeyInfo();
@@ -516,6 +457,54 @@ namespace HospitalGestion
             } while (cki.Key != ConsoleKey.Enter);
 
             return e[position];
+        }
+
+        static DateTime DateVerif(string date, string error)
+        {
+            DateTime datetime = new DateTime();
+            do
+            {
+                int d = 0, m = 0, y = 0;
+                if (MyRegex.DateNaissanceMatch(date))
+                {
+                    int b = 0;
+                    string temp = "";
+                    for (int i = 0; i < date.Length; i++)
+                    {
+                        if (date[i].ToString() == "/")
+                        {
+                            b++;
+                            temp = "";
+                        }
+                        else
+                        {
+                            temp += date[i];
+                        }
+
+                        if (b == 0)
+                        {
+                            Int32.TryParse(temp, out d);
+                        }
+                        else if (b == 1)
+                        {
+                            Int32.TryParse(temp, out m);
+                        }
+                        else
+                        {
+                            Int32.TryParse(temp, out y);
+                        }
+                    }
+                    datetime = new DateTime(y, m, d);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine(error);
+                    date = Console.ReadLine();
+                }
+            } while (true);
+
+            return datetime;
         }
     }
 

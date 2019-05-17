@@ -396,6 +396,24 @@ namespace HospitalGestion.bdd
             return traitementsT.Result;
         }
 
-
+        public void AddConsultation(Consultation consultation)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO consultation (date, synthese, typeConsultation," +
+                    "prix, idPatient) VALUES (@d,@s,@tc,@p,@ip)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", consultation.Date));
+                command.Parameters.Add(new SqlParameter("@s", consultation.Synthese));
+                command.Parameters.Add(new SqlParameter("@tc", consultation.TypeConsult));
+                command.Parameters.Add(new SqlParameter("@p", consultation.Prix));
+                command.Parameters.Add(new SqlParameter("ip", consultation.IdPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
     }
 }
