@@ -324,9 +324,10 @@ namespace HospitalGestion.bdd
             {
                 List<Rendez_vous> rdvs = new List<Rendez_vous>();
 
-                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP WHERE date = @d", Connection.Instance);
+                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP AND date > GETDATE() " +
+                    "AND annule = @a ORDER BY date DESC", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@idP", idPatient));
-                command.Parameters.Add(new SqlParameter("@d", DateTime.Now));
+                command.Parameters.Add(new SqlParameter("@a", OuiNonEnum.non));
                 m.WaitOne();
                 Connection.Instance.Open();
 
@@ -351,7 +352,7 @@ namespace HospitalGestion.bdd
 
                 return rdvs;
             });
-
+            rendezsT.Wait();
             return rendezsT.Result;
             
         }
@@ -421,6 +422,22 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("@d", prescription.Date));
                 command.Parameters.Add(new SqlParameter("@ip", prescription.IdPatient));
                 command.Parameters.Add(new SqlParameter("@n", prescription.Note));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
+
+        public void AnnuleRendezVous(int id)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("UPDATE rdv SET annule=@a WHERE id=@i", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@a", OuiNonEnum.oui));
+                command.Parameters.Add(new SqlParameter("@i", id));
                 m.WaitOne();
                 Connection.Instance.Open();
                 command.ExecuteNonQuery();

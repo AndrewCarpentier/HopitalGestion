@@ -5,6 +5,7 @@ CREATE TABLE rdv(
 	date DATETIME,
 	idService INT,
 	idPatient INT NULL,
+	annule INT NULL DEFAULT 1, 
 );
 
 CREATE TABLE patient(
