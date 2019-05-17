@@ -488,5 +488,23 @@ namespace HospitalGestion.bdd
             return traitementT.Result;
         }
 
+        public void AddMedecin(Medecin medecin)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO medecin (nom, prenom, tel, specialite, serviceNom) VALUES (@n, @p, @t, @sp, @sn)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@n", medecin.Nom));
+                command.Parameters.Add(new SqlParameter("@p", medecin.Prenom));
+                command.Parameters.Add(new SqlParameter("t", medecin.Tel));
+                command.Parameters.Add(new SqlParameter("@sp", medecin.specialite));
+                command.Parameters.Add(new SqlParameter("@sn", medecin.nomService));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
     }
 }

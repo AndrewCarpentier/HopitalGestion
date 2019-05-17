@@ -39,5 +39,23 @@ namespace HospitalGestion.classes
         public int IdPatient { get => idPatient; set => idPatient = value; }
         public SexeEnum Sex { get => sex; set => sex = value; }
         public string NomPersonnePrevenir { get => nomPersonnePrevenir; set => nomPersonnePrevenir = value; }
+
+        public override string ToString()
+        {
+            string result = $"{Nom} {Prenom}";
+            result += $"Date de naissance : {DateNaissance}";
+            result += $"Adresse : {Adresse}";
+            result += $"Situation familliale : {Situation}";
+            result += $"Assurance Médicale : {AssuranceMedicale}";
+            result += $"Code Assurance : {CodeAssurance}";
+            result += $"Telephone : {Tel}";
+            result += $"Nom du père : {NomPere}";
+            result += $"Nom de la mère : {NomMère}";
+            result += $"Téléphone de la personne à prevenir : {TelPersAPrevenir}";
+            result += $"Nom de la personne à prevenir : {NomPersonnePrevenir}";
+            result += $"Sexe : {Sex}";
+            result += $"Id du patient : {IdPatient}";
+            return result;
+        }
     }
 }

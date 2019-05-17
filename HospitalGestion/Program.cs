@@ -87,6 +87,11 @@ namespace HospitalGestion
             secretaire.Add(ListeFacture);
             secretaire.Add(MenuPatient);
 
+            List<Action> administration = new List<Action>();
+            administration.Add(AddMedecin);
+            administration.Add(ListeFactureHopital);
+            administration.Add(ListePatient);
+
 
             Console.WriteLine("Entrer le code d'accés :");
             string codeAcces = Console.ReadLine();
@@ -97,38 +102,48 @@ namespace HospitalGestion
                     && !codeAcces.ToLower().Equals("secretaire")
                     && !codeAcces.ToLower().Equals("chirurgien")
                     && !codeAcces.ToLower().Equals("radiologue")
-                    && !codeAcces.ToLower().Equals("biologiste"))
+                    && !codeAcces.ToLower().Equals("biologiste")
+                    && !codeAcces.ToLower().Equals("administration"))
                 {
                     Console.WriteLine("Code d'accès érronée");
                     codeAcces = Console.ReadLine();
                 }
 
                 if (codeAcces == "generaliste")
-                    Menu(medecin, "- Prendre un rendez-vous :",
+                    Menu(medecin,
+                        "- Prendre un rendez-vous :",
                         "- Consultation :",
                         "- Afficher la liste des rendez-vous du patient :",
                         "- Afficher la liste des consultations du patient :",
                         "- Afficher la liste des hospitalisation :",
                         "- Quittez");
                 else if (codeAcces == "chirurgien" || codeAcces == "radiologue" || codeAcces == "biologiste")
-                    Menu(specialiste, "- Prendre un rendez-vous :",
+                    Menu(specialiste,
+                        "- Prendre un rendez-vous :",
                         "- Traitement :",
                         "- Afficher la liste des rendez-vous du patient :",
                         "- Afficher la liste des hospitalisation :",
                         "- Afficher la liste des traitements :",
                         "- Quittez");
                 else if (codeAcces == "secretaire")
-                    Menu(secretaire, "- Prendre un rendez-vous :",
+                    Menu(secretaire,
+                        "- Prendre un rendez-vous :",
                         "- Consultation sans rendez-vous :",
                         "- Afficher la liste des rendez-vous :",
                         "- Afficher la liste des factures :",
                         "- Quittez");
+                else if (codeAcces == "administration")
+                    Menu(administration,
+                        "Ajouter un medecin :",
+                        "Liste Facture :",
+                        "Liste Patient :");
 
-            } while (!codeAcces.ToLower().Equals("medecin")
+            } while (!(!codeAcces.ToLower().Equals("medecin")
                     && !codeAcces.ToLower().Equals("secretaire")
                     && !codeAcces.ToLower().Equals("chirurgien")
                     && !codeAcces.ToLower().Equals("radiologue")
-                    && !codeAcces.ToLower().Equals("biologiste"));
+                    && !codeAcces.ToLower().Equals("biologiste")
+                    && !codeAcces.ToLower().Equals("administration")));
         }
 
         static void Menu(List<Action> actions, params string[] affichage)
@@ -247,8 +262,10 @@ namespace HospitalGestion
             if (listRDV != null)
             {
                 foreach (Rendez_vous r in listRDV)
+                {
                     Console.WriteLine(r.ToString());
-                Console.WriteLine("\n-----------------------------------------\n");
+                    Console.WriteLine("\n-----------------------------------------\n");
+                }
             }
             else
                 Console.WriteLine("Aucun rendez-vous pour ce client");
@@ -261,8 +278,10 @@ namespace HospitalGestion
             if (listConsultation != null)
             {
                 foreach (Consultation c in listConsultation)
+                {
                     Console.WriteLine(c.ToString());
-                Console.WriteLine("\n-----------------------------------------\n");
+                    Console.WriteLine("\n-----------------------------------------\n");
+                }
             }
             else
                 Console.WriteLine("Aucune consultation pour ce client");
@@ -275,8 +294,10 @@ namespace HospitalGestion
             if (listHospitalisation != null)
             {
                 foreach (Hospitalisation h in listHospitalisation)
+                {
                     Console.WriteLine(h.ToString());
-                Console.WriteLine("\n-----------------------------------------\n");
+                    Console.WriteLine("\n-----------------------------------------\n");
+                }
             }
             else
                 Console.WriteLine("Aucune hospitalisation pour ce patient");
@@ -289,8 +310,10 @@ namespace HospitalGestion
             if (listTraitement != null)
             {
                 foreach (Traitement t in listTraitement)
+                {
                     Console.WriteLine(t.ToString());
-                Console.WriteLine("\n-----------------------------------------\n");
+                    Console.WriteLine("\n-----------------------------------------\n");
+                }
             }
             else
                 Console.WriteLine("Aucun traitement pour ce patient");
@@ -303,11 +326,41 @@ namespace HospitalGestion
             if (listFacture != null)
             {
                 foreach (Facture f in listFacture)
+                {
                     Console.WriteLine(f.ToString());
-                Console.WriteLine("\n-----------------------------------------\n");
+                    Console.WriteLine("\n-----------------------------------------\n");
+                }
             }
             else
                 Console.WriteLine("Aucune facture pour ce patient");
+        }
+        static void ListeFactureHopital()
+        {
+            List<Facture> listeFactureHopital = new List<Facture>();
+            listeFactureHopital = db.GetFactures();
+            if (listeFactureHopital != null)
+            {
+                foreach (Facture f in listeFactureHopital)
+                {
+                    Console.WriteLine(f.ToString());
+                    Console.WriteLine("\n-----------------------------------------\n");
+                }
+            }
+        }
+        static void ListePatient()
+        {
+            List<Patient> listePatient = new List<Patient>();
+            listePatient = db.GetPatients();
+            if(listePatient != null)
+            {
+                foreach(Patient p in listePatient)
+                {
+                    Console.WriteLine(p.ToString());
+                    Console.WriteLine("\n-----------------------------\n");
+                }
+            }
+            else
+                Console.WriteLine("Pas de patient dans cet hopital !");
         }
 
         static void AddPatient()
@@ -508,6 +561,7 @@ namespace HospitalGestion
                 };
                 Medecin medecin = db.GetMedecinByService(ServiceEnum.anesthesiste);
                 chirurgie.Id_chirurgie = medecin.Id;
+                db.AddChirurgie(chirurgie);
             }
             else if (m.nomService == ServiceEnum.biologie)
             {
@@ -637,9 +691,36 @@ namespace HospitalGestion
             return datetime;
         }
 
+        static void AddMedecin()
+        {
+            Medecin medecin = new Medecin();
+
+            Console.WriteLine("Nom du medecin :");
+            medecin.Nom = Console.ReadLine();
+            Console.WriteLine("Prenom du medecin : ");
+            medecin.Prenom = Console.ReadLine();
+            Console.WriteLine("Telephone du medecin : ");
+            string tel = Console.ReadLine();
+            do
+            {
+                if (MyRegex.PhoneMatch(tel))
+                {
+                    medecin.Tel = tel;
+                    break;
+                }
+                else
+                {
+                    Console.Write("Entrez un numéro de téléphone correct : ");
+                    tel = Console.ReadLine();
+                }
+            } while (true);
+            medecin.specialite = (SpecialiteEnum)AfficherEnum<SpecialiteEnum>("Aucune spécialité !");
+            medecin.nomService = (ServiceEnum)AfficherEnum<ServiceEnum>("Aucun Service");
+            db.AddMedecin(medecin);
+
+        }
 
 
-        
     }
 
 }
