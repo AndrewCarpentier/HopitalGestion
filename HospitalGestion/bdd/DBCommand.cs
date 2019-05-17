@@ -42,6 +42,33 @@ namespace HospitalGestion.bdd
             });
         }
 
+        public void AddHospitalisation(Hospitalisation hospitalisation)
+        {
+            Task hospitalisationT = Task.Run(() =>
+            {
+                command = new SqlCommand(
+                    "INSERT INTO hospitalisation (dateAdmission, typeAdmission, motifAdmission," +
+                    "idMedecin, nomAccompagnant, prenomAccompagnant, lientParente, dateEntreeAcc," +
+                    "idPatient) VALUES (@da, @ta, @ma, @im, @na, @pa, @lp, @dea, @ip)" , Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@da", hospitalisation.DateAdmission));
+                command.Parameters.Add(new SqlParameter("@ta", hospitalisation.TypeAdmission));
+                command.Parameters.Add(new SqlParameter("@ma", hospitalisation.MotifAdmission));
+                command.Parameters.Add(new SqlParameter("@im", hospitalisation.IdMedecin));
+                command.Parameters.Add(new SqlParameter("@na", hospitalisation.NomAccompagnant));
+                command.Parameters.Add(new SqlParameter("@pa", hospitalisation.PreNomAccompagnant));
+                command.Parameters.Add(new SqlParameter("@lp", hospitalisation.LienParente));
+                command.Parameters.Add(new SqlParameter("@dea", hospitalisation.DateEntreeAcc));
+                command.Parameters.Add(new SqlParameter("@ip", hospitalisation.IdPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+            hospitalisationT.Wait();
+        }
+
         public void AddPatient(Patient patient)
         {
             Task.Run(() =>
@@ -215,7 +242,7 @@ namespace HospitalGestion.bdd
             Task<Patient> patient = Task<Patient>.Factory.StartNew(() =>
             {
                 Patient p = null;
-                command = new SqlCommand("SELECT * FROM patient WHERE nom = @nom, prenom = @prenom", Connection.Instance);
+                command = new SqlCommand("SELECT * FROM patient WHERE nom=@nom AND prenom=@prenom", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@nom", name));
                 command.Parameters.Add(new SqlParameter("@prenom", surname));
                 m.WaitOne();
@@ -250,7 +277,7 @@ namespace HospitalGestion.bdd
 
                 return p;
             });
-
+            patient.Wait();
             return patient.Result;
         }
 
@@ -297,8 +324,9 @@ namespace HospitalGestion.bdd
             {
                 List<Rendez_vous> rdvs = new List<Rendez_vous>();
 
-                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP", Connection.Instance);
+                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP WHERE date = @d", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@idP", idPatient));
+                command.Parameters.Add(new SqlParameter("@d", DateTime.Now));
                 m.WaitOne();
                 Connection.Instance.Open();
 
@@ -364,6 +392,42 @@ namespace HospitalGestion.bdd
             return traitementsT.Result;
         }
 
+        public void AddConsultation(Consultation consultation)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO consultation (date, synthese, typeConsultation," +
+                    "prix, idPatient) VALUES (@d,@s,@tc,@p,@ip)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", consultation.Date));
+                command.Parameters.Add(new SqlParameter("@s", consultation.Synthese));
+                command.Parameters.Add(new SqlParameter("@tc", consultation.TypeConsult));
+                command.Parameters.Add(new SqlParameter("@p", consultation.Prix));
+                command.Parameters.Add(new SqlParameter("ip", consultation.IdPatient));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
 
+        public void AddPrescription(Prescription prescription)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO prescription (date, idPatient, note) VALUES " +
+                    "(@d,@ip,@n)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", prescription.Date));
+                command.Parameters.Add(new SqlParameter("@ip", prescription.IdPatient));
+                command.Parameters.Add(new SqlParameter("@n", prescription.Note));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
     }
 }

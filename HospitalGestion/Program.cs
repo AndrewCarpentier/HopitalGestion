@@ -14,15 +14,17 @@ namespace HospitalGestion
     {
         private static DBCommand db = new DBCommand();
         private static Patient p = new Patient();
+        private static Random rdm = new Random();
+
         static void Main(string[] args)
         {
-            Console.BackgroundColor = ConsoleColor.DarkCyan;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.Clear();
-            Console.WriteLine("Quel est le nom de l'hopital ?");
-            string nameHospital = Console.ReadLine();
-            Hopital h = new Hopital();
-            bool success;
+            //Console.BackgroundColor = ConsoleColor.DarkCyan;
+            //Console.ForegroundColor = ConsoleColor.Black;
+            //Console.Clear();
+            //Console.WriteLine("Quel est le nom de l'hopital ?");
+            //string nameHospital = Console.ReadLine();
+            //Hopital h = new Hopital();
+            //bool success;
             ////if (gethospital(namehospital) != undifined)
             //    h = gethospital(namehospital);
             //else
@@ -56,10 +58,13 @@ namespace HospitalGestion
             {
                 AddPatient();
             }
+
             MenuMedecinSecretaire();
         }
         static void MenuMedecinSecretaire()
         {
+            AddConsultation();
+
             List<Action> medecin = new List<Action>();
             medecin.Add(PrendreRDV);
             medecin.Add(ListeRDV);
@@ -171,132 +176,41 @@ namespace HospitalGestion
         static void PrendreRDV()
         {
             Rendez_vous rdv = new Rendez_vous();
-            rdv.IdPatient = 1;//patient.IdPatient;
-            ConsoleKeyInfo cki = new ConsoleKeyInfo();
-            int position = 1;
-            int nbMax = 6;
-            Console.Clear();
-            Console.WriteLine("Nom du service");
-            Console.WriteLine(">chirurgie");
-            Console.WriteLine(" radiologie");
-            Console.WriteLine(" biologie");
-            Console.WriteLine(" generaliste");
+            rdv.IdPatient = p.IdPatient;
 
-            do
-            {
-                while (Console.KeyAvailable)
-                {
-                    cki = Console.ReadKey(true);
-                    Console.Clear();
-                    switch (cki.Key)
-                    {
-                        case ConsoleKey.DownArrow:
-                            if (position != nbMax)
-                            {
-                                position++;
-                            }
-                            break;
-                        case ConsoleKey.UpArrow:
-                            if (position != 0)
-                            {
-                                position--;
-                            }
-                            break;
-                    }
-
-                    if (position == 1)
-                    {
-                        Console.WriteLine("Nom du service");
-                        Console.WriteLine(">chirurgie");
-                        Console.WriteLine(" radiologie");
-                        Console.WriteLine(" biologie");
-                        Console.WriteLine(" generaliste");
-                    }
-                    else if (position == 2)
-                    {
-                        Console.WriteLine("Nom du service");
-                        Console.WriteLine(" chirurgie");
-                        Console.WriteLine(">radiologie");
-                        Console.WriteLine(" biologie");
-                        Console.WriteLine(" generaliste");
-                    }
-                    else if (position == 3)
-                    {
-                        Console.WriteLine("Nom du service");
-                        Console.WriteLine(" chirurgie");
-                        Console.WriteLine(" radiologie");
-                        Console.WriteLine(">biologie");
-                        Console.WriteLine(" generaliste");
-                    }
-                    else if (position == 4)
-                    {
-                        Console.WriteLine("Nom du service");
-                        Console.WriteLine(" chirurgie");
-                        Console.WriteLine(" radiologie");
-                        Console.WriteLine(" biologie");
-                        Console.WriteLine(">generaliste");
-                    }
-                }
-            } while (cki.Key != ConsoleKey.Enter);
-
-
-            if (position == 1)
-                rdv.Service = ServiceEnum.chirurgie;
-            else if (position == 2)
-                rdv.Service = ServiceEnum.radiologie;
-            else if (position == 3)
-                rdv.Service = ServiceEnum.biologie;
-            else if (position == 4)
-                rdv.Service = ServiceEnum.generaliste;
+            rdv.Service = (ServiceEnum)AfficherEnum<ServiceEnum>("Nom du service");
 
             rdv.IdMedecin = db.GetMedecinByService(rdv.Service).Id;
 
             Console.Write("Pour quel date voulez-vous réservée : ");
             string date = Console.ReadLine();
-            string temp = "";
-            do
-            {
-                int d = 0, m = 0, y = 0;
-                if (MyRegex.DateNaissanceMatch(date))
-                {
-                    int b = 0;
-                    temp = "";
-                    for (int i = 0; i < date.Length; i++)
-                    {
-                        if (date[i].ToString() == "/")
-                        {
-                            b++;
-                            temp = "";
-                        }
-                        else
-                        {
-                            temp += date[i];
-                        }
-
-                        if (b == 0)
-                        {
-                            Int32.TryParse(temp, out d);
-                        }
-                        else if (b == 1)
-                        {
-                            Int32.TryParse(temp, out m);
-                        }
-                        else
-                        {
-                            Int32.TryParse(temp, out y);
-                        }
-                    }
-                    rdv.Date_RDV = new DateTime(y, m, d);
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Entrez une date de naissance valide : ");
-                    date = Console.ReadLine();
-                }
-            } while (true);
+            rdv.Date_RDV = DateVerif(date, "Entrez une date de réservation valide :");
 
             db.AddRdv(rdv);
+
+            if(rdv.Service != ServiceEnum.generaliste)
+            {
+                Hospitalisation h = new Hospitalisation();
+                h.DateAdmission = rdv.Date_RDV;
+                h.DateEntreeAcc = rdv.Date_RDV;
+                h.IdPatient = p.IdPatient;
+
+                Console.Write("Type d'admission : ");
+                h.TypeAdmission = Console.ReadLine();
+
+                Console.Write("Motif d'admission : ");
+                h.MotifAdmission = Console.ReadLine();
+
+                Console.Write("Nom de l'accompagnant : ");
+                h.NomAccompagnant = Console.ReadLine();
+
+                Console.Write("Prenom de l'accompagnant : ");
+                h.PreNomAccompagnant = Console.ReadLine();
+
+                h.LienParente = (LienParenteEnum)AfficherEnum<LienParenteEnum>("Lien parenté de l'accompagnant");
+
+                db.AddHospitalisation(h);
+            }
         }
 
         static void SansRDV()
@@ -391,8 +305,11 @@ namespace HospitalGestion
                     nomB = false;
                     temp = "";
                 }
+                else
+                {
+                    temp += nomPrenom[i];
+                }
 
-                temp += nomPrenom[i];
 
                 if (nomB)
                 {
@@ -406,202 +323,15 @@ namespace HospitalGestion
             Console.Clear();
             Console.Write("Quel est votre date de naissance ? : ");
             string date = Console.ReadLine();
-            do
-            {
-                int d = 0, m = 0, y = 0;
-                if (MyRegex.DateNaissanceMatch(date))
-                {
-                    int b = 0;
-                    temp = "";
-                    for (int i = 0; i < date.Length; i++)
-                    {
-                        if (date[i].ToString() == "/")
-                        {
-                            b++;
-                            temp = "";
-                        }
-                        else
-                        {
-                            temp += date[i];
-                        }
-
-                        if (b == 0)
-                        {
-                            Int32.TryParse(temp, out d);
-                        }
-                        else if(b == 1)
-                        {
-                            Int32.TryParse(temp, out m);
-                        }
-                        else
-                        {
-                            Int32.TryParse(temp, out y);
-                        }
-                    }
-                    p.DateNaissance = new DateTime(y,m,d);
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Entrez une date de naissance valide : ");
-                    date = Console.ReadLine();
-                }
-            } while (true);
-
-            ConsoleKeyInfo cki = new ConsoleKeyInfo();
-            int position = 0;
-            int nbMax = 2;
+            p.DateNaissance = DateVerif(date, "Entrez une date de naissance valide : ");
+            
             Console.Clear();
-            Console.WriteLine("Etes vous un homme ou une femme");
-            Console.WriteLine(">Homme");
-            Console.WriteLine(" Femme");
-
-            do
-            {
-                while (Console.KeyAvailable)
-                {
-                    cki = Console.ReadKey(true);
-                    Console.Clear();
-                    switch (cki.Key)
-                    {
-                        case ConsoleKey.DownArrow:
-                            if (position != nbMax)
-                            {
-                                Console.WriteLine("Etes vous un homme ou une femme");
-                                Console.WriteLine(" Homme");
-                                Console.WriteLine(">Femme");
-                                position++;
-                            }
-                            break;
-                        case ConsoleKey.UpArrow:
-                            if (position != 0)
-                            {
-                                Console.WriteLine("Etes vous un homme ou une femme");
-                                Console.WriteLine(">Homme");
-                                Console.WriteLine(" Femme");
-                                position--;
-                            }
-                            break;
-                    }
-                }
-            } while (cki.Key != ConsoleKey.Enter);
-
-            p.Sex = (SexeEnum)position;
+            p.Sex = (SexeEnum)AfficherEnum<SexeEnum>("Etes vous un homme ou une femme");
 
             Console.WriteLine("Quel est votre adresse ? : ");
             p.Adresse = Console.ReadLine();
 
-            cki = new ConsoleKeyInfo();
-            position = 1;
-            nbMax = 6;
-            Console.Clear();
-            Console.WriteLine("Quel est votre situation familliale ? : ");
-            Console.WriteLine(">Marié");
-            Console.WriteLine(" Pacsé");
-            Console.WriteLine(" Divorcé");
-            Console.WriteLine(" Séparé");
-            Console.WriteLine(" Célibataire");
-            Console.WriteLine(" Veuf");
-
-            do
-            {
-                while (Console.KeyAvailable)
-                {
-                    cki = Console.ReadKey(true);
-                    Console.Clear();
-                    switch (cki.Key)
-                    {
-                        case ConsoleKey.DownArrow:
-                            if (position != nbMax)
-                            {
-                                
-                                position++;
-                            }
-                            break;
-                        case ConsoleKey.UpArrow:
-                            if (position != 0)
-                            {
-                                position--;
-                            }
-                            break;
-                    }
-
-                    if(position == 1)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(">Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if(position == 2)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(">Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if (position == 3)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(">Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if (position == 4)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(">Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if (position == 5)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(">Célibataire");
-                        Console.WriteLine(" Veuf");
-                    }
-                    else if (position == 6)
-                    {
-                        Console.WriteLine("Quel est votre situation familliale ? : ");
-                        Console.WriteLine(" Marié");
-                        Console.WriteLine(" Pacsé");
-                        Console.WriteLine(" Divorcé");
-                        Console.WriteLine(" Séparé");
-                        Console.WriteLine(" Célibataire");
-                        Console.WriteLine(">Veuf");
-                    }
-
-                }
-            } while (cki.Key != ConsoleKey.Enter);
-
-            if (position == 1)
-                p.Situation = SituationFamillialeEnum.marié;
-            else if (position == 2)
-                p.Situation = SituationFamillialeEnum.pacsé;
-            else if (position == 3)
-                p.Situation = SituationFamillialeEnum.divorcé;
-            else if (position == 4)
-                p.Situation = SituationFamillialeEnum.séparé;
-            else if (position == 5)
-                p.Situation = SituationFamillialeEnum.célibataire;
-            else if (position == 6)
-                p.Situation = SituationFamillialeEnum.veuf;
+            p.Situation = (SituationFamillialeEnum)AfficherEnum<SituationFamillialeEnum>("Quel est votre situation familliale ? : ");
 
             Console.Write("Votre assurance médical ? : ");
             p.AssuranceMedicale = Console.ReadLine();
@@ -652,5 +382,151 @@ namespace HospitalGestion
 
             db.AddPatient(p);
         }
+
+        static void AddConsultation()
+        {
+            Consultation c = new Consultation()
+            {
+                IdPatient = p.IdPatient
+            };
+            Console.Write("Date de la consultation : ");
+            string date = Console.ReadLine();
+            c.Date = DateVerif(date, "Entrez une date de consultation valide : ");
+
+            Console.Write("Type de consultation : ");
+            c.TypeConsult = Console.ReadLine();
+
+            Console.WriteLine("Synthese : ");
+            c.Synthese = Console.ReadLine();
+
+            Console.WriteLine("Prix de la consultation : ");
+            decimal prix = 0;
+            Decimal.TryParse(Console.ReadLine(), out prix);
+            c.Prix = prix;
+
+            db.AddConsultation(c);
+
+            AddPrescription(c.Date);
+        }
+
+        static void AddPrescription(DateTime date)
+        {
+            Prescription pr = new Prescription()
+            {
+                IdPatient = p.IdPatient,
+                Date = date
+            };
+
+            Console.WriteLine("Note de la prescription : ");
+            pr.Note = Console.ReadLine();
+
+            db.AddPrescription(pr);
+        }
+
+        static Enum AfficherEnum<T>(string s)
+        {
+            ConsoleKeyInfo cki = new ConsoleKeyInfo();
+            int i = 0, position = 0, nbMax;
+            List<Enum> e = new List<Enum>();
+            if (!typeof(T).IsEnum)
+                throw new Exception("Entrez une enum");
+
+            Console.WriteLine(s);
+            foreach (Enum v in Enum.GetValues(typeof(T)))
+            {
+                if (i == 0)
+                    Console.Write(">");
+                else
+                    Console.Write(" ");
+                Console.WriteLine(v);
+                e.Add(v);
+                i++;
+            }
+            nbMax = i - 1;
+            do
+            {
+                while (Console.KeyAvailable)
+                {
+                    cki = Console.ReadKey(true);
+
+                    switch (cki.Key)
+                    {
+                        case ConsoleKey.DownArrow:
+                            if (position != nbMax)
+                                position++;
+                            break;
+                        case ConsoleKey.UpArrow:
+                            if (position != 0)
+                                position--;
+                            break;
+                    }
+
+                    Console.Clear();
+                    i = 0;
+                    Console.WriteLine(s);
+                    foreach (Enum v in Enum.GetValues(typeof(T)))
+                    {
+                        if (i == position)
+                            Console.Write(">");
+                        else
+                            Console.Write(" ");
+                        Console.WriteLine(v);
+                        i++;
+                    }
+                }
+
+            } while (cki.Key != ConsoleKey.Enter);
+
+            return e[position];
+        }
+
+        static DateTime DateVerif(string date, string error)
+        {
+            DateTime datetime = new DateTime();
+            do
+            {
+                int d = 0, m = 0, y = 0;
+                if (MyRegex.DateNaissanceMatch(date))
+                {
+                    int b = 0;
+                    string temp = "";
+                    for (int i = 0; i < date.Length; i++)
+                    {
+                        if (date[i].ToString() == "/")
+                        {
+                            b++;
+                            temp = "";
+                        }
+                        else
+                        {
+                            temp += date[i];
+                        }
+
+                        if (b == 0)
+                        {
+                            Int32.TryParse(temp, out d);
+                        }
+                        else if (b == 1)
+                        {
+                            Int32.TryParse(temp, out m);
+                        }
+                        else
+                        {
+                            Int32.TryParse(temp, out y);
+                        }
+                    }
+                    datetime = new DateTime(y, m, d);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine(error);
+                    date = Console.ReadLine();
+                }
+            } while (true);
+
+            return datetime;
+        }
     }
+
 }

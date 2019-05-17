@@ -1,0 +1,7 @@
+C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\bin\Release\HospitalGestion.exe.config
+C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\bin\Release\HospitalGestion.exe
+C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\bin\Release\HospitalGestion.pdb
+C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\obj\Release\HospitalGestion.csprojAssemblyReference.cache
+C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\obj\Release\HospitalGestion.csproj.CoreCompileInputs.cache
+C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\obj\Release\HospitalGestion.exe
+C:\Users\Administrateur\Desktop\HospitalGestion\HospitalGestion\obj\Release\HospitalGestion.pdb
