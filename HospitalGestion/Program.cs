@@ -63,7 +63,7 @@ namespace HospitalGestion
         }
         static void MenuMedecinSecretaire()
         {
-            AddConsultation();
+            AnnuleRendezVous();
 
             List<Action> medecin = new List<Action>();
             medecin.Add(PrendreRDV);
@@ -416,6 +416,28 @@ namespace HospitalGestion
             pr.Note = Console.ReadLine();
 
             db.AddPrescription(pr);
+        }
+
+        static void AnnuleRendezVous()
+        {
+            List<Rendez_vous> rdvs = db.GetRendez_VoussByIdPatient(p.IdPatient);
+            if (rdvs.Count > 0)
+            {
+                int i = 1;
+                foreach (var v in rdvs)
+                {
+                    Console.WriteLine($"{i}-{v.Date_RDV}");
+                    i++;
+                }
+                int position = 0;
+                Int32.TryParse(Console.ReadLine(), out position);
+
+                if(position != 0)
+                    db.AnnuleRendezVous(rdvs[position - 1].Id);
+            }
+            else
+                Console.WriteLine("Aucune réservation");
+            
         }
 
         static Enum AfficherEnum<T>(string s)

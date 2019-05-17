@@ -15,6 +15,7 @@ namespace HospitalGestion.classes
         private DateTime date_RDV;
         private ServiceEnum service;
         private int idPatient;
+        private OuiNonEnum annule;
 
         public int CodeRDV { get => codeRDV; set => codeRDV = value; }
         public int IdMedecin { get => idMedecin; set => idMedecin = value; }
@@ -22,6 +23,7 @@ namespace HospitalGestion.classes
         public ServiceEnum Service { get => service; set => service = value; }
         public int Id { get => id; set => id = value; }
         public int IdPatient { get => idPatient; set => idPatient = value; }
+        public OuiNonEnum Annule { get => annule; set => annule = value; }
 
         public Rendez_vous()
         {
