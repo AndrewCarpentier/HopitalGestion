@@ -446,5 +446,22 @@ namespace HospitalGestion.bdd
                 m.ReleaseMutex();
             });
         }
+
+        public void AddChirurgie(Chirurgie chirurgie)
+        {
+            Task.Run(() =>
+            {
+                command = new SqlCommand("INSERT INTO chirurgie (idChirurgien, idAnesthesiste, idTraitement) VALUES (@c, @a, @t)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@c", chirurgie.Id_chirurgie));
+                command.Parameters.Add(new SqlParameter("@a", chirurgie.Chirurgien));
+                command.Parameters.Add(new SqlParameter("@t", chirurgie.Anesthesiste));
+                m.WaitOne();
+                Connection.Instance.Open();
+                command.ExecuteNonQuery();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+            });
+        }
     }
 }
