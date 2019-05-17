@@ -464,6 +464,62 @@ namespace HospitalGestion
 
         }
 
+        static void AddTraitement(int idMedecin)
+        {
+
+            int idTraitement = 0;
+            if (m.nomService == ServiceEnum.biologie || m.nomService == ServiceEnum.radiologie || m.nomService == ServiceEnum.chirurgie)
+            {
+                Traitement traitement = new Traitement()
+                {
+                    IdMedecin = idMedecin
+                };
+
+                Console.Write("Date du traitement : ");
+                string date = Console.ReadLine();
+                traitement.Date_traitement = DateVerif(date, "Entrez une date de traitement valide :");
+
+                Console.WriteLine("Prix du traitement : ");
+                decimal price = 0;
+                Decimal.TryParse(Console.ReadLine(), out price);
+                traitement.Prix_traitement = price;
+
+                idTraitement = db.AjouterTraitement(traitement);
+            }
+            else
+            {
+                throw new Exception("Un imposteur ce fait passer pour un médecin");
+            }
+
+            if (m.nomService == ServiceEnum.chirurgie)
+            {
+                Chirurgie chirurgie = new Chirurgie()
+                {
+                    IdMedecin = m.Id,
+                    Id_traitement = idTraitement
+                };
+            }
+            else if (m.nomService == ServiceEnum.biologie)
+            {
+                Examens_Biologiques biologiques = new Examens_Biologiques()
+                {
+                    Id_traitement = idTraitement,
+                    IdMedecin = m.Id
+                };
+                
+
+            }
+            else if (m.nomService == ServiceEnum.radiologie)
+            {
+                Examens_Radiologiques radiologiques = new Examens_Radiologiques()
+                {
+                    Id_traitement = idTraitement,
+                    IdMedecin = m.Id
+                };
+            }
+
+        }
+
         static Enum AfficherEnum<T>(string s)
         {
             ConsoleKeyInfo cki = new ConsoleKeyInfo();

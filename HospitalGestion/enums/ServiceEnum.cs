@@ -11,6 +11,7 @@ namespace HospitalGestion.enums
         chirurgie,
         radiologie,
         biologie,
-        generaliste
+        generaliste,
+        anesthesiste
     }
 }

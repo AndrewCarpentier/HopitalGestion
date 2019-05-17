@@ -463,5 +463,29 @@ namespace HospitalGestion.bdd
                 m.ReleaseMutex();
             });
         }
+
+        public int AjouterTraitement(Traitement traitement)
+        {
+            Task<int> traitementT = Task<int>.Run(() =>
+            {
+                command = new SqlCommand(
+                    "INSERT INTO traitement (date, prix, idPatient, idMedecin) " +
+                    "OUTPUT INSERTED.ID VALUES (@d,@p,@ip,@im)", Connection.Instance);
+                command.Parameters.Add(new SqlParameter("@d", traitement.Date_traitement));
+                command.Parameters.Add(new SqlParameter("@p", traitement.Prix_traitement));
+                command.Parameters.Add(new SqlParameter("@ip", traitement.IdPatient));
+                command.Parameters.Add(new SqlParameter("@im", traitement.IdMedecin));
+                m.WaitOne();
+                Connection.Instance.Open();
+                int id = (int)command.ExecuteScalar();
+                command.Dispose();
+                Connection.Instance.Close();
+                m.ReleaseMutex();
+
+                return id;
+            });
+            traitementT.Wait();
+            return traitementT.Result;
+        }
     }
 }
