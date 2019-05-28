@@ -21,7 +21,6 @@ namespace HospitalGestion.bdd
                 {
                     if (_instance == null)
                         _instance = new SqlConnection(@"Data Source=(localDb)\hopital;Integrated Security=True");
-
                     return _instance;
                 }
             }
