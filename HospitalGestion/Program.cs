@@ -47,18 +47,19 @@ namespace HospitalGestion
                 h.Init(nChambres);
                 Console.WriteLine($"\n\n\t\t\t Hopital {name} créé avec succès");
             }
-            MenuPatient();            
+            MenuPatient();
         }
         static void MenuPatient()
         {
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
-            Console.WriteLine("---------- Bienvenue dans la gestion de l'hopital ------------");
+            Console.WriteLine("---------- Bienvenue dans la gestion de l'hopital ------------\n");
             Console.WriteLine("-------------- Quel est le nom du client ? -------------------");
             string nompatient = Console.ReadLine();
             Console.WriteLine("-------------- Quel est le prenom du client ? ----------------");
             string prenompatient = Console.ReadLine();
+
             if (db.GetPatientByName(nompatient, prenompatient) != null)
                 p = db.GetPatientByName(nompatient, prenompatient);
             else
@@ -352,9 +353,9 @@ namespace HospitalGestion
         {
             List<Patient> listePatient = new List<Patient>();
             listePatient = db.GetPatients();
-            if(listePatient != null)
+            if (listePatient != null)
             {
-                foreach(Patient p in listePatient)
+                foreach (Patient p in listePatient)
                 {
                     Console.WriteLine(p.ToString());
                     Console.WriteLine("\n-----------------------------\n");
