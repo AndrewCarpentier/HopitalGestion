@@ -152,9 +152,10 @@ namespace HospitalGestion.bdd
             return b;
         }
 
-        public void AddRdv(Rendez_vous rdv)
+        public bool AddRdv(Rendez_vous rdv)
         {
-            Task.Run(() =>
+            bool result = false;
+            Task rdvT = Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO rdv (code, idMedecin, date, service, " +
                     "idPatient) VALUES (@c,@im,@d,@s,@ip)", Connection.Instance);
@@ -165,11 +166,15 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("@ip", rdv.IdPatient));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    result = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            rdvT.Wait();
+            return result;
         }
 
         public List<Consultation> GetConsultationsByIdPatient(int idPatient)
@@ -215,7 +220,7 @@ namespace HospitalGestion.bdd
             {
                 List<Facture> fs = new List<Facture>();
 
-                command = new SqlCommand("SELECT * FROM hospitalisation WHERE idPatient = @idP", Connection.Instance);
+                command = new SqlCommand("SELECT * FROM facture WHERE idPatient = @idP", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@idP", idPatient));
                 m.WaitOne();
                 Connection.Instance.Open();
@@ -240,7 +245,7 @@ namespace HospitalGestion.bdd
 
                 return fs;
             });
-
+            facturesT.Wait();
             return facturesT.Result;
         }
 
@@ -258,7 +263,7 @@ namespace HospitalGestion.bdd
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    hs.Add(new Hospitalisation()
+                    Hospitalisation h = new Hospitalisation()
                     {
                         IdHopitalisation = reader.GetInt32(0),
                         DateAdmission = reader.GetDateTime(1),
@@ -269,14 +274,21 @@ namespace HospitalGestion.bdd
                         PreNomAccompagnant = reader.GetString(6),
                         LienParente = (LienParenteEnum)reader.GetInt32(7),
                         DateEntreeAcc = reader.GetDateTime(8),
-                        DateSortieAcc = reader.GetDateTime(9),
-                        MotifSortie = reader.GetString(10),
-                        ResultatSortie = reader.GetString(11),
-                        DateDeces = reader.GetDateTime(12),
-                        MotifDeces = reader.GetString(13),
                         IdPatient = reader.GetInt32(14),
-                        DateSortie = reader.GetDateTime(15)
-                    });
+                    };
+                    if (!reader.IsDBNull(9))
+                        h.DateSortieAcc = reader.GetDateTime(9);
+                    if (!reader.IsDBNull(10))
+                        h.MotifSortie = reader.GetString(10);
+                    if (!reader.IsDBNull(11))
+                        h.ResultatSortie = reader.GetString(11);
+                    if (!reader.IsDBNull(12))
+                        h.DateDeces = reader.GetDateTime(12);
+                    if (!reader.IsDBNull(13))
+                        h.MotifDeces = reader.GetString(13);
+                    if (!reader.IsDBNull(15))
+                        h.DateSortie = reader.GetDateTime(15);
+                    hs.Add(h);
                 }
 
                 reader.Close();
@@ -286,52 +298,56 @@ namespace HospitalGestion.bdd
 
                 return hs;
             });
-
+            hospitalisationsT.Wait();
             return hospitalisationsT.Result;
         }
 
         public Patient GetPatientByName(string name, string surname)
         {
-            Task<Patient> patient = Task<Patient>.Factory.StartNew(() =>
+            if (name != null && surname != null)
             {
-                Patient p = null;
-                command = new SqlCommand("SELECT * FROM patient WHERE nom=@nom AND prenom=@prenom", Connection.Instance);
-                command.Parameters.Add(new SqlParameter("@nom", name));
-                command.Parameters.Add(new SqlParameter("@prenom", surname));
-                m.WaitOne();
-                Connection.Instance.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                Task<Patient> patient = Task<Patient>.Factory.StartNew(() =>
                 {
-                    p = new Patient()
+                    Patient p = null;
+                    command = new SqlCommand("SELECT * FROM patient WHERE nom=@nom AND prenom=@prenom", Connection.Instance);
+                    command.Parameters.Add(new SqlParameter("@nom", name));
+                    command.Parameters.Add(new SqlParameter("@prenom", surname));
+                    m.WaitOne();
+                    Connection.Instance.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        IdPatient = reader.GetInt32(0),
-                        Nom = name,
-                        Prenom = surname,
-                        DateNaissance = reader.GetDateTime(3),
-                        Sex = (SexeEnum)reader.GetInt32(4),
-                        Adresse = reader.GetString(5),
-                        Situation = (SituationFamillialeEnum)reader.GetInt32(6),
-                        AssuranceMedicale = reader.GetString(7),
-                        CodeAssurance = reader.GetString(8),
-                        Tel = reader.GetString(9),
-                        NomPere = reader.GetString(10),
-                        NomMère = reader.GetString(11),
-                        NomPersonnePrevenir = reader.GetString(12),
-                        TelPersAPrevenir = reader.GetString(13)
+                        p = new Patient()
+                        {
+                            IdPatient = reader.GetInt32(0),
+                            Nom = name,
+                            Prenom = surname,
+                            DateNaissance = reader.GetDateTime(3),
+                            Sex = (SexeEnum)reader.GetInt32(4),
+                            Adresse = reader.GetString(5),
+                            Situation = (SituationFamillialeEnum)reader.GetInt32(6),
+                            AssuranceMedicale = reader.GetString(7),
+                            CodeAssurance = reader.GetString(8),
+                            Tel = reader.GetString(9),
+                            NomPere = reader.GetString(10),
+                            NomMère = reader.GetString(11),
+                            NomPersonnePrevenir = reader.GetString(12),
+                            TelPersAPrevenir = reader.GetString(13)
+                        };
+                    }
+                    reader.Close();
+                    command.Dispose();
+                    Connection.Instance.Close();
+                    m.ReleaseMutex();
 
-                    };
-                }
-                reader.Close();
-                command.Dispose();
-                Connection.Instance.Close();
-                m.ReleaseMutex();
-
-                return p;
-            });
-            patient.Wait();
-            return patient.Result;
+                    return p;
+                });
+                patient.Wait();
+                return patient.Result;
+            }
+            else
+                return null;
         }
 
         public Medecin GetMedecinByService(ServiceEnum service)
@@ -471,9 +487,10 @@ namespace HospitalGestion.bdd
             return b;
         }
 
-        public void AddPrescription(Prescription prescription)
+        public bool AddPrescription(Prescription prescription)
         {
-            Task.Run(() =>
+            bool result = false;
+            Task prescriptionT = Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO prescription (date, idPatient, note) VALUES " +
                     "(@d,@ip,@n)", Connection.Instance);
@@ -482,27 +499,36 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("@n", prescription.Note));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    result = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            prescriptionT.Wait();
+            return result;
         }
 
-        public void AnnuleRendezVous(int id)
+        public bool AnnuleRendezVous(int id)
         {
-            Task.Run(() =>
+            bool result = false;
+            Task annuleRdvT = Task.Run(() =>
             {
                 command = new SqlCommand("UPDATE rdv SET annule=@a WHERE id=@i", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@a", OuiNonEnum.oui));
                 command.Parameters.Add(new SqlParameter("@i", id));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    result = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            annuleRdvT.Wait();
+            return result;
         }
 
         public bool AddChirurgie(Chirurgie chirurgie)
@@ -551,9 +577,10 @@ namespace HospitalGestion.bdd
             return traitementT.Result;
         }
 
-        public void AddMedecin(Medecin medecin)
+        public bool AddMedecin(Medecin medecin)
         {
-            Task.Run(() =>
+            bool result = false;
+            Task medecinT = Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO medecin (nom, prenom, tel, specialite, serviceNom) VALUES (@n, @p, @t, @sp, @sn)", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@n", medecin.Nom));
@@ -563,15 +590,20 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("@sn", medecin.nomService));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    result = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            medecinT.Wait();
+            return result;
         }
-        public void AddBiologie(Examens_Biologiques biologiques)
+        public bool AddBiologie(Examens_Biologiques biologiques)
         {
-            Task.Run(() =>
+            bool result = false;
+            Task bioT = Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO examenBiologique (designation, resultat, idTraitement," +
                     "idMedecin) VALUES (@d, @r, @it, @im)", Connection.Instance);
@@ -581,16 +613,21 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("@im", biologiques.IdMedecin));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    result = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            bioT.Wait();
+            return result;
         }
 
-        public void AddRadiologue(Examens_Radiologiques radiologiques)
+        public bool AddRadiologue(Examens_Radiologiques radiologiques)
         {
-            Task.Run(() =>
+            bool result = false;
+            Task radioT = Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO examenRadiologique (designation, resultat," +
                     "idTraitement, idMedecin) VALUES (@d, @r, @it, @im)", Connection.Instance);
@@ -600,11 +637,15 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("@im", radiologiques.IdMedecin));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    result = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            radioT.Wait();
+            return result;
         }
 
         public List<Patient> GetPatients()
