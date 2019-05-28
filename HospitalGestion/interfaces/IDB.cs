@@ -18,18 +18,18 @@ namespace HospitalGestion.interfaces
         List<Hospitalisation> GetHospitalisationsByIdPatient(int idPatient);
         List<Traitement> GetTraitementsByIdPatient(int idPatient);
         List<Facture> GetFacturesByIdPatient(int idPatient);
-        void AddConsultation(Consultation consultation);
+        bool AddConsultation(Consultation consultation);
         void AddPrescription(Prescription prescription);
         void AnnuleRendezVous(int id);
         int AjouterTraitement(Traitement traitement);
         Patient GetPatientByName(string name, string surname);
-        void AddPatient(Patient patient);
+        bool AddPatient(Patient patient);
         Medecin GetMedecinByService(ServiceEnum service);
         void AddRdv(Rendez_vous rdv);
         void AddHospitalisation(Hospitalisation hospitalisation);
         void AddBiologie(Examens_Biologiques biologiques);
         void AddRadiologue(Examens_Radiologiques radiologiques);
-        void AddChirurgie(Chirurgie chirurgie);
+        bool AddChirurgie(Chirurgie chirurgie);
         List<Patient> GetPatients();
 
         List<Facture> GetFactures();

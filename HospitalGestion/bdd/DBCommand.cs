@@ -117,9 +117,10 @@ namespace HospitalGestion.bdd
             hospitalisationT.Wait();
         }
 
-        public void AddPatient(Patient patient)
+        public bool AddPatient(Patient patient)
         {
-            Task.Run(() =>
+            bool b = false;
+            Task t = Task.Run(() =>
             {
                 command = new SqlCommand(
                     "INSERT INTO patient (nom, prenom, dateNaissance, sexe, adresse, situationFamilliale, " +
@@ -140,11 +141,15 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("@tpp", patient.TelPersAPrevenir));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    b = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            t.Wait();
+            return b;
         }
 
         public void AddRdv(Rendez_vous rdv)
@@ -441,9 +446,10 @@ namespace HospitalGestion.bdd
             return traitementsT.Result;
         }
 
-        public void AddConsultation(Consultation consultation)
+        public bool AddConsultation(Consultation consultation)
         {
-            Task.Run(() =>
+            bool b = false;
+            Task t = Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO consultation (date, synthese, typeConsultation," +
                     "prix, idPatient) VALUES (@d,@s,@tc,@p,@ip)", Connection.Instance);
@@ -454,11 +460,15 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("ip", consultation.IdPatient));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    b = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            t.Wait();
+            return b;
         }
 
         public void AddPrescription(Prescription prescription)
@@ -495,9 +505,10 @@ namespace HospitalGestion.bdd
             });
         }
 
-        public void AddChirurgie(Chirurgie chirurgie)
+        public bool AddChirurgie(Chirurgie chirurgie)
         {
-            Task.Run(() =>
+            bool b = false;
+            Task t = Task.Run(() =>
             {
                 command = new SqlCommand("INSERT INTO chirurgie (idChirurgien, idAnesthesiste, idTraitement) VALUES (@c, @a, @t)", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@c", chirurgie.Chirurgien));
@@ -505,11 +516,15 @@ namespace HospitalGestion.bdd
                 command.Parameters.Add(new SqlParameter("@t", chirurgie.Id_traitement));
                 m.WaitOne();
                 Connection.Instance.Open();
-                command.ExecuteNonQuery();
+                int i = command.ExecuteNonQuery();
+                if (i > 0)
+                    b = true;
                 command.Dispose();
                 Connection.Instance.Close();
                 m.ReleaseMutex();
             });
+            t.Wait();
+            return b;
         }
 
         public int AjouterTraitement(Traitement traitement)
