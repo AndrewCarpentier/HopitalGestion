@@ -26,3 +26,10 @@ C:\Users\Administrateur\Source\Repos\HopitalGestion\HospitalGestion\obj\Debug\Ho
 C:\Users\Administrateur\Source\Repos\HopitalGestion\HospitalGestion\obj\Debug\HospitalGestion.csproj.CoreCompileInputs.cache
 C:\Users\Administrateur\Source\Repos\HopitalGestion\HospitalGestion\obj\Debug\HospitalGestion.exe
 C:\Users\Administrateur\Source\Repos\HopitalGestion\HospitalGestion\obj\Debug\HospitalGestion.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\HospitalGestion\bin\Debug\HospitalGestion.exe.config
+C:\Users\Administrateur\Desktop\HopitalGestion\HospitalGestion\bin\Debug\HospitalGestion.exe
+C:\Users\Administrateur\Desktop\HopitalGestion\HospitalGestion\bin\Debug\HospitalGestion.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\HospitalGestion\obj\Debug\HospitalGestion.csprojAssemblyReference.cache
+C:\Users\Administrateur\Desktop\HopitalGestion\HospitalGestion\obj\Debug\HospitalGestion.csproj.CoreCompileInputs.cache
+C:\Users\Administrateur\Desktop\HopitalGestion\HospitalGestion\obj\Debug\HospitalGestion.exe
+C:\Users\Administrateur\Desktop\HopitalGestion\HospitalGestion\obj\Debug\HospitalGestion.pdb

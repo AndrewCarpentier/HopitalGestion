@@ -6273,11 +6273,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrateur\\Source\\Repos\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj",
+      "projectUniqueName": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj",
       "projectName": "Test_Hopital_Gestion",
-      "projectPath": "C:\\Users\\Administrateur\\Source\\Repos\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj",
+      "projectPath": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj",
       "packagesPath": "C:\\Users\\Administrateur\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrateur\\Source\\Repos\\HopitalGestion\\Test_Hopital_Gestion\\obj\\",
+      "outputPath": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\Test_Hopital_Gestion\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6296,8 +6296,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Administrateur\\Source\\Repos\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj": {
-              "projectPath": "C:\\Users\\Administrateur\\Source\\Repos\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj"
+            "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj": {
+              "projectPath": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj"
             }
           }
         }

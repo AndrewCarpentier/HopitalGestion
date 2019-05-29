@@ -433,7 +433,7 @@ namespace HospitalGestion.bdd
             {
                 List<Traitement> ts = new List<Traitement>();
 
-                command = new SqlCommand("SELECT * FROM rdv WHERE idPatient = @idP", Connection.Instance);
+                command = new SqlCommand("SELECT * FROM traitement WHERE idPatient = @idP", Connection.Instance);
                 command.Parameters.Add(new SqlParameter("@idP", idPatient));
                 m.WaitOne();
                 Connection.Instance.Open();

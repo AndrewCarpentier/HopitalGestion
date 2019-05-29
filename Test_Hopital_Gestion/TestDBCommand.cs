@@ -198,7 +198,7 @@ namespace Test_Hopital_Gestion
         {
             Consultation c = new Consultation()
             {
-                Date = new DateTime(633896886277130000),  
+                Date = new DateTime(633896886277130000),
                 Synthese = "Synthese",
                 TypeConsult = "TypeConsult",
                 Prix = 100,
@@ -261,6 +261,7 @@ namespace Test_Hopital_Gestion
             Assert.IsTrue(f.Count >= 0);
         }
         
+        [TestMethod]
         public void GetFactures_DBCommand_NotNull()
         {
             List<Facture> f = db.GetFactures();
