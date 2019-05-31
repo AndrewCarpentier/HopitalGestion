@@ -9,7 +9,7 @@ namespace HospitalGestion.classes
 {
     public class Hospitalisation
     {
-        private int idHopitalisation;
+        private int id;
         private DateTime dateAdmission;
         private string typeAdmission;
         private string motifAdmission;
@@ -26,7 +26,7 @@ namespace HospitalGestion.classes
         private string motifDeces;
         private int idPatient;
 
-        public int IdHopitalisation { get => idHopitalisation; set => idHopitalisation = value; }
+        public int Id { get => id; set => id = value; }
         public DateTime DateAdmission { get => dateAdmission; set => dateAdmission = value; }
         public string TypeAdmission { get => typeAdmission; set => typeAdmission = value; }
         public string MotifAdmission { get => motifAdmission; set => motifAdmission = value; }

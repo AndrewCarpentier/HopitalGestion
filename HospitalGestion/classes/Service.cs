@@ -10,6 +10,6 @@ namespace HospitalGestion.classes
     public abstract class Service
     {
         public int idService;
-        public ServiceEnum nomService;
+        public ServiceEnum service;
     }
 }

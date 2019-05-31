@@ -8,23 +8,23 @@ namespace HospitalGestion.classes
 {
     public class Traitement
     {
-        private int id_traitement;
-        private DateTime date_traitement;
-        private decimal prix_traitement;
+        private int idTraitement;
+        private DateTime date;
+        private decimal prix;
         private int idPatient;
         private int idMedecin;
 
-        public int Id_traitement { get => id_traitement; set => id_traitement = value; }
-        public DateTime Date_traitement { get => date_traitement; set => date_traitement = value; }
-        public decimal Prix_traitement { get => prix_traitement; set => prix_traitement = value; }
+        public int IdTraitement { get => idTraitement; set => idTraitement = value; }
+        public DateTime Date { get => date; set => date = value; }
+        public decimal Prix { get => prix; set => prix = value; }
         public int IdPatient { get => idPatient; set => idPatient = value; }
         public int IdMedecin { get => idMedecin; set => idMedecin = value; }
 
         public override string ToString()
         {
-            string result = $"Id du traitement : {Id_traitement}";
-            result += $"Date du traitement : {Date_traitement}";
-            result += $"Prix du traitement : {Prix_traitement}";
+            string result = $"Id du traitement : {IdTraitement}";
+            result += $"Date du traitement : {Date}";
+            result += $"Prix du traitement : {Prix}";
             return base.ToString();
         }
     }

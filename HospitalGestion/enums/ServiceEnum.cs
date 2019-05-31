@@ -8,10 +8,10 @@ namespace HospitalGestion.enums
 {
     public enum ServiceEnum
     {
-        chirurgie,
-        radiologie,
-        biologie,
-        generaliste,
-        anesthesiste
+        Chirurgie,
+        Radiologie,
+        Biologie,
+        Generaliste,
+        Anesthesiste
     }
 }

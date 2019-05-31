@@ -8,11 +8,11 @@ namespace HospitalGestion.enums
 {
     public enum SituationFamillialeEnum
     {
-        marié,
-        pacsé,
-        divorcé,
-        séparé,
-        célibataire,
-        veuf
+        Marié,
+        Pacsé,
+        Divorcé,
+        Séparé,
+        Célibataire,
+        Veuf
     }
 }

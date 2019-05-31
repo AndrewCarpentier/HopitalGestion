@@ -8,7 +8,7 @@ namespace HospitalGestion.enums
 {
     public enum OuiNonEnum
     {
-        oui,
-        non
+        Oui,
+        Non
     }
 }

@@ -49,7 +49,7 @@ namespace Test_Hopital_Gestion
         public void GetPatientByName_DBCommand_Patient()
         {
             Patient p = db.GetPatientByName(patientLastname, patientFirstname);
-            Assert.IsTrue(p.IdPatient > 0);
+            Assert.IsTrue(p.Id > 0);
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace Test_Hopital_Gestion
         [TestMethod]
         public void GetMedecinByService_DBCommand_Medecin()
         {
-            Medecin m = db.GetMedecinByService(ServiceEnum.chirurgie);
+            Medecin m = db.GetMedecinByService(ServiceEnum.Chirurgie);
             Assert.IsTrue(m.Id > 0);
         }
 
@@ -79,36 +79,36 @@ namespace Test_Hopital_Gestion
         }
 
         [TestMethod]
-        public void AnnuleRendezVous_DBCommand_Bool()
+        public void AnnuleRdv_DBCommand_Bool()
         {
-            int rdvId = 1019;
-            Assert.IsTrue(db.AnnuleRendezVous(rdvId));
+            int rdvId = 6019;
+            Assert.IsTrue(db.AnnuleRdv(rdvId));
         }
 
         [TestMethod]
         public void AddRdv_DBCommand_Bool()
         {
-            Rendez_vous rdv = new Rendez_vous()
+            RendezVous rdv = new RendezVous()
             {
                 IdMedecin = idMedecin,
-                Date_RDV = new DateTime(633896886277130000),
-                Service = ServiceEnum.chirurgie,
+                Date = new DateTime(633896886277130000),
+                Service = ServiceEnum.Chirurgie,
                 IdPatient = idPatient
             };
             Assert.IsTrue(db.AddRdv(rdv));
         }
 
         [TestMethod]
-        public void AjouterTraitement_DBCommand_Int()
+        public void AddTraitement_DBCommand_Int()
         {
             Traitement t = new Traitement()
             {
-                Date_traitement = new DateTime(633896886277130000),
-                Prix_traitement = 100,
+                Date = new DateTime(633896886277130000),
+                Prix = 100,
                 IdPatient = idPatient,
                 IdMedecin = idMedecin
             };
-            int id = db.AjouterTraitement(t);
+            int id = db.AddTraitement(t);
             Assert.IsTrue(id > 0);
         }
 
@@ -120,8 +120,8 @@ namespace Test_Hopital_Gestion
                 Nom = "test",
                 Prenom = "test",
                 Tel = "0636477245",
-                specialite = SpecialiteEnum.generaliste,
-                nomService = ServiceEnum.generaliste
+                specialite = SpecialiteEnum.Generaliste,
+                service = ServiceEnum.Generaliste
             };
             Assert.IsTrue(db.AddMedecin(m));
         }
@@ -129,10 +129,10 @@ namespace Test_Hopital_Gestion
         [TestMethod]
         public void AddBiologie_DBCommand_Bool()
         {
-            Examens_Biologiques eb = new Examens_Biologiques()
+            ExamensBiologiques eb = new ExamensBiologiques()
             {
-                Resultat_examen = "resultat test",
-                Id_traitement = idTraitement,
+                Resultat = "resultat test",
+                IdTraitement = idTraitement,
                 IdMedecin = idMedecin
             };
             Assert.IsTrue(db.AddBiologie(eb));
@@ -141,10 +141,10 @@ namespace Test_Hopital_Gestion
         [TestMethod]
         public void AddRadiologue_DBCommand_Bool()
         {
-            Examens_Radiologiques er = new Examens_Radiologiques()
+            ExamensRadiologiques er = new ExamensRadiologiques()
             {
-                Resultat_examen = "resultat test",
-                Id_traitement = idTraitement,
+                Resultat = "resultat test",
+                IdTraitement = idTraitement,
                 IdMedecin = idMedecin
             };
             Assert.IsTrue(db.AddRadiologue(er));
@@ -165,17 +165,17 @@ namespace Test_Hopital_Gestion
 
         [TestMethod]
 
-        public void GetRendez_VousByIdPatient_DBCommand_ListRendezVous()
+        public void GetRdvsByIdPatient_DBCommand_ListRendezVous()
         {
-            List<Rendez_vous> c = db.GetRendez_VoussByIdPatient(idPatient);
+            List<RendezVous> c = db.GetRdvsByIdPatient(idPatient);
             Assert.IsTrue(c.Count >= 0);
                 
         }
 
         [TestMethod]
-        public void GetRendez_VousByIdPatient_DBCommand_NotNull()
+        public void GetRdvsByIdPatient_DBCommand_NotNull()
         {
-            List<Rendez_vous> c = db.GetRendez_VoussByIdPatient(idPatient);
+            List<RendezVous> c = db.GetRdvsByIdPatient(idPatient);
             Assert.IsNotNull(c);
         }
 
@@ -212,9 +212,9 @@ namespace Test_Hopital_Gestion
         {
             Chirurgie c = new Chirurgie()
             {
-                Chirurgien = 1,
-                Anesthesiste = 1,
-                Id_traitement = 1
+                IdChirurgien = 1,
+                IdAnesthesiste = 1,
+                IdTraitement = 1
             };
             Assert.IsTrue(db.AddChirurgie(c));
         }
@@ -227,9 +227,9 @@ namespace Test_Hopital_Gestion
                 Nom = "Yanbuaban",
                 Prenom = "Remi",
                 DateNaissance = new DateTime(633896886277130000),
-                Sex = SexeEnum.homme,
+                Sexe = SexeEnum.Homme,
                 Adresse = "RBX",
-                Situation = SituationFamillialeEnum.célibataire,
+                Situation = SituationFamillialeEnum.Célibataire,
                 AssuranceMedicale = "1249",
                 CodeAssurance = "2245",
                 Tel = "0646455223",

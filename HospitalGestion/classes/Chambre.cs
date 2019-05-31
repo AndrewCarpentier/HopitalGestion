@@ -14,22 +14,26 @@ namespace HospitalGestion.classes
         private int capacite;
         private decimal prix;
         private OuiNonEnum occupe;
-        private decimal[] Tprix = new decimal[] { 50.6m, 60.5m };
+        private int idHopital;
 
         public int Id { get => id; set => id = value; }
         public int Etage { get => etage; set => etage = value; }
         public int Capacite { get => capacite; set => capacite = value; }
         public decimal Prix { get => prix; set => prix = value; }
         public OuiNonEnum Occupe { get => occupe; set => occupe = value; }
+        public int IdHopital { get => idHopital; set => idHopital = value; }
 
         public Chambre()
         {
+            etage = 1;
+            capacite = new Random().Next(1, 3);
+            prix = 30;
+            occupe = OuiNonEnum.Non;
         }
 
-        public Chambre(int occ)
+        public Chambre(int idHopital) : this()
         {
-            if (occ < 4) Prix = Tprix[0];
-            else Prix = Tprix[1];
+            this.idHopital = idHopital;
         }
     }
 }
