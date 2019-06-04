@@ -35,8 +35,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,8 +79,53 @@
     <Compile Include="Enums\SituationFamillialeEnum.cs" />
     <Compile Include="Enums\SpecialiteEnum.cs" />
     <Compile Include="Interfaces\IDB.cs" />
+    <Compile Include="ViewModels\AjouterConsultationViewModel.cs" />
+    <Compile Include="ViewModels\AjouterHospitalisationViewModel.cs" />
+    <Compile Include="ViewModels\AjouterMedecinViewModel.cs" />
+    <Compile Include="ViewModels\AjouterTraitementViewModel.cs" />
+    <Compile Include="ViewModels\ConnexionPatientViewModel.cs" />
+    <Compile Include="ViewModels\MenuAdministrationViewModel.cs" />
+    <Compile Include="ViewModels\MenuMedecinViewModel.cs" />
+    <Compile Include="ViewModels\MenuSecretaireViewModel.cs" />
+    <Compile Include="ViewModels\MenuSpecialisteViewModel.cs" />
+    <Compile Include="ViewModels\NouveauPatientViewModel.cs" />
+    <Compile Include="ViewModels\PageConnexionViewModel.cs" />
+    <Compile Include="ViewModels\PrendreRDVViewModel.cs" />
+    <Compile Include="Views\AjouterConsultationWindow.xaml.cs">
+      <DependentUpon>AjouterConsultationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AjouterHospitalisationWindow.xaml.cs">
+      <DependentUpon>AjouterHospitalisationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AjouterMedecinWindow.xaml.cs">
+      <DependentUpon>AjouterMedecinWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AjouterTraitementWindow.xaml.cs">
+      <DependentUpon>AjouterTraitementWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConnectionWindow.xaml.cs">
       <DependentUpon>ConnectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConnexionPatientWindow.xaml.cs">
+      <DependentUpon>ConnexionPatientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenuAdministrationWindow.xaml.cs">
+      <DependentUpon>MenuAdministrationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenuMedecinWindow.xaml.cs">
+      <DependentUpon>MenuMedecinWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenuSecretaireWindow.xaml.cs">
+      <DependentUpon>MenuSecretaireWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenuSpecialisteWindow.xaml.cs">
+      <DependentUpon>MenuSpecialisteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NouveauPatientWindow.xaml.cs">
+      <DependentUpon>NouveauPatientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrendreRDVWindow.xaml.cs">
+      <DependentUpon>PrendreRDVWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +162,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -115,7 +176,51 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\AjouterConsultationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AjouterHospitalisationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AjouterMedecinWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AjouterTraitementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConnectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConnexionPatientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenuAdministrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenuMedecinWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenuSecretaireWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenuSpecialisteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NouveauPatientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrendreRDVWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

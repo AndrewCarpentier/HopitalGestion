@@ -13,8 +13,8 @@ DEBUG;TRACE
 13-695386049
 
 55465580024
-131569487696
+71-988615185
 App.xaml;Views\AjouterConsultationWindow.xaml;Views\AjouterHospitalisationWindow.xaml;Views\AjouterMedecinWindow.xaml;Views\AjouterTraitementWindow.xaml;Views\ConnectionWindow.xaml;Views\ConnexionPatientWindow.xaml;Views\MenuAdministrationWindow.xaml;Views\MenuMedecinWindow.xaml;Views\MenuSecretaireWindow.xaml;Views\MenuSpecialisteWindow.xaml;Views\NouveauPatientWindow.xaml;Views\PrendreRDVWindow.xaml;
 
-False
+True
 
