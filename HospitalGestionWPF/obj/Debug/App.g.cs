@@ -50,7 +50,7 @@ namespace HopitalGestionWPF {
         public void InitializeComponent() {
             
             #line 5 "..\..\App.xaml"
-            this.StartupUri = new System.Uri("./Views/ConnectionWindow.xaml", System.UriKind.Relative);
+            this.StartupUri = new System.Uri("./Views/NouveauPatientWindow.xaml", System.UriKind.Relative);
             
             #line default
             #line hidden

@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalGestionWPF.Views"
         mc:Ignorable="d"
-        Title="PageConnexion" Height="450" Width="800">
+        Title="PageConnexion" Height="815.085" Width="500">
     <Grid>
-        
+        <Label Content="Nouveau Patient" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" Height="40" Width="474" FontSize="20"/>
+        <Label Content="Nom :" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="25" HorizontalContentAlignment="Right"/>
+        <TextBox Text="{Binding Nom}"  HorizontalAlignment="Left" Height="40" Margin="165,55,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="319"/>
+        <Label Content="Prenom :" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="25" HorizontalContentAlignment="Right"/>
+        <TextBox Text="{Binding Prenom}"  HorizontalAlignment="Left" Height="40" Margin="165,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="319"/>
+        <Label Content="Date de Naissance :" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="15" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
+        <DatePickerTextBox  Text="{Binding Nom}" HorizontalAlignment="Left" Margin="165,145,0,0" VerticalAlignment="Top" Height="40" Width="319" VerticalContentAlignment="Bottom" />
+        <Label Content="Sexe :" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="165,190,0,0" VerticalAlignment="Top" Height="40" Width="150"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="333,190,0,0" VerticalAlignment="Top" Height="40" Width="150"/>
+        <Label Content="Adresse :" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Height="40" Width="150" FontSize="25" HorizontalContentAlignment="Right"/>
+        <TextBox Text="{Binding Adresse}"  HorizontalAlignment="Left" Height="40" Margin="160,235,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="319"/>
+
     </Grid>
 </Window>
