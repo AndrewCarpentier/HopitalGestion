@@ -18,6 +18,9 @@ namespace HospitalGestion.classes
         public string Prenom { get => prenom; set => prenom = value; }
         public string Tel { get => tel; set => tel = value; }
 
-
+        public Medecin()
+        {
+            
+        }
     }
 }

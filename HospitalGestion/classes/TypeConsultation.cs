@@ -8,10 +8,10 @@ namespace HospitalGestion.classes
 {
     public abstract class TypeConsultation
     {
-        private string typeConsult;
+        private string typeConsultation;
         private decimal prix;
 
-        public string TypeConsult { get => typeConsult; set => typeConsult = value; }
+        public string TypeConsult { get => typeConsultation; set => typeConsultation = value; }
         public decimal Prix { get => prix; set => prix = value; }
     }
 }

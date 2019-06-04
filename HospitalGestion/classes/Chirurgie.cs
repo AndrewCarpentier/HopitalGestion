@@ -8,12 +8,12 @@ namespace HospitalGestion.classes
 {
     public class Chirurgie : Traitement
     {
-        private int id_chirurgie;
-        private int chirurgien;
-        private int anesthesiste;
+        private int id;
+        private int idChirurgien;
+        private int idAnesthesiste;
 
-        public int Id_chirurgie { get => id_chirurgie; set => id_chirurgie = value; }
-        public int Chirurgien { get => chirurgien; set => chirurgien = value; }
-        public int Anesthesiste { get => anesthesiste; set => anesthesiste = value; }
+        public int Id { get => id; set => id = value; }
+        public int IdChirurgien { get => idChirurgien; set => idChirurgien = value; }
+        public int IdAnesthesiste { get => idAnesthesiste; set => idAnesthesiste = value; }
     }
 }

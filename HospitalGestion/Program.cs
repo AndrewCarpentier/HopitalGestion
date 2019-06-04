@@ -24,11 +24,12 @@ namespace HospitalGestion
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
+
             Console.Write("Entrez le nom de l'hôpital :");
-            string name = Console.ReadLine();
+            string nomHopital = Console.ReadLine();
             Hopital h;
             bool success = false;
-            h = db.GetHopital(name);
+            h = db.GetHopital(nomHopital);
 
             if (h == null)
             {
@@ -38,14 +39,23 @@ namespace HospitalGestion
                     Console.Write("Nombre de chambres de l'hopital: ");
                     success = Int32.TryParse(Console.ReadLine(), out nChambres);
                 } while (!success);
-                h = new Hopital(name);
-                if (db.AddHopital(name) == false)
+
+                h = new Hopital(nomHopital);
+
+                if (db.AddHopital(h) == false)
                 {
                     Console.WriteLine("Erreur Creation hopital");
                     Environment.Exit(1);
                 }
-                h.Init(nChambres);
-                Console.WriteLine($"\n\n\t\t\t Hopital {name} créé avec succès");
+                else
+                {
+                    for(int i = 0; i < nChambres ; i++)
+                    {
+                        db.AddChambres(new Chambre() { IdHopital = h.Id });
+                    }
+                }
+
+                Console.WriteLine($"\n\n\t\t\t Hopital {h.Nom} créé avec succès");
             }
             MenuPatient();
         }
@@ -214,8 +224,8 @@ namespace HospitalGestion
 
         static void PrendreRDV()
         {
-            Rendez_vous rdv = new Rendez_vous();
-            rdv.IdPatient = p.IdPatient;
+            RendezVous rdv = new RendezVous();
+            rdv.IdPatient = p.Id;
 
             rdv.Service = (ServiceEnum)AfficherEnum<ServiceEnum>("Nom du service");
 
@@ -223,16 +233,16 @@ namespace HospitalGestion
 
             Console.Write("Pour quel date voulez-vous réservée : ");
             string date = Console.ReadLine();
-            rdv.Date_RDV = DateVerif(date, "Entrez une date de réservation valide :");
+            rdv.Date = DateVerif(date, "Entrez une date de réservation valide :");
 
             db.AddRdv(rdv);
 
-            if (rdv.Service != ServiceEnum.generaliste)
+            if (rdv.Service != ServiceEnum.Generaliste)
             {
                 Hospitalisation h = new Hospitalisation();
-                h.DateAdmission = rdv.Date_RDV;
-                h.DateEntreeAcc = rdv.Date_RDV;
-                h.IdPatient = p.IdPatient;
+                h.DateAdmission = rdv.Date;
+                h.DateEntreeAcc = rdv.Date;
+                h.IdPatient = p.Id;
 
                 Console.Write("Type d'admission : ");
                 h.TypeAdmission = Console.ReadLine();
@@ -259,11 +269,11 @@ namespace HospitalGestion
 
         static void ListeRDV()
         {
-            List<Rendez_vous> listRDV = new List<Rendez_vous>();
-            listRDV = db.GetRendez_VoussByIdPatient(p.IdPatient);
+            List<RendezVous> listRDV = new List<RendezVous>();
+            listRDV = db.GetRdvsByIdPatient(p.Id);
             if (listRDV != null)
             {
-                foreach (Rendez_vous r in listRDV)
+                foreach (RendezVous r in listRDV)
                 {
                     Console.WriteLine(r.ToString());
                     Console.WriteLine("\n-----------------------------------------\n");
@@ -276,7 +286,7 @@ namespace HospitalGestion
         static void ListeConsultation()
         {
             List<Consultation> listConsultation = new List<Consultation>();
-            listConsultation = db.GetConsultationsByIdPatient(p.IdPatient);
+            listConsultation = db.GetConsultationsByIdPatient(p.Id);
             if (listConsultation != null)
             {
                 foreach (Consultation c in listConsultation)
@@ -292,7 +302,7 @@ namespace HospitalGestion
         static void ListeHospitalisation()
         {
             List<Hospitalisation> listHospitalisation = new List<Hospitalisation>();
-            listHospitalisation = db.GetHospitalisationsByIdPatient(p.IdPatient);
+            listHospitalisation = db.GetHospitalisationsByIdPatient(p.Id);
             if (listHospitalisation != null)
             {
                 foreach (Hospitalisation h in listHospitalisation)
@@ -308,7 +318,7 @@ namespace HospitalGestion
         static void ListeTraitement()
         {
             List<Traitement> listTraitement = new List<Traitement>();
-            listTraitement = db.GetTraitementsByIdPatient(p.IdPatient);
+            listTraitement = db.GetTraitementsByIdPatient(p.Id);
             if (listTraitement != null)
             {
                 foreach (Traitement t in listTraitement)
@@ -324,7 +334,7 @@ namespace HospitalGestion
         static void ListeFacture()
         {
             List<Facture> listFacture = new List<Facture>();
-            listFacture = db.GetFacturesByIdPatient(p.IdPatient);
+            listFacture = db.GetFacturesByIdPatient(p.Id);
             if (listFacture != null)
             {
                 foreach (Facture f in listFacture)
@@ -400,7 +410,7 @@ namespace HospitalGestion
             p.DateNaissance = DateVerif(date, "Entrez une date de naissance valide : ");
 
             Console.Clear();
-            p.Sex = (SexeEnum)AfficherEnum<SexeEnum>("Etes vous un homme ou une femme");
+            p.Sexe = (SexeEnum)AfficherEnum<SexeEnum>("Etes vous un homme ou une femme");
 
             Console.WriteLine("Quel est votre adresse ? : ");
             p.Adresse = Console.ReadLine();
@@ -461,7 +471,7 @@ namespace HospitalGestion
         {
             Consultation c = new Consultation()
             {
-                IdPatient = p.IdPatient
+                IdPatient = p.Id
             };
             Console.Write("Date de la consultation : ");
             string date = Console.ReadLine();
@@ -487,7 +497,7 @@ namespace HospitalGestion
         {
             Prescription pr = new Prescription()
             {
-                IdPatient = p.IdPatient,
+                IdPatient = p.Id,
                 Date = date
             };
 
@@ -499,20 +509,20 @@ namespace HospitalGestion
 
         static void AnnuleRendezVous()
         {
-            List<Rendez_vous> rdvs = db.GetRendez_VoussByIdPatient(p.IdPatient);
+            List<RendezVous> rdvs = db.GetRdvsByIdPatient(p.Id);
             if (rdvs.Count > 0)
             {
                 int i = 1;
                 foreach (var v in rdvs)
                 {
-                    Console.WriteLine($"{i}-{v.Date_RDV}");
+                    Console.WriteLine($"{i}-{v.Date}");
                     i++;
                 }
                 int position = 0;
                 Int32.TryParse(Console.ReadLine(), out position);
 
                 if (position != 0)
-                    db.AnnuleRendezVous(rdvs[position - 1].Id);
+                    db.AnnuleRdv(rdvs[position - 1].Id);
             }
             else
                 Console.WriteLine("Aucune réservation");
@@ -531,7 +541,7 @@ namespace HospitalGestion
         {
 
             int idTraitement = 0;
-            if (m.nomService == ServiceEnum.biologie || m.nomService == ServiceEnum.radiologie || m.nomService == ServiceEnum.chirurgie)
+            if (m.service == ServiceEnum.Biologie || m.service == ServiceEnum.Radiologie || m.service == ServiceEnum.Chirurgie)
             {
                 Traitement traitement = new Traitement()
                 {
@@ -540,51 +550,51 @@ namespace HospitalGestion
 
                 Console.Write("Date du traitement : ");
                 string date = Console.ReadLine();
-                traitement.Date_traitement = DateVerif(date, "Entrez une date de traitement valide :");
+                traitement.Date = DateVerif(date, "Entrez une date de traitement valide :");
 
                 Console.WriteLine("Prix du traitement : ");
                 decimal price = 0;
                 Decimal.TryParse(Console.ReadLine(), out price);
-                traitement.Prix_traitement = price;
+                traitement.Prix = price;
 
-                idTraitement = db.AjouterTraitement(traitement);
+                idTraitement = db.AddTraitement(traitement);
             }
             else
             {
                 throw new Exception("Un imposteur ce fait passer pour un médecin");
             }
 
-            if (m.nomService == ServiceEnum.chirurgie)
+            if (m.service == ServiceEnum.Chirurgie)
             {
                 Chirurgie chirurgie = new Chirurgie()
                 {
-                    Chirurgien = m.Id,
-                    Id_traitement = idTraitement
+                    IdChirurgien = m.Id,
+                    Id = idTraitement
                 };
-                Medecin medecin = db.GetMedecinByService(ServiceEnum.anesthesiste);
-                chirurgie.Id_chirurgie = medecin.Id;
+                Medecin medecin = db.GetMedecinByService(ServiceEnum.Anesthesiste);
+                chirurgie.IdAnesthesiste = medecin.Id;
                 db.AddChirurgie(chirurgie);
             }
-            else if (m.nomService == ServiceEnum.biologie)
+            else if (m.service == ServiceEnum.Biologie)
             {
-                Examens_Biologiques biologiques = new Examens_Biologiques()
+                ExamensBiologiques biologiques = new ExamensBiologiques()
                 {
-                    Id_traitement = idTraitement,
+                    IdTraitement = idTraitement,
                     IdMedecin = m.Id
                 };
                 Console.WriteLine("Resultat : ");
-                biologiques.Resultat_examen = Console.ReadLine();
+                biologiques.Resultat = Console.ReadLine();
                 db.AddBiologie(biologiques);
             }
-            else if (m.nomService == ServiceEnum.radiologie)
+            else if (m.service == ServiceEnum.Radiologie)
             {
-                Examens_Radiologiques radiologiques = new Examens_Radiologiques()
+                ExamensRadiologiques radiologiques = new ExamensRadiologiques()
                 {
-                    Id_traitement = idTraitement,
+                    IdTraitement = idTraitement,
                     IdMedecin = m.Id
                 };
                 Console.WriteLine("Resultat : ");
-                radiologiques.Resultat_examen = Console.ReadLine();
+                radiologiques.Resultat = Console.ReadLine();
                 db.AddRadiologue(radiologiques);
             }
 
@@ -719,7 +729,7 @@ namespace HospitalGestion
                 }
             } while (true);
             medecin.specialite = (SpecialiteEnum)AfficherEnum<SpecialiteEnum>("Aucune spécialité !");
-            medecin.nomService = (ServiceEnum)AfficherEnum<ServiceEnum>("Aucun Service");
+            medecin.service = (ServiceEnum)AfficherEnum<ServiceEnum>("Aucun Service");
             db.AddMedecin(medecin);
 
         }

@@ -9,11 +9,11 @@ namespace HospitalGestion.classes
 {
     public class Patient
     {
-        private int idPatient;
+        private int id;
         private string nom;
         private string prenom;
         private DateTime dateNaissance;
-        private SexeEnum sex;
+        private SexeEnum sexe;
         private string adresse;
         private SituationFamillialeEnum situation;
         private string assuranceMedicale;
@@ -24,10 +24,11 @@ namespace HospitalGestion.classes
         private string nomPersonnePrevenir;
         private string telPersAPrevenir;
 
-
+        public int Id { get => id; set => id = value; }
         public string Nom { get => nom; set => nom = value; }
         public string Prenom { get => prenom; set => prenom = value; }
         public DateTime DateNaissance { get => dateNaissance; set => dateNaissance = value; }
+        public SexeEnum Sexe { get => sexe; set => sexe = value; }
         public string Adresse { get => adresse; set => adresse = value; }
         public SituationFamillialeEnum Situation { get => situation; set => situation = value; }
         public string AssuranceMedicale { get => assuranceMedicale; set => assuranceMedicale = value; }
@@ -35,10 +36,8 @@ namespace HospitalGestion.classes
         public string Tel { get => tel; set => tel = value; }
         public string NomPere { get => nomPere; set => nomPere = value; }
         public string NomMère { get => nomMère; set => nomMère = value; }
-        public string TelPersAPrevenir { get => telPersAPrevenir; set => telPersAPrevenir = value; }
-        public int IdPatient { get => idPatient; set => idPatient = value; }
-        public SexeEnum Sex { get => sex; set => sex = value; }
         public string NomPersonnePrevenir { get => nomPersonnePrevenir; set => nomPersonnePrevenir = value; }
+        public string TelPersAPrevenir { get => telPersAPrevenir; set => telPersAPrevenir = value; }
 
         public override string ToString()
         {
@@ -53,8 +52,8 @@ namespace HospitalGestion.classes
             result += $"Nom de la mère : {NomMère}";
             result += $"Téléphone de la personne à prevenir : {TelPersAPrevenir}";
             result += $"Nom de la personne à prevenir : {NomPersonnePrevenir}";
-            result += $"Sexe : {Sex}";
-            result += $"Id du patient : {IdPatient}";
+            result += $"Sexe : {Sexe}";
+            result += $"Id du patient : {Id}";
             return result;
         }
     }

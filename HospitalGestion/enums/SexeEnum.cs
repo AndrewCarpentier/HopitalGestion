@@ -8,7 +8,7 @@ namespace HospitalGestion.enums
 {
     public enum SexeEnum
     {
-        homme,
-        femme
+        Homme,
+        Femme
     }
 }

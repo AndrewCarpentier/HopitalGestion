@@ -16,6 +16,7 @@ C:\Users\Administrateur\Source\Repos\HopitalGestion\Test_Hopital_Gestion\obj\Deb
 C:\Users\Administrateur\Source\Repos\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.csproj.CopyComplete
 C:\Users\Administrateur\Source\Repos\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.dll
 C:\Users\Administrateur\Source\Repos\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.pdb
+<<<<<<< HEAD
 C:\Users\LENOVO\Documents\C#\GestionHopital\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.csprojAssemblyReference.cache
 C:\Users\LENOVO\Documents\C#\GestionHopital\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.csproj.CoreCompileInputs.cache
 C:\Users\LENOVO\Documents\C#\GestionHopital\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.AssemblyInfoInputs.cache
@@ -34,3 +35,23 @@ C:\Users\LENOVO\Documents\C#\GestionHopital\HopitalGestion\Test_Hopital_Gestion\
 C:\Users\LENOVO\Documents\C#\GestionHopital\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\HospitalGestion.pdb
 C:\Users\LENOVO\Documents\C#\GestionHopital\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\HospitalGestion.exe.config
 C:\Users\LENOVO\Documents\C#\GestionHopital\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.csproj.CopyComplete
+=======
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.csprojAssemblyReference.cache
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.csproj.CoreCompileInputs.cache
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.AssemblyInfoInputs.cache
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.AssemblyInfo.cs
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\Test_Hopital_Gestion.deps.json
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\Test_Hopital_Gestion.runtimeconfig.json
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\Test_Hopital_Gestion.runtimeconfig.dev.json
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\Test_Hopital_Gestion.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\Test_Hopital_Gestion.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\HospitalGestion.exe
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\HospitalGestion.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\bin\Debug\netcoreapp2.1\HospitalGestion.exe.config
+C:\Users\Administrateur\Desktop\HopitalGestion\Test_Hopital_Gestion\obj\Debug\netcoreapp2.1\Test_Hopital_Gestion.csproj.CopyComplete
+>>>>>>> develop

@@ -10,12 +10,11 @@ namespace HospitalGestion.classes
 {
     public class Hopital
     {
-        private static object _lock = new object();
-        private string nom;
         private int id;
+        private string nom;
 
-        public string Nom { get => nom; set => nom = value; }
         public int Id { get => id; set => id = value; }
+        public string Nom { get => nom; set => nom = value; }
 
         public Hopital()
         {
@@ -24,14 +23,6 @@ namespace HospitalGestion.classes
         public Hopital(string n)
         {
             Nom = n;
-        }
-
-        public void Init(int nChambres)
-        {
-            
-            IDB db = new DBCommand();
-            db.AddChambres(nChambres, Id);
-
         }
     }
 }

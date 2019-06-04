@@ -9,6 +9,7 @@ namespace HospitalGestion.classes
 {
     public abstract class Specialite : Service
     {
+        public int idSpecialite;
         public SpecialiteEnum specialite;
     }
 }
