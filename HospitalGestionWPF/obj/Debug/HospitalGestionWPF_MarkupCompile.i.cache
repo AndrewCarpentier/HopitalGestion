@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-C:\Users\LENOVO\Documents\C#\GestionHopital\HopitalGestion\HospitalGestionWPF\obj\Debug\
+C:\Users\Administrateur\Desktop\HopitalGestion\HospitalGestionWPF\obj\Debug\
 HospitalGestionWPF
 none
 false
@@ -12,8 +12,8 @@ DEBUG;TRACE
 
 13-695386049
 
-55465580024
-71-988615185
+55-1186333172
+71-39813595
 App.xaml;Views\AjouterConsultationWindow.xaml;Views\AjouterHospitalisationWindow.xaml;Views\AjouterMedecinWindow.xaml;Views\AjouterTraitementWindow.xaml;Views\ConnectionWindow.xaml;Views\ConnexionPatientWindow.xaml;Views\MenuAdministrationWindow.xaml;Views\MenuMedecinWindow.xaml;Views\MenuSecretaireWindow.xaml;Views\MenuSpecialisteWindow.xaml;Views\NouveauPatientWindow.xaml;Views\PrendreRDVWindow.xaml;
 
 True
