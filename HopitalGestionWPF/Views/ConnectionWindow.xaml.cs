@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalGestionWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace HospitalGestionWPF.Views
         public ConnectionWindow()
         {
             InitializeComponent();
+            PageConnexionViewModel v = new PageConnexionViewModel();
+            DataContext = v;
         }
     }
 }

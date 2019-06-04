@@ -37,3 +37,15 @@ C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\obj\Debug\Hopit
 C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\obj\Debug\HopitalGestionWPF.csproj.CoreCompileInputs.cache
 C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\obj\Debug\HopitalGestionWPF.exe
 C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\obj\Debug\HopitalGestionWPF.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\CommonServiceLocator.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.xml
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionWPF\obj\Debug\HopitalGestionWPF.csproj.CopyComplete

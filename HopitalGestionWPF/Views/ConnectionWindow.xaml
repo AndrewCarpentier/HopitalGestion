@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="ConnectionWindow" Height="450" Width="800">
     <Grid>
-        <PasswordBox HorizontalAlignment="Left" Margin="297,218,0,0" VerticalAlignment="Top" Width="198" RenderTransformOrigin="0.5,0.5" Height="22"/>
+        <TextBox Text="{Binding Password}" HorizontalAlignment="Left" Margin="297,218,0,0" VerticalAlignment="Top" Width="198" RenderTransformOrigin="0.5,0.5" Height="22"/>
+        <Button Content="Valider" Command="{Binding validerCommand}" HorizontalAlignment="Left" Margin="500,218,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
+        <Label Content="{Binding Message}" HorizontalAlignment="Left" Margin="297,293,0,0" VerticalAlignment="Top" Width="278"/>
 
     </Grid>
 </Window>
