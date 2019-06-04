@@ -260,7 +260,7 @@ namespace Test_Hopital_Gestion
             List<Facture> f = db.GetFactures();
             Assert.IsTrue(f.Count >= 0);
         }
-        
+        [TestMethod]
         public void GetFactures_DBCommand_NotNull()
         {
             List<Facture> f = db.GetFactures();
