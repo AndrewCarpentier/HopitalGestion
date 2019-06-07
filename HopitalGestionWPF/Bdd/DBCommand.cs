@@ -1,4 +1,5 @@
-﻿using HospitalGestion.interfaces;
+﻿using HopitalGestionWPF.Tools;
+using HospitalGestion.interfaces;
 using HospitalGestionWPF.Enums;
 using HospitalGestionWPF.Models;
 using System;
@@ -16,6 +17,7 @@ namespace HospitalGestion.bdd
     {
         private static Mutex m = new Mutex();
         private static SqlCommand command;
+        private static DataContext data = new DataContext();
 
         public bool AddHopital(Hopital hopital)
         {
