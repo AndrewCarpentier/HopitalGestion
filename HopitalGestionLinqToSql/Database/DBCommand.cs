@@ -217,19 +217,8 @@ namespace HospitalGestion.bdd
 
             return consultationsT.Result;
 
-<<<<<<< HEAD
-        //    return consultationsT.Result;
-=======
+
         }
-
-        //public List<Facture> GetFacturesByIdPatient(int idPatient)
-        //{
-        //    Task<List<Facture>> facturesT = Task<List<Facture>>.Factory.StartNew(() =>
-        //    {
-        //        List<Facture> fs = new List<Facture>();
->>>>>>> d8ddde3d01c0413aacda214ef9a9fbaa2df54dce
-
-        //}
 
         public List<Facture> GetFacturesByIdPatient(int idPatient)
         {
@@ -446,17 +435,8 @@ namespace HospitalGestion.bdd
             });
             rendezsT.Wait();
             return rendezsT.Result;
-
-<<<<<<< HEAD
-        //        return rdvs;
-        //    });
-        //    rendezsT.Wait();
-        //    return rendezsT.Result;
-=======
         }
->>>>>>> d8ddde3d01c0413aacda214ef9a9fbaa2df54dce
 
-        //}
 
         public List<Traitement> GetTraitementsByIdPatient(int idPatient)
         {
