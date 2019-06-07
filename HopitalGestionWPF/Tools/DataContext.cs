@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HospitalGestionWPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace HopitalGestionWPF.Tools
         {
 
         }
+
+        public DbSet<Hopital> hopitals { get; set; }
     }
 }

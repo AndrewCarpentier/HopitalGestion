@@ -24,14 +24,16 @@ namespace HospitalGestion.bdd
             bool res = true;
             Task t = Task.Run(() =>
             {
-                command = new SqlCommand("INSERT INTO HOPITAL (nom) VALUES(@n)", Connection.Instance);
-                command.Parameters.Add(new SqlParameter("@n", hopital.Nom));
-                m.WaitOne();
-                Connection.Instance.Open();
-                command.ExecuteNonQuery();
-                command.Dispose();
-                Connection.Instance.Close();
-                m.ReleaseMutex();
+                //command = new SqlCommand("INSERT INTO HOPITAL (nom) VALUES(@n)", Connection.Instance);
+                //command.Parameters.Add(new SqlParameter("@n", hopital.Nom));
+                //m.WaitOne();
+                //Connection.Instance.Open();
+                //command.ExecuteNonQuery();
+                //command.Dispose();
+                //Connection.Instance.Close();
+                //m.ReleaseMutex();
+                data.hopitals.Add(hopital);
+                data.SaveChanges();
             });
             t.Wait();
 

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test_Hopital_Gestion", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HopitalGestionWPF", "HopitalGestionWPF\HopitalGestionWPF.csproj", "{F830A8EC-8CC7-43E7-9550-0B02510AF2F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HopitalGestionLinqToSql", "HopitalGestionLinqToSql\HopitalGestionLinqToSql.csproj", "{FC0A0CC7-F71C-4D4A-95B1-52808E25551C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F830A8EC-8CC7-43E7-9550-0B02510AF2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F830A8EC-8CC7-43E7-9550-0B02510AF2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F830A8EC-8CC7-43E7-9550-0B02510AF2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC0A0CC7-F71C-4D4A-95B1-52808E25551C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC0A0CC7-F71C-4D4A-95B1-52808E25551C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC0A0CC7-F71C-4D4A-95B1-52808E25551C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC0A0CC7-F71C-4D4A-95B1-52808E25551C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

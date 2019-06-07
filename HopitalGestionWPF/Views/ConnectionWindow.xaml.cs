@@ -1,4 +1,6 @@
-﻿using HospitalGestionWPF.ViewModels;
+﻿using HospitalGestion.bdd;
+using HospitalGestionWPF.Models;
+using HospitalGestionWPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

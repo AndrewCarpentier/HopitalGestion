@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataSource" Class="HopitalDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\entity;Integrated Security=True" SettingsObjectName="HopitalGestionLinqToSql.Properties.Settings" SettingsPropertyName="DataSourceConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Chambre" Member="Chambre">
+    <Type Name="Chambre">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="etage" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="capacite" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="prix" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="occupe" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idHopital" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Traitement" Member="Traitement">
+    <Type Name="Traitement">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="prix" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="idPatient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idMedecin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Chirurgie" Member="Chirurgie">
+    <Type Name="Chirurgie">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idChirurgien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idAnesthesiste" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idTraitement" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Consultation" Member="Consultation">
+    <Type Name="Consultation">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="synthese" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="typeConsultation" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="prix" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="idPatient" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExamenBiologique" Member="ExamenBiologique">
+    <Type Name="ExamenBiologique">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="designation" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="resultat" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="idTraitement" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idMedecin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExamenRadiologique" Member="ExamenRadiologique">
+    <Type Name="ExamenRadiologique">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="designation" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="resultat" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="idTraitement" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idMedecin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Facture" Member="Facture">
+    <Type Name="Facture">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="prix" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="idPatient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="payee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Hopital" Member="Hopital">
+    <Type Name="Hopital">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Hospitalisation" Member="Hospitalisation">
+    <Type Name="Hospitalisation">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="dateAdmission" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="typeAdmission" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="motifAdmission" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="idMedecin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="nomAccompagnant" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="prenomAccompagnant" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="lientParente" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateEntreeAcc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dateSortieAcc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="motifSortie" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="resultatSortie" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="dateDeces" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="motifDeces" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="idPatient" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dateSortie" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Medecin" Member="Medecin">
+    <Type Name="Medecin">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="prenom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tel" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="specialite" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="serviceNom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Patient" Member="Patient">
+    <Type Name="Patient">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="prenom" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="dateNaissance" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="sexe" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="adresse" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="situationFamilliale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="assuranceMedical" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="codeAssurance" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="tel" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="nomPere" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="nomMere" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="nomPersonnePrevenir" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="telPersonnePrevenir" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Prescription" Member="Prescription">
+    <Type Name="Prescription">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idPatient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="note" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rdv" Member="Rdv">
+    <Type Name="Rdv">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="code" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idMedecin" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idService" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPatient" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="annule" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
