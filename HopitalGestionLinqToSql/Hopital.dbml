@@ -96,7 +96,17 @@
       <Column Name="nom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="prenom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="tel" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
-      <Column Name="specialite" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="specialite" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="serviceNom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.medecin" Member="Medecin1">
+    <Type Name="Medecin1">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="prenom" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tel" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="specialite" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="serviceNom" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>

@@ -60,6 +60,9 @@ namespace HopitalGestionLinqToSql
     partial void InsertMedecin(Medecin instance);
     partial void UpdateMedecin(Medecin instance);
     partial void DeleteMedecin(Medecin instance);
+    partial void InsertMedecin1(Medecin1 instance);
+    partial void UpdateMedecin1(Medecin1 instance);
+    partial void DeleteMedecin1(Medecin1 instance);
     partial void InsertPatient(Patient instance);
     partial void UpdatePatient(Patient instance);
     partial void DeletePatient(Patient instance);
@@ -178,6 +181,14 @@ namespace HopitalGestionLinqToSql
 			get
 			{
 				return this.GetTable<Medecin>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Medecin1> Medecin1
+		{
+			get
+			{
+				return this.GetTable<Medecin1>();
 			}
 		}
 		
@@ -1858,7 +1869,7 @@ namespace HopitalGestionLinqToSql
 		
 		private string _tel;
 		
-		private System.Nullable<int> _specialite;
+		private int _specialite;
 		
 		private System.Nullable<int> _serviceNom;
 		
@@ -1874,7 +1885,7 @@ namespace HopitalGestionLinqToSql
     partial void OnprenomChanged();
     partial void OntelChanging(string value);
     partial void OntelChanged();
-    partial void OnspecialiteChanging(System.Nullable<int> value);
+    partial void OnspecialiteChanging(int value);
     partial void OnspecialiteChanged();
     partial void OnserviceNomChanging(System.Nullable<int> value);
     partial void OnserviceNomChanged();
@@ -1965,8 +1976,190 @@ namespace HopitalGestionLinqToSql
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_specialite", DbType="Int")]
-		public System.Nullable<int> specialite
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_specialite", DbType="Int NOT NULL")]
+		public int specialite
+		{
+			get
+			{
+				return this._specialite;
+			}
+			set
+			{
+				if ((this._specialite != value))
+				{
+					this.OnspecialiteChanging(value);
+					this.SendPropertyChanging();
+					this._specialite = value;
+					this.SendPropertyChanged("specialite");
+					this.OnspecialiteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_serviceNom", DbType="Int")]
+		public System.Nullable<int> serviceNom
+		{
+			get
+			{
+				return this._serviceNom;
+			}
+			set
+			{
+				if ((this._serviceNom != value))
+				{
+					this.OnserviceNomChanging(value);
+					this.SendPropertyChanging();
+					this._serviceNom = value;
+					this.SendPropertyChanged("serviceNom");
+					this.OnserviceNomChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.medecin")]
+	public partial class Medecin1 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _nom;
+		
+		private string _prenom;
+		
+		private string _tel;
+		
+		private int _specialite;
+		
+		private System.Nullable<int> _serviceNom;
+		
+    #region Définitions de méthodes d'extensibilité
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnomChanging(string value);
+    partial void OnnomChanged();
+    partial void OnprenomChanging(string value);
+    partial void OnprenomChanged();
+    partial void OntelChanging(string value);
+    partial void OntelChanged();
+    partial void OnspecialiteChanging(int value);
+    partial void OnspecialiteChanged();
+    partial void OnserviceNomChanging(System.Nullable<int> value);
+    partial void OnserviceNomChanged();
+    #endregion
+		
+		public Medecin1()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nom", DbType="VarChar(50)")]
+		public string nom
+		{
+			get
+			{
+				return this._nom;
+			}
+			set
+			{
+				if ((this._nom != value))
+				{
+					this.OnnomChanging(value);
+					this.SendPropertyChanging();
+					this._nom = value;
+					this.SendPropertyChanged("nom");
+					this.OnnomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_prenom", DbType="VarChar(50)")]
+		public string prenom
+		{
+			get
+			{
+				return this._prenom;
+			}
+			set
+			{
+				if ((this._prenom != value))
+				{
+					this.OnprenomChanging(value);
+					this.SendPropertyChanging();
+					this._prenom = value;
+					this.SendPropertyChanged("prenom");
+					this.OnprenomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tel", DbType="VarChar(15)")]
+		public string tel
+		{
+			get
+			{
+				return this._tel;
+			}
+			set
+			{
+				if ((this._tel != value))
+				{
+					this.OntelChanging(value);
+					this.SendPropertyChanging();
+					this._tel = value;
+					this.SendPropertyChanged("tel");
+					this.OntelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_specialite", DbType="Int NOT NULL")]
+		public int specialite
 		{
 			get
 			{

@@ -84,6 +84,7 @@
       <DependentUpon>Hopital.dbml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IDB.cs" />
+    <Compile Include="Services\ConnectionService.cs" />
     <Compile Include="ViewModel\AjouterConsultationViewModel.cs" />
     <Compile Include="ViewModel\AjouterHospitalisationViewModel.cs" />
     <Compile Include="ViewModel\AjouterMedecinViewModel.cs" />

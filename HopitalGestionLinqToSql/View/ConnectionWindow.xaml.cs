@@ -28,6 +28,7 @@ namespace HospitalGestionWPF.Views
             InitializeComponent();
             PageConnexionViewModel v = new PageConnexionViewModel();
             DataContext = v;
+            new DBCommand().GetHopital("test");
         }
     }
 }
