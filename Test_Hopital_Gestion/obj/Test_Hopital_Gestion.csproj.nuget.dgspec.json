@@ -1,35 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj": {}
+    "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj": {
+    "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj",
+        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj",
         "projectName": "HospitalGestion",
-        "projectPath": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj"
+        "projectPath": "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj"
       },
       "frameworks": {
         "net461": {}
       }
     },
-    "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj": {
+    "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj",
+        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj",
         "projectName": "Test_Hopital_Gestion",
-        "projectPath": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj",
-        "packagesPath": "C:\\Users\\Administrateur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\Test_Hopital_Gestion\\obj\\",
+        "projectPath": "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\Test_Hopital_Gestion\\Test_Hopital_Gestion.csproj",
+        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\Test_Hopital_Gestion\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\ProgramData\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrateur\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
@@ -41,8 +43,8 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj": {
-                "projectPath": "C:\\Users\\Administrateur\\Desktop\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj"
+              "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj": {
+                "projectPath": "C:\\Users\\LENOVO\\Documents\\C#\\HopitalGestion\\HospitalGestion\\HospitalGestion.csproj"
               }
             }
           }
