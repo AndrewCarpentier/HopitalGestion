@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionLinqToSql\App.xaml
 13-874652965
 
-39-1185742230
-124-979843216
+40-399445972
+127-1891741374
 MainWindow.xaml;View\AjouterConsultationWindow.xaml;View\AjouterHospitalisationWindow.xaml;View\AjouterMedecinWindow.xaml;View\AjouterTraitementWindow.xaml;View\ConnectionWindow.xaml;View\ConnexionPatientWindow.xaml;View\MenuAdministrationWindow.xaml;View\MenuMedecinWindow.xaml;View\MenuSecretaireWindow.xaml;View\MenuSpecialisteWindow.xaml;View\NouveauPatientWindow.xaml;View\PrendreRDVWindow.xaml;
 
-False
+True
 

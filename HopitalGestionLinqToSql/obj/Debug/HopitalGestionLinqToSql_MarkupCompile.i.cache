@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionLinqToSql\obj\Debug\
+C:\Users\LENOVO\Documents\C#\HopitalGestion\HopitalGestionLinqToSql\obj\Debug\
 HopitalGestionLinqToSql
 none
 false
 DEBUG;TRACE
-C:\Users\Administrateur\Desktop\HopitalGestion\HopitalGestionLinqToSql\App.xaml
+C:\Users\LENOVO\Documents\C#\HopitalGestion\HopitalGestionLinqToSql\App.xaml
 13-874652965
 
-40-399445972
-124-979843216
+39-210974976
+127-1988241211
 MainWindow.xaml;View\AjouterConsultationWindow.xaml;View\AjouterHospitalisationWindow.xaml;View\AjouterMedecinWindow.xaml;View\AjouterTraitementWindow.xaml;View\ConnectionWindow.xaml;View\ConnexionPatientWindow.xaml;View\MenuAdministrationWindow.xaml;View\MenuMedecinWindow.xaml;View\MenuSecretaireWindow.xaml;View\MenuSpecialisteWindow.xaml;View\NouveauPatientWindow.xaml;View\PrendreRDVWindow.xaml;
 
-False
+True
 
